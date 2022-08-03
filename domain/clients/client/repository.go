@@ -1,4 +1,4 @@
-package clients
+package client
 
 type Repository interface {
 	// ToList 获取客户端列表
