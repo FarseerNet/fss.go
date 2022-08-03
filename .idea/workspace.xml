@@ -4,30 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="完成领域层">
-      <change afterPath="$PROJECT_DIR$/application/clients/client/app.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/clients/client/dto.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/module.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/module.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/domainEvent/taskFinishConsumer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/localQueue/taskLogQueueConsumer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/module.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/repository/clientRepository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/repository/context/mysqlContext.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/repository/model/taskGroupPO.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/repository/model/taskLogPO.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/repository/model/taskPO.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/repository/taskLogRepository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/interfaces/module.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/startupModule.go" afterDir="false" />
+    <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="增加模块">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/client/clients/domainObject.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/clients/client/domainObject.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/client/clients/event/clientOfflineEvent.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/clients/client/event/clientOfflineEvent.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/client/clients/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/clients/client/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/repository/context/mysqlContext.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/context/mysqlContext.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +118,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="完成领域层" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成领域层" />
+    <MESSAGE value="增加模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加模块" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

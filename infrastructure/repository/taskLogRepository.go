@@ -5,6 +5,7 @@ import (
 	"fss/infrastructure/repository/model"
 	"github.com/farseernet/farseer.go/core/container"
 	"github.com/farseernet/farseer.go/core/eumLogLevel"
+	"github.com/farseernet/farseer.go/data"
 	"github.com/farseernet/farseer.go/mapper"
 	"github.com/farseernet/farseer.go/mq/queue"
 )
@@ -12,14 +13,12 @@ import (
 func init() {
 	// 注册仓储
 	_ = container.Register(func() taskLog.Repository {
-		return &taskLogRepository{
-			//data.Init[context.MysqlContext]("default").Admin,
-		}
+		return data.NewContext[taskLogRepository]("default")
 	})
 }
 
 type taskLogRepository struct {
-	//data.TableSet[model.TaskLogPO]
+	data.TableSet[model.TaskLogPO] `data:"name=run_log"`
 }
 
 func NewTaskLogRepository() *taskLogRepository {

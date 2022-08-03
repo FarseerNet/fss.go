@@ -4,7 +4,6 @@ import (
 	"fss/domain/_/eumTaskType"
 	"fss/domain/tasks/taskGroup"
 	"fss/domain/tasks/taskGroup/vo"
-	"fss/infrastructure/repository/context"
 	"fss/infrastructure/repository/model"
 	"github.com/farseernet/farseer.go/core"
 	"github.com/farseernet/farseer.go/core/container"
@@ -15,14 +14,13 @@ import (
 func init() {
 	// 注册仓储
 	_ = container.Register(func() taskGroup.Repository {
-		return &taskGroupRepository{
-			data.Init[context.MysqlContext]("default").Admin,
-		}
+		return data.NewContext[taskGroupRepository]("default")
 	})
 }
 
 type taskGroupRepository struct {
-	data.TableSet[model.TaskGroupPO]
+	taskGroup data.TableSet[model.TaskGroupPO] `data:"name=task_group"`
+	task      data.TableSet[model.TaskGroupPO] `data:"name=task"`
 }
 
 func (repository taskGroupRepository) ToEntity(taskGroupId int) taskGroup.DomainObject {
