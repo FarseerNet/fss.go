@@ -2,7 +2,7 @@ package taskGroup
 
 import (
 	"fss/application/tasks/taskGroup/request"
-	"fss/domain/log/taskLog"
+	"fss/domain/log"
 	"fss/domain/tasks"
 	"fss/domain/tasks/taskGroup"
 	"github.com/farseernet/farseer.go/core/container"
@@ -69,7 +69,7 @@ func (r *taskGroupApp) CancelTask(request request.OnlyIdRequest) {
 	do.Cancel()
 	r.repository.Save(do)
 
-	taskLog.TaskLogAddService(request.Id, do.JobName, do.Caption, eumLogLevel.Information, "手动取消任务")
+	log.TaskLogAddService(request.Id, do.JobName, do.Caption, eumLogLevel.Information, "手动取消任务")
 }
 
 // SyncTaskGroup Task 同步数据

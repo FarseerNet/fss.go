@@ -2,6 +2,7 @@ package taskLog
 
 import (
 	"fss/application/log/taskLog/request"
+	"fss/domain/log"
 	"fss/domain/log/taskLog"
 	"github.com/farseernet/farseer.go/core/container"
 	"github.com/farseernet/farseer.go/core/eumLogLevel"
@@ -18,7 +19,7 @@ func NewApp() *app {
 
 // Add 添加日志记录
 func (r *app) Add(taskGroupId int, jobName string, caption string, logLevel eumLogLevel.Enum, content string) {
-	taskLog.NewtaskLog.NewTaskLogService()().Add(taskGroupId, jobName, caption, logLevel, content)
+	log.TaskLogAddService(taskGroupId, jobName, caption, logLevel, content)
 }
 
 // GetList 获取日志

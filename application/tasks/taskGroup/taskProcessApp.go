@@ -5,7 +5,7 @@ import (
 	"fss/application/clients/client"
 	"fss/application/tasks/taskGroup/request"
 	"fss/domain/_/eumTaskType"
-	"fss/domain/log/taskLog"
+	"fss/domain/log"
 	"fss/domain/tasks/taskGroup"
 	"github.com/farseernet/farseer.go/core/container"
 	"github.com/farseernet/farseer.go/core/eumLogLevel"
@@ -27,14 +27,14 @@ func (r *taskProcessApp) JobInvoke(dto request.JobInvokeDTO) string {
 
 	if taskGroupDO.Id < 1 {
 		taskGroupNotExistsMsg := fmt.Sprintf("所属的任务组：%d 不存在", dto.TaskGroupId)
-		taskLog.TaskLogAddService(dto.TaskGroupId, "", "", eumLogLevel.Warning, taskGroupNotExistsMsg)
+		log.TaskLogAddService(dto.TaskGroupId, "", "", eumLogLevel.Warning, taskGroupNotExistsMsg)
 		exception.ThrowRefuseException(taskGroupNotExistsMsg)
 	}
 
 	defer exception.Catch().
 		RefuseException(func(exp *exception.RefuseException) {
 			if taskGroupDO.Id > 0 {
-				taskLog.TaskLogAddService(dto.TaskGroupId, taskGroupDO.JobName, taskGroupDO.Caption, eumLogLevel.Warning, exp.Message)
+				log.TaskLogAddService(dto.TaskGroupId, taskGroupDO.JobName, taskGroupDO.Caption, eumLogLevel.Warning, exp.Message)
 			}
 			exp.ContinueRecover(exp.Message)
 		}).
@@ -42,13 +42,13 @@ func (r *taskProcessApp) JobInvoke(dto request.JobInvokeDTO) string {
 			if taskGroupDO.Id > 0 {
 				taskGroupDO.Cancel()
 				r.repository.Save(taskGroupDO)
-				taskLog.TaskLogAddService(taskGroupDO.Id, taskGroupDO.JobName, taskGroupDO.Caption, eumLogLevel.Error, exp)
+				log.TaskLogAddService(taskGroupDO.Id, taskGroupDO.JobName, taskGroupDO.Caption, eumLogLevel.Error, exp)
 			}
 		})
 
 	// 如果有日志
 	if dto.Log.Log != "" {
-		taskLog.TaskLogAddService(taskGroupDO.Id, taskGroupDO.JobName, taskGroupDO.Caption, dto.Log.LogLevel, dto.Log.Log)
+		log.TaskLogAddService(taskGroupDO.Id, taskGroupDO.JobName, taskGroupDO.Caption, dto.Log.LogLevel, dto.Log.Log)
 	}
 
 	// 不相等，说明被覆盖了（JOB请求慢了。被调度重新执行了）

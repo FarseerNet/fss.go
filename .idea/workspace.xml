@@ -4,38 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="移除数据库上下文">
-      <change afterPath="$PROJECT_DIR$/application/log/taskLog/app.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/log/taskLog/dto.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/log/taskLog/request/getRunLogRequest.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/dto.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/getAllTaskListRequest.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/getTaskListRequest.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/jobInvokeDTO.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/logRequest.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/onlyIdRequest.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/onlyTopRequest.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/pageSizeRequest.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/pullDTO.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/taskDTO.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskGroupApp.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskProcessApp.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskQueryApp.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskSchedulerApp.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/log/taskLog/taskLogAddService.go" afterDir="false" />
+    <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="完成逻辑部份的重写">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/clients/client/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/clients/client/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/clients/client/dto.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/clients/client/dto.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/domainObject.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/domainObject.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroupDeleteService.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroupDeleteService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroupService.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroupService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/domainEvent/taskFinishConsumer.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/domainEvent/taskFinishConsumer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/localQueue/taskLogQueueConsumer.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/localQueue/taskLogQueueConsumer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/module.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/module.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/repository/clientRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/clientRepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/repository/taskLogRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/taskLogRepository.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +103,8 @@
     <MESSAGE value="完成领域层" />
     <MESSAGE value="增加模块" />
     <MESSAGE value="移除数据库上下文" />
-    <option name="LAST_COMMIT_MESSAGE" value="移除数据库上下文" />
+    <MESSAGE value="完成逻辑部份的重写" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成逻辑部份的重写" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

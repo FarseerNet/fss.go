@@ -1,6 +1,7 @@
-package taskLog
+package log
 
 import (
+	"fss/domain/log/taskLog"
 	"github.com/farseernet/farseer.go/core/container"
 	"github.com/farseernet/farseer.go/core/eumLogLevel"
 	"time"
@@ -8,8 +9,8 @@ import (
 
 // TaskLogAddService 添加日志记录
 func TaskLogAddService(taskGroupId int, jobName string, caption string, logLevel eumLogLevel.Enum, content string) {
-	repository := container.Resolve[Repository]()
-	repository.Add(DomainObject{
+	repository := container.Resolve[taskLog.Repository]()
+	repository.Add(taskLog.DomainObject{
 		TaskGroupId: taskGroupId,
 		Caption:     caption,
 		JobName:     jobName,
