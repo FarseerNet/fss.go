@@ -4,6 +4,7 @@ import (
 	"fss/domain/_/eumTaskType"
 	"fss/domain/tasks/taskGroup/event"
 	"fss/domain/tasks/taskGroup/vo"
+	"github.com/farseernet/farseer.go/exception"
 	"github.com/farseernet/farseer.go/utils/parse"
 	"github.com/farseernet/farseer.go/utils/times"
 	"github.com/robfig/cron/v3"
@@ -44,14 +45,16 @@ type DomainObject struct {
 	RunCount int
 }
 
-// TaskGroupDO 复制新的任务组
-func (do *DomainObject) TaskGroupDO(copySource DomainObject) {
-	do.Caption = copySource.Caption + "复制"
-	do.JobName = copySource.JobName
-	do.Data = copySource.Data
-	do.IntervalMs = copySource.IntervalMs
-	do.Cron = copySource.Cron
-	do.IsEnable = copySource.IsEnable
+// Copy 复制新的任务组
+func Copy(copySource DomainObject) DomainObject {
+	return DomainObject{
+		Caption:    copySource.Caption + "复制",
+		JobName:    copySource.JobName,
+		Data:       copySource.Data,
+		IntervalMs: copySource.IntervalMs,
+		Cron:       copySource.Cron,
+		IsEnable:   copySource.IsEnable,
+	}
 }
 
 // CheckInterval 保存任务组信息前，检查状态
@@ -64,7 +67,7 @@ func (do *DomainObject) CheckInterval() {
 	} else {
 		cornSchedule, err := cron.ParseStandard(do.Cron)
 		if err != nil {
-			panic("Cron格式错误")
+			exception.ThrowRefuseException("Cron格式错误")
 		}
 		do.IntervalMs = 0
 		do.NextAt = cornSchedule.Next(time.Now())
@@ -104,7 +107,7 @@ func (do *DomainObject) SetCron(strCron string, intervalMs int64) {
 		} else {
 			cornSchedule, err := cron.ParseStandard(do.Cron)
 			if err != nil {
-				panic("Cron格式错误")
+				exception.ThrowRefuseException("Cron格式错误")
 			}
 			do.IntervalMs = 0
 			do.NextAt = cornSchedule.Next(time.Now())
@@ -223,14 +226,14 @@ func (do *DomainObject) CheckClientOffline() {
 
 	// 任务组活动时间大于1分钟，判定为客户端下线
 	if time.Now().Unix()-do.ActivateAt.Unix() >= 60 { // 大于1分钟，才检查
-		panic("【任务假死】任务：【" + do.JobName + "】 " + strconv.Itoa(do.Id) + " " + do.Caption + " " + do.Task.Status.String() + " 在" + times.GetSubDesc(time.Now(), do.ActivateAt) + "没有反应，强制设为失败状态")
+		exception.ThrowRefuseException("【任务假死】任务：【" + do.JobName + "】 " + strconv.Itoa(do.Id) + " " + do.Caption + " " + do.Task.Status.String() + " 在" + times.GetSubDesc(time.Now(), do.ActivateAt) + "没有反应，强制设为失败状态")
 	}
 
 	// 如果时间小于5分钟的，则按5分钟来判定
 	var timeout = math.Max(float64(do.RunSpeedAvg)*2.5, float64((5 * time.Minute).Milliseconds()))
 
 	if float64(time.Now().Sub(do.Task.RunAt).Milliseconds()) > timeout {
-		panic("【任务超时】任务：【" + do.JobName + "】 " + strconv.Itoa(do.Id) + " " + do.Caption + " 超过平均运行时间：" + parse.Convert(timeout, "0") + " ms，强制设为失败状态")
+		exception.ThrowRefuseException("【任务超时】任务：【" + do.JobName + "】 " + strconv.Itoa(do.Id) + " " + do.Caption + " 超过平均运行时间：" + parse.Convert(timeout, "0") + " ms，强制设为失败状态")
 	}
 }
 

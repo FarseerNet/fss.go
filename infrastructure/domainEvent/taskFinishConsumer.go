@@ -7,7 +7,7 @@ import (
 	"github.com/farseernet/farseer.go/eventBus"
 )
 
-func init() {
+func SubscribeTaskFinishEvent() {
 	eventBus.Subscribe(event.TaskFinishEventName, taskFinishConsumer)
 }
 

@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-func init() {
+func RegisterClientRepository() {
 	// 注册仓储
 	_ = container.Register(func() client.Repository {
 		return &clientRepository{

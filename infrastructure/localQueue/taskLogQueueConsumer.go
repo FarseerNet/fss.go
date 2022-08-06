@@ -7,7 +7,7 @@ import (
 	"github.com/farseernet/farseer.go/mq/queue"
 )
 
-func init() {
+func SubscribeTaskLogQueue() {
 	queue.Subscribe("TaskLogQueue", "", 1000, taskLogQueueConsumer)
 }
 

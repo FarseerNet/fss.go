@@ -3,20 +3,19 @@ package tasks
 import (
 	"fss/domain/tasks/taskGroup"
 	"fss/domain/tasks/taskGroup/vo"
+	"github.com/farseernet/farseer.go/core/container"
 )
 
-type TaskGroupService struct {
-	repository taskGroup.Repository
-}
-
 // UpdateAvgSpeed 计算平均耗时
-func (service TaskGroupService) UpdateAvgSpeed(taskGroupId int) {
-	var speedList = service.repository.ToTaskSpeedList(taskGroupId)
+func UpdateAvgSpeed(taskGroupId int) {
+	repository := container.Resolve[taskGroup.Repository]()
+
+	var speedList = repository.ToTaskSpeedList(taskGroupId)
 	var runSpeedAvg = vo.NewTaskSpeed(speedList).GetAvgSpeed()
 
 	if runSpeedAvg > 0 {
-		var do = service.repository.ToEntity(taskGroupId)
+		var do = repository.ToEntity(taskGroupId)
 		do.RunSpeedAvg = runSpeedAvg
-		service.repository.Save(do)
+		repository.Save(do)
 	}
 }

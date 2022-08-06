@@ -4,10 +4,38 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="增加模块">
+    <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="移除数据库上下文">
+      <change afterPath="$PROJECT_DIR$/application/log/taskLog/app.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/log/taskLog/dto.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/log/taskLog/request/getRunLogRequest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/dto.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/getAllTaskListRequest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/getTaskListRequest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/jobInvokeDTO.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/logRequest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/onlyIdRequest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/onlyTopRequest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/pageSizeRequest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/pullDTO.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/taskDTO.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskGroupApp.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskProcessApp.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskQueryApp.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskSchedulerApp.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/log/taskLog/taskLogAddService.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/repository/context/mysqlContext.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/context/mysqlContext.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/clients/client/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/clients/client/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/clients/client/dto.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/clients/client/dto.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/domainObject.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/domainObject.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroupDeleteService.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroupDeleteService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroupService.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroupService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/domainEvent/taskFinishConsumer.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/domainEvent/taskFinishConsumer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/localQueue/taskLogQueueConsumer.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/localQueue/taskLogQueueConsumer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/module.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/module.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/repository/clientRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/clientRepository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/repository/taskLogRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/taskLogRepository.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,42 +68,36 @@
     <option name="showLibraryContents" value="true" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
-    "go.import.settings.migrated": "true",
-    "last_opened_file_path": "/Users/steden/Desktop/code/project/fss.go/domain/tasks",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/steden/Desktop/code/project/fss.go/application/tasks/taskGroup&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/application/tasks/taskGroup" />
       <recent name="$PROJECT_DIR$/domain/tasks" />
       <recent name="$PROJECT_DIR$/domain/log" />
       <recent name="$PROJECT_DIR$/domain/clients" />
       <recent name="$PROJECT_DIR$/interfaces" />
-      <recent name="$PROJECT_DIR$/domain" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/application/tasks/taskGroup/request" />
+      <recent name="$PROJECT_DIR$/application/log/taskLog/request" />
       <recent name="$PROJECT_DIR$/domain" />
       <recent name="$PROJECT_DIR$/domain/tasks" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="fss.go" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
     <configuration name="go build fss" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="fss.go" />
       <working_directory value="$PROJECT_DIR$" />
@@ -83,15 +105,6 @@
       <package value="fss" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/main.go" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
-      <module name="fss.go" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
       <method v="2" />
     </configuration>
     <recent_temporary>
@@ -119,7 +132,8 @@
     <MESSAGE value="init" />
     <MESSAGE value="完成领域层" />
     <MESSAGE value="增加模块" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加模块" />
+    <MESSAGE value="移除数据库上下文" />
+    <option name="LAST_COMMIT_MESSAGE" value="移除数据库上下文" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

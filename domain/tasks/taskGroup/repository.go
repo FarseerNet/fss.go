@@ -11,16 +11,16 @@ type Repository interface {
 	// ToEntity 获取任务组信息
 	ToEntity(taskGroupId int) DomainObject
 	// TodayFailCount 今日执行失败数量
-	TodayFailCount() int
+	TodayFailCount() int64
 	// ToTaskSpeedList 当前任务组下所有任务的执行速度
 	ToTaskSpeedList(taskGroupId int) []int64
 	// ToList 获取所有任务组中的任务
 	ToList() []DomainObject
 	// ToListByGroupId 获取指定任务组的任务列表（FOPS）
-	ToListByGroupId(groupId int, pageSize int, pageIndex int) []vo.TaskDO
+	ToListByGroupId(groupId int, pageSize int, pageIndex int) core.PageList[vo.TaskDO]
 	ToListByClientId(clientId int64) []DomainObject
 	// GetTaskGroupCount 获取任务组数量
-	GetTaskGroupCount() int
+	GetTaskGroupCount() int64
 	// ToFinishList 获取指定任务组执行成功的任务列表
 	ToFinishList(taskGroupId int, top int) []vo.TaskDO
 	// AddTask 创建任务
@@ -40,7 +40,7 @@ type Repository interface {
 	// ToSchedulerWorkingList 获取执行中的任务
 	ToSchedulerWorkingList() []DomainObject
 	// ToFinishPageList 获取已完成的任务列表
-	ToFinishPageList(pageSize int, pageIndex int) []vo.TaskDO
+	ToFinishPageList(pageSize int, pageIndex int) core.PageList[vo.TaskDO]
 	// GetTaskUnFinishList 获取进行中的任务
 	GetTaskUnFinishList(jobsName []string, top int) []DomainObject
 	// GetEnableTaskList 获取在用的任务组

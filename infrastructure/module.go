@@ -1,8 +1,11 @@
 package infrastructure
 
 import (
+	"fss/infrastructure/domainEvent"
 	_ "fss/infrastructure/domainEvent"
+	"fss/infrastructure/localQueue"
 	_ "fss/infrastructure/localQueue"
+	"fss/infrastructure/repository"
 	_ "fss/infrastructure/repository"
 	"github.com/farseernet/farseer.go/data"
 	"github.com/farseernet/farseer.go/modules"
@@ -16,6 +19,13 @@ func (module Module) DependsModule() []modules.FarseerModule {
 }
 
 func (module Module) PreInitialize() {
+	domainEvent.SubscribeTaskFinishEvent()
+
+	localQueue.SubscribeTaskLogQueue()
+
+	repository.RegisterClientRepository()
+	repository.RegisterTaskGroupRepository()
+	repository.RegisterTaskLogRepository()
 }
 
 func (module Module) Initialize() {
