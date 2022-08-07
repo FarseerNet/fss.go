@@ -3,12 +3,12 @@ package repository
 import (
 	"fss/domain/log/taskLog"
 	"fss/infrastructure/repository/model"
-	"github.com/farseernet/farseer.go/core/container"
-	"github.com/farseernet/farseer.go/core/eumLogLevel"
-	"github.com/farseernet/farseer.go/data"
-	"github.com/farseernet/farseer.go/exception"
-	"github.com/farseernet/farseer.go/mapper"
-	"github.com/farseernet/farseer.go/mq/queue"
+	"github.com/farseer-go/data"
+	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/fs/core/eumLogLevel"
+	"github.com/farseer-go/fs/exception"
+	"github.com/farseer-go/mapper"
+	"github.com/farseer-go/queue"
 )
 
 func RegisterTaskLogRepository() {

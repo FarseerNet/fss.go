@@ -1,7 +1,13 @@
-go 1.18
+go 1.19
 
 use ./
 
 replace (
-    github.com/farseernet/farseer.go => ../Farseer.Go
+    github.com/farseer-go/fs => ../farseer-go/fs
+    github.com/farseer-go/linq => ../farseer-go/linq
+    github.com/farseer-go/data => ../farseer-go/data
+    github.com/farseer-go/mapper => ../farseer-go/mapper
+    github.com/farseer-go/queue => ../farseer-go/queue
+    github.com/farseer-go/utils => ../farseer-go/utils
+    github.com/farseer-go/eventBus => ../farseer-go/eventBus
 )

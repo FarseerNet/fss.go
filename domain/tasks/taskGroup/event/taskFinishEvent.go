@@ -2,7 +2,7 @@ package event
 
 import (
 	"fss/domain/tasks/taskGroup/vo"
-	"github.com/farseernet/farseer.go/eventBus"
+	"github.com/farseer-go/eventBus"
 )
 
 // TaskFinishEventName 事件名称

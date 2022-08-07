@@ -4,9 +4,9 @@ import (
 	"fss/domain/_/eumTaskType"
 	"fss/domain/tasks/taskGroup/event"
 	"fss/domain/tasks/taskGroup/vo"
-	"github.com/farseernet/farseer.go/exception"
-	"github.com/farseernet/farseer.go/utils/parse"
-	"github.com/farseernet/farseer.go/utils/times"
+	"github.com/farseer-go/fs/exception"
+	"github.com/farseer-go/fs/parse"
+	"github.com/farseer-go/utils/times"
 	"github.com/robfig/cron/v3"
 	"math"
 	"strconv"
@@ -209,7 +209,7 @@ func (do *DomainObject) CreateTask() {
 	}
 }
 
-// SchedulerAsync 调度时设置客户端
+// Scheduler 调度时设置客户端
 func (do *DomainObject) Scheduler(client vo.ClientVO) {
 	if do.Task.Status == eumTaskType.None {
 		do.Task.SetClient(client)

@@ -4,10 +4,10 @@ import (
 	"fss/application/tasks/taskGroup/request"
 	"fss/domain/clients/client"
 	"fss/domain/tasks/taskGroup"
-	"github.com/farseernet/farseer.go/core"
-	"github.com/farseernet/farseer.go/core/container"
-	"github.com/farseernet/farseer.go/linq"
-	"github.com/farseernet/farseer.go/mapper"
+	"github.com/farseer-go/fs/core"
+	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/linq"
+	"github.com/farseer-go/mapper"
 )
 
 type taskQueryApp struct {

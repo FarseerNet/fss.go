@@ -5,22 +5,25 @@ import (
 	"fss/domain/tasks/taskGroup"
 	"fss/domain/tasks/taskGroup/vo"
 	"fss/infrastructure/repository/model"
-	"github.com/farseernet/farseer.go/cache/redis"
-	"github.com/farseernet/farseer.go/core"
-	"github.com/farseernet/farseer.go/core/container"
-	"github.com/farseernet/farseer.go/data"
-	"github.com/farseernet/farseer.go/exception"
-	"github.com/farseernet/farseer.go/linq"
-	"github.com/farseernet/farseer.go/mapper"
-	"github.com/farseernet/farseer.go/utils/times"
+	"github.com/farseer-go/data"
+	"github.com/farseer-go/fs/core"
+	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/fs/exception"
+	"github.com/farseer-go/linq"
+	"github.com/farseer-go/mapper"
+	"github.com/farseer-go/redis"
+	"github.com/farseer-go/utils/times"
+	"strconv"
 	"time"
 )
+
+const taskGroupCacheKey = "FSS_TaskGroup"
 
 func RegisterTaskGroupRepository() {
 	// 注册仓储
 	_ = container.Register(func() taskGroup.Repository {
 		repository := data.NewContext[taskGroupRepository]("default")
-		repository.Client = redis.NewClient("default")
+		repository.redis = redis.NewClient("default")
 		return repository
 	})
 }
@@ -28,12 +31,15 @@ func RegisterTaskGroupRepository() {
 type taskGroupRepository struct {
 	taskGroup data.TableSet[model.TaskGroupPO] `data:"name=task_group"`
 	task      data.TableSet[model.TaskPO]      `data:"name=task"`
-	Client    *redis.Client
+	redis     *redis.Client
 }
 
 func (repository taskGroupRepository) ToEntity(taskGroupId int) taskGroup.DomainObject {
-	po := repository.taskGroup.Where("Id = ?", taskGroupId).ToEntity()
-	do := mapper.Single[taskGroup.DomainObject](po)
+	var do taskGroup.DomainObject
+	if repository.redis.Hash.ToEntity(taskGroupCacheKey, strconv.Itoa(taskGroupId), &do) == nil {
+		po := repository.taskGroup.Where("Id = ?", taskGroupId).ToEntity()
+		do = mapper.Single[taskGroup.DomainObject](po)
+	}
 	return do
 }
 
@@ -110,7 +116,7 @@ func (repository taskGroupRepository) SyncToData() {
 }
 
 func (repository taskGroupRepository) GetCanSchedulerTaskGroup(jobsName []string, ts time.Duration, count int, client vo.ClientVO) []vo.TaskDO {
-	getLocker := repository.Client.Lock.GetLocker("FSS_Scheduler", 5*time.Second)
+	getLocker := repository.redis.Lock.GetLocker("FSS_Scheduler", 5*time.Second)
 	if !getLocker.TryLock() {
 		exception.ThrowRefuseException("加锁失败")
 	}

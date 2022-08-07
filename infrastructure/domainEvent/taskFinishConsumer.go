@@ -3,8 +3,8 @@ package domainEvent
 import (
 	"fss/domain/tasks/taskGroup"
 	"fss/domain/tasks/taskGroup/event"
-	"github.com/farseernet/farseer.go/core/container"
-	"github.com/farseernet/farseer.go/eventBus"
+	"github.com/farseer-go/eventBus"
+	"github.com/farseer-go/fs/core/container"
 )
 
 func SubscribeTaskFinishEvent() {

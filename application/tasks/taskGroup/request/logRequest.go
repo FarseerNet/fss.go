@@ -1,7 +1,7 @@
 package request
 
 import (
-	"github.com/farseernet/farseer.go/core/eumLogLevel"
+	"github.com/farseer-go/fs/core/eumLogLevel"
 	"time"
 )
 

@@ -1,6 +1,6 @@
 package request
 
-import "github.com/farseernet/farseer.go/core/eumLogLevel"
+import "github.com/farseer-go/fs/core/eumLogLevel"
 
 type GetRunLogRequest struct {
 	JobName   string

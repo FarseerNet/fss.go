@@ -7,9 +7,9 @@ import (
 	"fss/domain/_/eumTaskType"
 	"fss/domain/log"
 	"fss/domain/tasks/taskGroup"
-	"github.com/farseernet/farseer.go/core/container"
-	"github.com/farseernet/farseer.go/core/eumLogLevel"
-	"github.com/farseernet/farseer.go/exception"
+	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/fs/core/eumLogLevel"
+	"github.com/farseer-go/fs/exception"
 )
 
 type taskProcessApp struct {

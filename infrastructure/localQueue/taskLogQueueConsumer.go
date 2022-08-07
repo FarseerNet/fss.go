@@ -3,8 +3,8 @@ package localQueue
 import (
 	"fss/infrastructure/repository"
 	"fss/infrastructure/repository/model"
-	"github.com/farseernet/farseer.go/linq"
-	"github.com/farseernet/farseer.go/mq/queue"
+	"github.com/farseer-go/linq"
+	"github.com/farseer-go/queue"
 )
 
 func SubscribeTaskLogQueue() {

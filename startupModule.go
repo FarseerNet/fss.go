@@ -3,7 +3,7 @@ package main
 import (
 	"fss/infrastructure"
 	"fss/interfaces"
-	"github.com/farseernet/farseer.go/modules"
+	"github.com/farseer-go/fs/modules"
 )
 
 type StartupModule struct {

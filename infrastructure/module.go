@@ -7,8 +7,8 @@ import (
 	_ "fss/infrastructure/localQueue"
 	"fss/infrastructure/repository"
 	_ "fss/infrastructure/repository"
-	"github.com/farseernet/farseer.go/data"
-	"github.com/farseernet/farseer.go/modules"
+	"github.com/farseer-go/data"
+	"github.com/farseer-go/fs/modules"
 )
 
 type Module struct {

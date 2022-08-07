@@ -2,8 +2,8 @@ package client
 
 import (
 	"fss/domain/clients/client"
-	"github.com/farseernet/farseer.go/core/container"
-	"github.com/farseernet/farseer.go/mapper"
+	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/mapper"
 	"time"
 )
 

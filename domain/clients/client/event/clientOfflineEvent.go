@@ -1,6 +1,6 @@
 package event
 
-import "github.com/farseernet/farseer.go/eventBus"
+import "github.com/farseer-go/eventBus"
 
 // ClientOfflineEventName 事件名称
 const ClientOfflineEventName = "ClientOffline"

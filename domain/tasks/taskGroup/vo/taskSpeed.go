@@ -1,6 +1,6 @@
 package vo
 
-import "github.com/farseernet/farseer.go/linq"
+import "github.com/farseer-go/linq"
 
 // TaskSpeed 任务执行速度
 type TaskSpeed struct {

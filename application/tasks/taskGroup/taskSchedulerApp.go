@@ -5,8 +5,8 @@ import (
 	"fss/application/tasks/taskGroup/request"
 	"fss/domain/tasks/taskGroup"
 	"fss/domain/tasks/taskGroup/vo"
-	"github.com/farseernet/farseer.go/core/container"
-	"github.com/farseernet/farseer.go/mapper"
+	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/mapper"
 	"time"
 )
 

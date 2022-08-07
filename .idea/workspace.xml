@@ -4,8 +4,45 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="完成逻辑部份的重写">
+    <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="调整位置">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/clients/client/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/clients/client/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/log/taskLog/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/log/taskLog/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/log/taskLog/dto.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/log/taskLog/dto.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/log/taskLog/request/getRunLogRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/log/taskLog/request/getRunLogRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/module.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/module.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/request/logRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroup/request/logRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/taskGroupApp.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskGroupApp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/taskProcessApp.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskProcessApp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/taskQueryApp.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskQueryApp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/taskSchedulerApp.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskSchedulerApp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/clients/client/event/clientOfflineEvent.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/clients/client/event/clientOfflineEvent.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/clients/client/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/clients/client/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/log/taskLog/domainObject.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/log/taskLog/domainObject.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/log/taskLog/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/log/taskLog/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/log/taskLogAddService.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/log/taskLogAddService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/module.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/module.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/domainObject.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/domainObject.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/event/deleteTaskGroupEvent.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/event/deleteTaskGroupEvent.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/event/taskFinishEvent.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/event/taskFinishEvent.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/vo/taskSpeed.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/vo/taskSpeed.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroupDeleteService.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroupDeleteService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroupService.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroupService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.work" beforeDir="false" afterPath="$PROJECT_DIR$/go.work" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.work.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.work.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/domainEvent/taskFinishConsumer.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/domainEvent/taskFinishConsumer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/localQueue/taskLogQueueConsumer.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/localQueue/taskLogQueueConsumer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/module.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/module.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/repository/clientRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/clientRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/repository/model/taskLogPO.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/model/taskLogPO.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/repository/taskLogRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/taskLogRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interfaces/module.go" beforeDir="false" afterPath="$PROJECT_DIR$/interfaces/module.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/startupModule.go" beforeDir="false" afterPath="$PROJECT_DIR$/startupModule.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +63,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectId" id="2ChYTwSHjEBsaexRWOFkl6cq9SD" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
@@ -38,20 +78,21 @@
     <option name="showLibraryContents" value="true" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/steden/Desktop/code/project/fss.go/application/tasks/taskGroup&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "/Users/steden/Desktop/code/project/fss.go/application/tasks/taskGroup",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/application/tasks/taskGroup" />
@@ -61,6 +102,7 @@
       <recent name="$PROJECT_DIR$/interfaces" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/domain/log" />
       <recent name="$PROJECT_DIR$/application/tasks/taskGroup/request" />
       <recent name="$PROJECT_DIR$/application/log/taskLog/request" />
       <recent name="$PROJECT_DIR$/domain" />
@@ -104,7 +146,8 @@
     <MESSAGE value="增加模块" />
     <MESSAGE value="移除数据库上下文" />
     <MESSAGE value="完成逻辑部份的重写" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成逻辑部份的重写" />
+    <MESSAGE value="调整位置" />
+    <option name="LAST_COMMIT_MESSAGE" value="调整位置" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

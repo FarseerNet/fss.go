@@ -2,7 +2,7 @@ package application
 
 import (
 	"fss/domain"
-	"github.com/farseernet/farseer.go/modules"
+	"github.com/farseer-go/fs/modules"
 )
 
 type Module struct {

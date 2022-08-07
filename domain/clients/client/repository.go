@@ -8,7 +8,7 @@ type Repository interface {
 	// ToEntity 获取客户端
 	ToEntity(clientId int64) DomainObject
 	// Update 更新客户端的使用时间
-	Update(do DomainObject) DomainObject
+	Update(do DomainObject)
 	// GetCount 客户端数量
 	GetCount() int64
 }

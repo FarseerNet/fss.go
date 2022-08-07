@@ -3,7 +3,7 @@ package taskGroup
 import (
 	"fss/domain/_/eumTaskType"
 	"fss/domain/tasks/taskGroup/vo"
-	"github.com/farseernet/farseer.go/core"
+	"github.com/farseer-go/fs/core"
 	"time"
 )
 

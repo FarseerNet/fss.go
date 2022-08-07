@@ -3,7 +3,7 @@ package tasks
 import (
 	"fss/domain/tasks/taskGroup"
 	"fss/domain/tasks/taskGroup/vo"
-	"github.com/farseernet/farseer.go/core/container"
+	"github.com/farseer-go/fs/core/container"
 )
 
 // UpdateAvgSpeed 计算平均耗时
