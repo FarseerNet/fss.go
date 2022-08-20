@@ -63,7 +63,7 @@ func (repository taskGroupRepository) ToList() collections.List[taskGroup.Domain
 
 func (repository taskGroupRepository) ToListByGroupId(groupId int, pageSize int, pageIndex int) collections.PageList[vo.TaskDO] {
 	page := repository.task.Where("TaskGroupId = ?", groupId).Select("Id", "Caption", "Progress", "Status", "StartAt", "CreateAt", "ClientIp", "RunSpeed", "RunAt").Desc("CreateAt").ToPageList(pageSize, pageIndex)
-	return mapper.PageList[vo.TaskDO](page.List, page.RecordCount)
+	return mapper.ToPageList[vo.TaskDO](page.List, page.RecordCount)
 }
 
 func (repository taskGroupRepository) ToListByClientId(clientId int64) collections.List[taskGroup.DomainObject] {
@@ -160,7 +160,7 @@ func (repository taskGroupRepository) ToFinishPageList(pageSize int, pageIndex i
 	pageList := repository.task.Where("(Status = ? or Status = ?) and (CreateAt >= ?)", eumTaskType.Fail, eumTaskType.Success, time.Now().Add(-24*time.Hour)).
 		Select("Id", "Caption", "Progress", "Status", "StartAt", "CreateAt", "ClientIp", "RunSpeed", "RunAt", "JobName").
 		Desc("RunAt").ToPageList(pageSize, pageIndex)
-	return mapper.PageList[vo.TaskDO](pageList.List, pageList.RecordCount)
+	return mapper.ToPageList[vo.TaskDO](pageList.List, pageList.RecordCount)
 }
 
 func (repository taskGroupRepository) GetTaskUnFinishList(jobsName []string, top int) collections.List[taskGroup.DomainObject] {

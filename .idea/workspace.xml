@@ -6,30 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="升级组件">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/clients/client/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/clients/client/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/log/taskLog/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/log/taskLog/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/taskGroupApp.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskGroupApp.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/taskProcessApp.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskProcessApp.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/taskQueryApp.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskQueryApp.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/taskSchedulerApp.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroup/taskSchedulerApp.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/clients/client/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/clients/client/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/log/taskLog/domainObject.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/log/taskLog/domainObject.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/log/taskLog/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/log/taskLog/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/log/taskLogAddService.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/log/taskLogAddService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/vo/taskSpeed.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/vo/taskSpeed.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroupDeleteService.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroupDeleteService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroupService.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroupService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.work" beforeDir="false" afterPath="$PROJECT_DIR$/go.work" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.work.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.work.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/domainEvent/taskFinishConsumer.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/domainEvent/taskFinishConsumer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/localQueue/taskLogQueueConsumer.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/localQueue/taskLogQueueConsumer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/module.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/module.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/repository/clientRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/clientRepository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/repository/taskLogRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/taskLogRepository.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,16 +117,5 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/infrastructure/domainEvent/taskFinishConsumer.go</url>
-          <line>13</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

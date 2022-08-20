@@ -44,7 +44,7 @@ func (r *taskQueryApp) ToList() collections.List[taskGroup.DomainObject] {
 // GetTaskList ToList 获取指定任务组的任务列表（FOPS）
 func (r *taskQueryApp) GetTaskList(getTaskListRequest request.GetTaskListRequest) collections.PageList[request.TaskDTO] {
 	page := r.repository.ToListByGroupId(getTaskListRequest.GroupId, getTaskListRequest.PageSize, getTaskListRequest.PageIndex)
-	return mapper.PageList[request.TaskDTO](page.List, page.RecordCount)
+	return mapper.ToPageList[request.TaskDTO](page.List, page.RecordCount)
 }
 
 // TodayFailCount 今日执行失败数量
@@ -65,7 +65,7 @@ func (r *taskQueryApp) ToUnRunCount() int {
 // ToFinishPageList 获取已完成的任务列表
 func (r *taskQueryApp) ToFinishPageList(pageSizeRequest request.PageSizeRequest) collections.PageList[request.TaskDTO] {
 	page := r.repository.ToFinishPageList(pageSizeRequest.PageSize, pageSizeRequest.PageIndex)
-	return mapper.PageList[request.TaskDTO](page.List, page.RecordCount)
+	return mapper.ToPageList[request.TaskDTO](page.List, page.RecordCount)
 }
 
 // GetTaskUnFinishList 获取进行中的任务
@@ -93,5 +93,5 @@ func (r *taskQueryApp) GetTaskUnFinishList(onlyTopRequest request.OnlyTopRequest
 // GetEnableTaskList 获取在用的任务组
 func (r *taskQueryApp) GetEnableTaskList(getAllTaskListRequest request.GetAllTaskListRequest) collections.PageList[request.TaskDTO] {
 	var lst = r.repository.GetEnableTaskList(getAllTaskListRequest.Status, getAllTaskListRequest.PageSize, getAllTaskListRequest.PageIndex)
-	return mapper.PageList[request.TaskDTO](lst.List, lst.RecordCount)
+	return mapper.ToPageList[request.TaskDTO](lst.List, lst.RecordCount)
 }
