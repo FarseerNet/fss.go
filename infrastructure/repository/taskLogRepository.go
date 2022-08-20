@@ -3,8 +3,9 @@ package repository
 import (
 	"fss/domain/log/taskLog"
 	"fss/infrastructure/repository/model"
+	"github.com/farseer-go/collections"
 	"github.com/farseer-go/data"
-	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/core/eumLogLevel"
 	"github.com/farseer-go/fs/exception"
 	"github.com/farseer-go/mapper"
@@ -13,7 +14,7 @@ import (
 
 func RegisterTaskLogRepository() {
 	// 注册仓储
-	_ = container.Register(func() taskLog.Repository {
+	container.Register(func() taskLog.Repository {
 		return data.NewContext[taskLogRepository]("default")
 	})
 }
@@ -26,7 +27,7 @@ func NewTaskLogRepository() taskLogRepository {
 	return container.Resolve[taskLog.Repository]().(taskLogRepository)
 }
 
-func (repository taskLogRepository) GetList(jobName string, logLevel eumLogLevel.Enum, pageSize int, pageIndex int) []taskLog.DomainObject {
+func (repository taskLogRepository) GetList(jobName string, logLevel eumLogLevel.Enum, pageSize int, pageIndex int) collections.List[taskLog.DomainObject] {
 	//TODO implement me
 	panic("ES日志查询未实现")
 }
@@ -36,7 +37,7 @@ func (repository taskLogRepository) Add(taskLogDO taskLog.DomainObject) {
 	queue.Push("TaskLogQueue", po)
 }
 
-func (repository taskLogRepository) AddBatch(lstPO []model.TaskLogPO) {
+func (repository taskLogRepository) AddBatch(lstPO collections.List[model.TaskLogPO]) {
 	// todo
 	exception.ThrowRefuseException("AddBatch未实现")
 }

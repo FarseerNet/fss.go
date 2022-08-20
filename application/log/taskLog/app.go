@@ -4,7 +4,7 @@ import (
 	"fss/application/log/taskLog/request"
 	"fss/domain/log"
 	"fss/domain/log/taskLog"
-	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/core/eumLogLevel"
 	"github.com/farseer-go/mapper"
 )

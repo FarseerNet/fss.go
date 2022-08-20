@@ -3,7 +3,7 @@ package tasks
 import (
 	"fss/domain/tasks/taskGroup"
 	"fss/domain/tasks/taskGroup/event"
-	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/exception"
 )
 

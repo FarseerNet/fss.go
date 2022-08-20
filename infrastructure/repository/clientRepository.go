@@ -2,14 +2,15 @@ package repository
 
 import (
 	"fss/domain/clients/client"
-	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/collections"
+	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/redis"
 	"strconv"
 )
 
 func RegisterClientRepository() {
 	// 注册仓储
-	_ = container.Register(func() client.Repository {
+	container.Register(func() client.Repository {
 		return &clientRepository{
 			Client: redis.NewClient("default"),
 		}
@@ -22,10 +23,10 @@ type clientRepository struct {
 	*redis.Client
 }
 
-func (repository clientRepository) ToList() []client.DomainObject {
+func (repository clientRepository) ToList() collections.List[client.DomainObject] {
 	var clients []client.DomainObject
-	_ = repository.Client.Hash.ToList(clientCacheKey, &clients)
-	return clients
+	_ = repository.Client.Hash.ToArray(clientCacheKey, &clients)
+	return collections.NewList(clients...)
 }
 
 func (repository clientRepository) RemoveClient(id int64) {

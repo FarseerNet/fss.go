@@ -2,7 +2,7 @@ package log
 
 import (
 	"fss/domain/log/taskLog"
-	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/core/eumLogLevel"
 	"time"
 )

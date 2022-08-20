@@ -1,8 +1,10 @@
 package client
 
+import "github.com/farseer-go/collections"
+
 type Repository interface {
 	// ToList 获取客户端列表
-	ToList() []DomainObject
+	ToList() collections.List[DomainObject]
 	// RemoveClient 移除客户端
 	RemoveClient(id int64)
 	// ToEntity 获取客户端

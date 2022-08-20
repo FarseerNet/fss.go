@@ -5,9 +5,9 @@ go 1.19
 require (
 	github.com/farseer-go/data v0.0.0-20220807120624-fac4da2a0abf
 	github.com/farseer-go/eventBus v0.0.0-20220807120623-40f27eaa2b0c
-	github.com/farseer-go/fs v0.0.0-20220807120624-786bcfe59c68
+	github.com/farseer-go/fs v0.0.0-20220818093102-bfdd8f6b5334
 	github.com/farseer-go/linq v0.0.0-20220807120624-325cfc24dea7
-	github.com/farseer-go/mapper v0.0.0-20220807120624-cb9267474415
+	github.com/farseer-go/mapper v0.0.0-20220810171111-9a91b2de6a70
 	github.com/farseer-go/queue v0.0.0-20220807120624-ed1fba96bffe
 	github.com/farseer-go/redis v0.0.0-20220807120624-a2bdad0317d6
 	github.com/farseer-go/utils v0.0.0-20220807120624-2a6017678bc9
@@ -19,6 +19,8 @@ require (
 	github.com/denisenkom/go-mssqldb v0.12.0 // indirect
 	github.com/devfeel/mapper v0.7.10 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
+	github.com/farseer-go/cache v0.0.0-20220819160153-38bf53487eda // indirect
+	github.com/farseer-go/collections v0.0.0-20220808152306-40c82a16a4bb // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect

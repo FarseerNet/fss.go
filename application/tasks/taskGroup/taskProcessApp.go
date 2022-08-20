@@ -7,7 +7,7 @@ import (
 	"fss/domain/_/eumTaskType"
 	"fss/domain/log"
 	"fss/domain/tasks/taskGroup"
-	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/core/eumLogLevel"
 	"github.com/farseer-go/fs/exception"
 )

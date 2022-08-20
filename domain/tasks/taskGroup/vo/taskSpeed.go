@@ -1,6 +1,8 @@
 package vo
 
-import "github.com/farseer-go/linq"
+import (
+	"github.com/farseer-go/collections"
+)
 
 // TaskSpeed 任务执行速度
 type TaskSpeed struct {
@@ -17,6 +19,6 @@ func (receiver *TaskSpeed) GetAvgSpeed() int64 {
 	if len(receiver.speedList) == 0 {
 		return 0
 	}
-	sum := linq.From(receiver.speedList).SumItem()
+	sum := collections.NewList(receiver.speedList...).SumItem()
 	return sum / int64(len(receiver.speedList))
 }

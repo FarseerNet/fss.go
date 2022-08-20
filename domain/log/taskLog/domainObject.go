@@ -1,7 +1,7 @@
 package taskLog
 
 import (
-	"github.com/farseer-go/fs/core/container"
+	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/core/eumLogLevel"
 	"log"
 	"time"
