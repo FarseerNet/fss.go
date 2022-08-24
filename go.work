@@ -4,7 +4,6 @@ use ./
 
 replace (
     github.com/farseer-go/fs => ../farseer-go/fs
-    github.com/farseer-go/linq => ../farseer-go/linq
     github.com/farseer-go/data => ../farseer-go/data
     github.com/farseer-go/mapper => ../farseer-go/mapper
     github.com/farseer-go/queue => ../farseer-go/queue

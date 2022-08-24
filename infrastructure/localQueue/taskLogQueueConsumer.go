@@ -12,11 +12,9 @@ func SubscribeTaskLogQueue() {
 }
 
 // 将日志指写入
-func taskLogQueueConsumer(subscribeName string, message []any, remainingCount int) {
+func taskLogQueueConsumer(subscribeName string, message collections.ListAny, remainingCount int) {
 	// 转成BuildLogVO数组
 	var lstPO collections.List[model.TaskLogPO]
-	collections.NewListAny(message...).Select(&lstPO, func(item any) any {
-		return item.(model.TaskLogPO)
-	})
+	message.MapToList(&lstPO)
 	repository.NewTaskLogRepository().AddBatch(lstPO)
 }
