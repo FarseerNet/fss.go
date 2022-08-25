@@ -5,6 +5,7 @@ import (
 	"fss/domain/tasks/taskGroup"
 	"fss/domain/tasks/taskGroup/vo"
 	"fss/infrastructure/repository/model"
+	"github.com/farseer-go/cache"
 	"github.com/farseer-go/collections"
 	"github.com/farseer-go/data"
 	"github.com/farseer-go/fs/container"
@@ -16,30 +17,38 @@ import (
 	"time"
 )
 
-const taskGroupCacheKey = "FSS_TaskGroup"
-
 func RegisterTaskGroupRepository() {
 	// 注册仓储
 	container.Register(func() taskGroup.Repository {
 		repository := data.NewContext[taskGroupRepository]("default")
 		repository.redis = redis.NewClient("default")
+
+		// 多级缓存
+		repository.cacheManage = cache.GetCacheManage[taskGroup.DomainObject]("FSS_TaskGroup")
+		repository.cacheManage.EnableItemNullToLoadALl()
+		repository.cacheManage.SetSource(func() collections.List[taskGroup.DomainObject] {
+			var lst collections.List[taskGroup.DomainObject]
+			repository.taskGroup.ToList().MapToList(&lst)
+			return lst
+		})
 		return repository
 	})
 }
 
 type taskGroupRepository struct {
-	taskGroup data.TableSet[model.TaskGroupPO] `data:"name=task_group"`
-	task      data.TableSet[model.TaskPO]      `data:"name=task"`
-	redis     *redis.Client
+	taskGroup   data.TableSet[model.TaskGroupPO] `data:"name=task_group"`
+	task        data.TableSet[model.TaskPO]      `data:"name=task"`
+	redis       *redis.Client
+	cacheManage cache.CacheManage[taskGroup.DomainObject]
+}
+
+func (repository taskGroupRepository) ToList() collections.List[taskGroup.DomainObject] {
+	return repository.cacheManage.Get()
 }
 
 func (repository taskGroupRepository) ToEntity(taskGroupId int) taskGroup.DomainObject {
-	var do taskGroup.DomainObject
-	if repository.redis.Hash.ToEntity(taskGroupCacheKey, strconv.Itoa(taskGroupId), &do) == nil {
-		po := repository.taskGroup.Where("Id = ?", taskGroupId).ToEntity()
-		do = mapper.Single[taskGroup.DomainObject](po)
-	}
-	return do
+	item, _ := repository.cacheManage.GetItem(taskGroupId)
+	return item
 }
 
 func (repository taskGroupRepository) TodayFailCount() int64 {
@@ -55,12 +64,6 @@ func (repository taskGroupRepository) ToTaskSpeedList(taskGroupId int) []int64 {
 	return lstIds
 }
 
-func (repository taskGroupRepository) ToList() collections.List[taskGroup.DomainObject] {
-	var lstDO collections.List[taskGroup.DomainObject]
-	repository.taskGroup.ToList().MapToList(&lstDO)
-	return lstDO
-}
-
 func (repository taskGroupRepository) ToListByGroupId(groupId int, pageSize int, pageIndex int) collections.PageList[vo.TaskDO] {
 	page := repository.task.Where("TaskGroupId = ?", groupId).Select("Id", "Caption", "Progress", "Status", "StartAt", "CreateAt", "ClientIp", "RunSpeed", "RunAt").Desc("CreateAt").ToPageList(pageSize, pageIndex)
 	return mapper.ToPageList[vo.TaskDO](page.List, page.RecordCount)
@@ -74,7 +77,7 @@ func (repository taskGroupRepository) ToListByClientId(clientId int64) collectio
 }
 
 func (repository taskGroupRepository) GetTaskGroupCount() int64 {
-	return repository.taskGroup.Count()
+	return int64(repository.cacheManage.Count())
 }
 
 func (repository taskGroupRepository) ToFinishList(taskGroupId int, top int) collections.List[vo.TaskDO] {
@@ -93,21 +96,21 @@ func (repository taskGroupRepository) Add(do taskGroup.DomainObject) taskGroup.D
 	po := mapper.Single[model.TaskGroupPO](do)
 	repository.taskGroup.Insert(&po)
 	do.Id = po.Id
+	repository.cacheManage.SaveItem(do)
 	return do
 }
 
-func (repository taskGroupRepository) Save(do taskGroup.DomainObject) taskGroup.DomainObject {
-	//TODO implement me
-	panic("implement me")
+func (repository taskGroupRepository) Save(do taskGroup.DomainObject) {
+	repository.cacheManage.SaveItem(do)
 }
 
 func (repository taskGroupRepository) Delete(taskGroupId int) {
-	repository.taskGroup.Where("Id = ?", taskGroupId).Delete()
 	repository.task.Where("TaskGroupId = ?", taskGroupId).Delete()
+	repository.taskGroup.Where("Id = ?", taskGroupId).Delete()
+	repository.cacheManage.Remove(strconv.Itoa(taskGroupId))
 }
 
 func (repository taskGroupRepository) SyncToData() {
-	//todo 这里需要读缓存
 	lst := repository.ToList()
 	for _, do := range lst.ToArray() {
 		po := mapper.Single[model.TaskGroupPO](do)

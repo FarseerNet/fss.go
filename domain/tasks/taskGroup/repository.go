@@ -28,7 +28,7 @@ type Repository interface {
 	// Add 添加任务组
 	Add(do DomainObject) DomainObject
 	// Save 保存任务组信息
-	Save(do DomainObject) DomainObject
+	Save(do DomainObject)
 	// Delete 删除任务组
 	Delete(taskGroupId int)
 	// SyncToData 同步数据
