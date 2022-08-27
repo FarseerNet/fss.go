@@ -21,7 +21,7 @@ func (r *TaskController) JobInvoke() {
 	_ = r.BindJSON(&dto)
 
 	result := taskGroupApp.JobInvoke(r.GetClient(), dto)
-	apiResponse := core.Success(result, nil)
+	apiResponse := core.ApiResponseStringSuccess(result)
 
 	// 响应数据
 	r.Data["json"] = &apiResponse
