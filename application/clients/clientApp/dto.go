@@ -1,4 +1,4 @@
-package client
+package clientApp
 
 import "time"
 

@@ -4,11 +4,40 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="升级组件">
+    <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="完成组件升级，就差API、ES组件">
+      <change afterPath="$PROJECT_DIR$/interfaces/metaController.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interfaces/taskController.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interfaces/testController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/clients/client/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/clients/clientApp/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/clients/client/dto.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/clients/clientApp/dto.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/log/taskLog/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/log/taskLogApp/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/log/taskLog/dto.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/log/taskLogApp/dto.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/log/taskLog/request/getRunLogRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/log/taskLogApp/request/getRunLogRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/dto.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/dto.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/request/getAllTaskListRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/request/getAllTaskListRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/request/getTaskListRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/request/getTaskListRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/request/jobInvokeDTO.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/request/jobInvokeDTO.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/request/logRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/request/logRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/request/onlyIdRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/request/onlyIdRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/request/onlyTopRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/request/onlyTopRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/request/pageSizeRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/request/pageSizeRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/request/pullDTO.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/request/pullDTO.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/request/taskDTO.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/request/taskDTO.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/taskGroupApp.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/taskGroupApp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/taskProcessApp.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/taskProcessApp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/taskQueryApp.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/taskQueryApp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/tasks/taskGroup/taskSchedulerApp.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/tasks/taskGroupApp/taskSchedulerApp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/domainObject.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/domainObject.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/event/taskFinishEvent.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/event/taskFinishEvent.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/module.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/module.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/tasks/taskGroup/vo/taskDO.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/tasks/taskGroup/vo/taskDO.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farseer.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/farseer.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.work.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.work.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/taskGroupRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,9 +143,21 @@
     <MESSAGE value="完成逻辑部份的重写" />
     <MESSAGE value="调整位置" />
     <MESSAGE value="升级组件" />
-    <option name="LAST_COMMIT_MESSAGE" value="升级组件" />
+    <MESSAGE value="完成组件升级，就差API、ES组件" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成组件升级，就差API、ES组件" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/../../go-env/pkg/mod/github.com/beego/beego/v2@v2.0.5/server/web/server.go</url>
+          <line>280</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

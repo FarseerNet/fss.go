@@ -64,9 +64,9 @@ func (repository taskGroupRepository) ToTaskSpeedList(taskGroupId int) []int64 {
 	return lstIds
 }
 
-func (repository taskGroupRepository) ToListByGroupId(groupId int, pageSize int, pageIndex int) collections.PageList[vo.TaskDO] {
+func (repository taskGroupRepository) ToListByGroupId(groupId int, pageSize int, pageIndex int) collections.PageList[vo.TaskEO] {
 	page := repository.task.Where("TaskGroupId = ?", groupId).Select("Id", "Caption", "Progress", "Status", "StartAt", "CreateAt", "ClientIp", "RunSpeed", "RunAt").Desc("CreateAt").ToPageList(pageSize, pageIndex)
-	return mapper.ToPageList[vo.TaskDO](page.List, page.RecordCount)
+	return mapper.ToPageList[vo.TaskEO](page.List, page.RecordCount)
 }
 
 func (repository taskGroupRepository) ToListByClientId(clientId int64) collections.List[taskGroup.DomainObject] {
@@ -80,14 +80,14 @@ func (repository taskGroupRepository) GetTaskGroupCount() int64 {
 	return int64(repository.cacheManage.Count())
 }
 
-func (repository taskGroupRepository) ToFinishList(taskGroupId int, top int) collections.List[vo.TaskDO] {
+func (repository taskGroupRepository) ToFinishList(taskGroupId int, top int) collections.List[vo.TaskEO] {
 	lstPO := repository.task.Where("TaskGroupId = ? and (Status = ? or Status = ?)", taskGroupId, eumTaskType.Success, eumTaskType.Fail).Desc("CreateAt").Limit(top).ToList()
-	var lstDO collections.List[vo.TaskDO]
+	var lstDO collections.List[vo.TaskEO]
 	lstPO.MapToList(&lstDO)
 	return lstDO
 }
 
-func (repository taskGroupRepository) AddTask(taskDO vo.TaskDO) {
+func (repository taskGroupRepository) AddTask(taskDO vo.TaskEO) {
 	po := mapper.Single[model.TaskPO](taskDO)
 	repository.task.Insert(&po)
 }
@@ -118,7 +118,7 @@ func (repository taskGroupRepository) SyncToData() {
 	}
 }
 
-func (repository taskGroupRepository) GetCanSchedulerTaskGroup(jobsName []string, ts time.Duration, count int, client vo.ClientVO) collections.List[vo.TaskDO] {
+func (repository taskGroupRepository) GetCanSchedulerTaskGroup(jobsName []string, ts time.Duration, count int, client vo.ClientVO) collections.List[vo.TaskEO] {
 	getLocker := repository.redis.Lock.GetLocker("FSS_Scheduler", 5*time.Second)
 	if !getLocker.TryLock() {
 		exception.ThrowRefuseException("加锁失败")
@@ -134,7 +134,7 @@ func (repository taskGroupRepository) GetCanSchedulerTaskGroup(jobsName []string
 		return item.StartAt.UnixMicro()
 	}).Take(count)
 
-	var lst collections.List[vo.TaskDO]
+	var lst collections.List[vo.TaskEO]
 	for _, taskGroupDO := range lstSchedulerTaskGroup.ToArray() {
 		// 设为调度状态
 		taskGroupDO.Scheduler(client)
@@ -159,11 +159,11 @@ func (repository taskGroupRepository) ToSchedulerWorkingList() collections.List[
 	}).ToList()
 }
 
-func (repository taskGroupRepository) ToFinishPageList(pageSize int, pageIndex int) collections.PageList[vo.TaskDO] {
+func (repository taskGroupRepository) ToFinishPageList(pageSize int, pageIndex int) collections.PageList[vo.TaskEO] {
 	pageList := repository.task.Where("(Status = ? or Status = ?) and (CreateAt >= ?)", eumTaskType.Fail, eumTaskType.Success, time.Now().Add(-24*time.Hour)).
 		Select("Id", "Caption", "Progress", "Status", "StartAt", "CreateAt", "ClientIp", "RunSpeed", "RunAt", "JobName").
 		Desc("RunAt").ToPageList(pageSize, pageIndex)
-	return mapper.ToPageList[vo.TaskDO](pageList.List, pageList.RecordCount)
+	return mapper.ToPageList[vo.TaskEO](pageList.List, pageList.RecordCount)
 }
 
 func (repository taskGroupRepository) GetTaskUnFinishList(jobsName []string, top int) collections.List[taskGroup.DomainObject] {
@@ -174,7 +174,7 @@ func (repository taskGroupRepository) GetTaskUnFinishList(jobsName []string, top
 	}).Take(top).ToList()
 }
 
-func (repository taskGroupRepository) GetEnableTaskList(status eumTaskType.Enum, pageSize int, pageIndex int) collections.PageList[vo.TaskDO] {
+func (repository taskGroupRepository) GetEnableTaskList(status eumTaskType.Enum, pageSize int, pageIndex int) collections.PageList[vo.TaskEO] {
 	lstTaskGroup := repository.ToList().Where(func(item taskGroup.DomainObject) bool {
 		return item.IsEnable
 	}).ToList()
@@ -189,7 +189,7 @@ func (repository taskGroupRepository) GetEnableTaskList(status eumTaskType.Enum,
 		return item.JobName
 	}).ToList()
 
-	var lst collections.List[vo.TaskDO]
+	var lst collections.List[vo.TaskEO]
 	lstTaskGroup.MapToList(&lst)
 	return lst.ToPageList(pageSize, pageIndex)
 }

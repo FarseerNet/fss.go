@@ -1,4 +1,4 @@
-package taskGroup
+package taskGroupApp
 
 import "time"
 

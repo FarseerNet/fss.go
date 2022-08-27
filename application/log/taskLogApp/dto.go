@@ -1,4 +1,4 @@
-package taskLog
+package taskLogApp
 
 import (
 	"github.com/farseer-go/fs/core/eumLogLevel"

@@ -10,7 +10,7 @@ const TaskFinishEventName = "TaskFinish"
 
 // TaskFinishEvent 任务完成事件
 type TaskFinishEvent struct {
-	Task vo.TaskDO
+	Task vo.TaskEO
 }
 
 // PublishEvent 发布事件

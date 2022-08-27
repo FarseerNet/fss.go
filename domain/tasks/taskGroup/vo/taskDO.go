@@ -5,8 +5,8 @@ import (
 	"time"
 )
 
-// TaskDO 任务记录
-type TaskDO struct {
+// TaskEO 任务记录
+type TaskEO struct {
 	// 主键
 	Id int
 	// 任务组ID
@@ -35,23 +35,23 @@ type TaskDO struct {
 	Data map[string]string
 }
 
-func NewTaskDO() *TaskDO {
-	return &TaskDO{}
+func NewTaskDO() *TaskEO {
+	return &TaskEO{}
 }
 
 // SetClient 调度时设置客户端
-func (do *TaskDO) SetClient(client ClientVO) {
+func (do *TaskEO) SetClient(client ClientVO) {
 	do.Status = eumTaskType.Scheduler
 	do.SchedulerAt = time.Now()
 	do.Client = client
 }
 
 // SetJobName 更新了JobName，则要立即更新Task的JobName
-func (do *TaskDO) SetJobName(jobName string) {
+func (do *TaskEO) SetJobName(jobName string) {
 	do.JobName = jobName
 }
 
 // SetFail 设备为失败
-func (do *TaskDO) SetFail() {
+func (do *TaskEO) SetFail() {
 	do.Status = eumTaskType.Fail
 }

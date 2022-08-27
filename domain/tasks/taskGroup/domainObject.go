@@ -18,7 +18,7 @@ type DomainObject struct {
 	// 主键
 	Id int
 	// 任务
-	Task vo.TaskDO
+	Task vo.TaskEO
 	// 任务组标题
 	Caption string
 	// 实现Job的特性名称（客户端识别哪个实现类）
@@ -179,7 +179,7 @@ func (do *DomainObject) CalculateNextTime() {
 // CreateTask 创建新的Task
 func (do *DomainObject) CreateTask() {
 	if !do.IsEnable {
-		do.Task = vo.TaskDO{}
+		do.Task = vo.TaskEO{}
 		return
 	}
 
@@ -193,7 +193,7 @@ func (do *DomainObject) CreateTask() {
 	}
 
 	// 没查到时，自动创建一条对应的Task
-	do.Task = vo.TaskDO{
+	do.Task = vo.TaskEO{
 		TaskGroupId: do.Id,
 		StartAt:     do.NextAt,
 		Caption:     do.Caption,

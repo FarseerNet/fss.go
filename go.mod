@@ -3,10 +3,12 @@ module fss
 go 1.19
 
 require (
+	github.com/beego/beego/v2 v2.0.5
+	github.com/farseer-go/cache v0.0.0-20220819160153-38bf53487eda
+	github.com/farseer-go/collections v0.0.0-20220808152306-40c82a16a4bb
 	github.com/farseer-go/data v0.0.0-20220807120624-fac4da2a0abf
 	github.com/farseer-go/eventBus v0.0.0-20220807120623-40f27eaa2b0c
 	github.com/farseer-go/fs v0.0.0-20220818093102-bfdd8f6b5334
-	github.com/farseer-go/linq v0.0.0-20220807120624-325cfc24dea7
 	github.com/farseer-go/mapper v0.0.0-20220810171111-9a91b2de6a70
 	github.com/farseer-go/queue v0.0.0-20220807120624-ed1fba96bffe
 	github.com/farseer-go/redis v0.0.0-20220807120624-a2bdad0317d6
@@ -15,17 +17,18 @@ require (
 )
 
 require (
+	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/denisenkom/go-mssqldb v0.12.0 // indirect
 	github.com/devfeel/mapper v0.7.10 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
-	github.com/farseer-go/cache v0.0.0-20220819160153-38bf53487eda // indirect
-	github.com/farseer-go/collections v0.0.0-20220808152306-40c82a16a4bb // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
 	github.com/golang-sql/sqlexp v0.0.0-20170517235910-f1bb20e5a188 // indirect
+	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.12.1 // indirect
@@ -39,9 +42,16 @@ require (
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mattn/go-sqlite3 v1.14.12 // indirect
+	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/prometheus/client_golang v1.12.1 // indirect
+	github.com/prometheus/client_model v0.2.0 // indirect
+	github.com/prometheus/common v0.32.1 // indirect
+	github.com/prometheus/procfs v0.7.3 // indirect
+	github.com/shiena/ansicolor v0.0.0-20200904210342-c7312218db18 // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
@@ -50,11 +60,13 @@ require (
 	github.com/studyzy/iocgo v0.0.0-20220102165609-54d474ad4d2a // indirect
 	github.com/subosito/gotenv v1.3.0 // indirect
 	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4 // indirect
+	golang.org/x/net v0.0.0-20220520000938-2e3eb7b945c2 // indirect
 	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
 	golang.org/x/text v0.3.7 // indirect
+	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/ini.v1 v1.66.4 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.3.5 // indirect
 	gorm.io/driver/postgres v1.3.8 // indirect
 	gorm.io/driver/sqlite v1.3.6 // indirect

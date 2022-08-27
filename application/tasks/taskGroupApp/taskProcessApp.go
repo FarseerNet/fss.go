@@ -1,9 +1,9 @@
-package taskGroup
+package taskGroupApp
 
 import (
 	"fmt"
-	"fss/application/clients/client"
-	"fss/application/tasks/taskGroup/request"
+	"fss/application/clients/clientApp"
+	"fss/application/tasks/taskGroupApp/request"
 	"fss/domain/_/eumTaskType"
 	"fss/domain/log"
 	"fss/domain/tasks/taskGroup"
@@ -12,18 +12,10 @@ import (
 	"github.com/farseer-go/fs/exception"
 )
 
-type taskProcessApp struct {
-	repository taskGroup.Repository
-}
-
-func NewTaskProcessApp() *taskProcessApp {
-	return &taskProcessApp{repository: container.Resolve[taskGroup.Repository]()}
-}
-
 // JobInvoke 客户端执行任务
-func (r *taskProcessApp) JobInvoke(dto request.JobInvokeDTO) string {
-	clientDTO := client.NewApp().GetClient()
-	taskGroupDO := r.repository.ToEntity(dto.TaskGroupId)
+func JobInvoke(clientDTO clientApp.DTO, dto request.JobInvokeDTO) string {
+	repository := container.Resolve[taskGroup.Repository]()
+	taskGroupDO := repository.ToEntity(dto.TaskGroupId)
 
 	if taskGroupDO.Id < 1 {
 		taskGroupNotExistsMsg := fmt.Sprintf("所属的任务组：%d 不存在", dto.TaskGroupId)
@@ -41,7 +33,7 @@ func (r *taskProcessApp) JobInvoke(dto request.JobInvokeDTO) string {
 		String(func(exp string) {
 			if taskGroupDO.Id > 0 {
 				taskGroupDO.Cancel()
-				r.repository.Save(taskGroupDO)
+				repository.Save(taskGroupDO)
 				log.TaskLogAddService(taskGroupDO.Id, taskGroupDO.JobName, taskGroupDO.Caption, eumLogLevel.Error, exp)
 			}
 		})
@@ -58,7 +50,7 @@ func (r *taskProcessApp) JobInvoke(dto request.JobInvokeDTO) string {
 
 	// 更新执行中状态
 	taskGroupDO.Working(dto.Data, dto.NextTimespan, dto.Progress, dto.Status, dto.RunSpeed)
-	r.repository.Save(taskGroupDO)
+	repository.Save(taskGroupDO)
 
 	if dto.Status != eumTaskType.Working && dto.Status != eumTaskType.Success {
 		exception.ThrowRefuseExceptionf("任务组：TaskGroupId=%d，Caption=%s，JobName=%s 执行失败", taskGroupDO.Id, taskGroupDO.Caption, taskGroupDO.JobName)
