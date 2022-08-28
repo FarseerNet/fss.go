@@ -5,22 +5,31 @@ import (
 	"fss/infrastructure/repository/model"
 	"github.com/farseer-go/collections"
 	"github.com/farseer-go/data"
+	"github.com/farseer-go/elasticSearch"
 	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/core/eumLogLevel"
-	"github.com/farseer-go/fs/exception"
 	"github.com/farseer-go/mapper"
 	"github.com/farseer-go/queue"
+	"strconv"
 )
 
 func RegisterTaskLogRepository() {
 	// 注册仓储
 	container.Register(func() taskLog.Repository {
-		return data.NewContext[taskLogRepository]("default")
+		repository := data.NewContext[taskLogRepository]("default")
+		repository.taskLogES = elasticSearch.NewContext[elasticSearchContext]("taskLog").taskLog
+		return repository
+
 	})
+
 }
 
 type taskLogRepository struct {
-	data.TableSet[model.TaskLogPO] `data:"name=run_log"`
+	taskLog   data.TableSet[model.TaskLogPO] `data:"name=run_log"`
+	taskLogES elasticSearch.IndexSet[model.TaskLogPO]
+}
+type elasticSearchContext struct {
+	taskLog elasticSearch.IndexSet[model.TaskLogPO] `data:"name=run_log"`
 }
 
 func NewTaskLogRepository() taskLogRepository {
@@ -28,8 +37,10 @@ func NewTaskLogRepository() taskLogRepository {
 }
 
 func (repository taskLogRepository) GetList(jobName string, logLevel eumLogLevel.Enum, pageSize int, pageIndex int) collections.List[taskLog.DomainObject] {
+	pageList := repository.taskLogES.Where("JobName", jobName).Where("LogLevel", strconv.Itoa(int(logLevel))).ToPageList(pageSize, pageIndex)
+	return mapper.ToList[taskLog.DomainObject](pageList)
 	//TODO implement me
-	panic("ES日志查询未实现")
+	//panic("ES日志查询未实现")
 }
 
 func (repository taskLogRepository) Add(taskLogDO taskLog.DomainObject) {
@@ -38,6 +49,10 @@ func (repository taskLogRepository) Add(taskLogDO taskLog.DomainObject) {
 }
 
 func (repository taskLogRepository) AddBatch(lstPO collections.List[model.TaskLogPO]) {
+	for i := 0; i < lstPO.Count(); i++ {
+		item := lstPO.Skip(i).Take(1).First()
+		repository.taskLogES.Insert(item)
+	}
 	// todo
-	exception.ThrowRefuseException("AddBatch未实现")
+	//exception.ThrowRefuseException("AddBatch未实现")
 }

@@ -3,10 +3,12 @@ module fss
 go 1.19
 
 require (
+	github.com/farseer-go/cache v0.0.0-20220819160153-38bf53487eda
+	github.com/farseer-go/collections v0.0.0-20220820163327-cf129548e537
 	github.com/farseer-go/data v0.0.0-20220807120624-fac4da2a0abf
+	github.com/farseer-go/elasticSearch v0.0.0-20220821053001-4f586343723f
 	github.com/farseer-go/eventBus v0.0.0-20220807120623-40f27eaa2b0c
 	github.com/farseer-go/fs v0.0.0-20220818093102-bfdd8f6b5334
-	github.com/farseer-go/linq v0.0.0-20220807120624-325cfc24dea7
 	github.com/farseer-go/mapper v0.0.0-20220810171111-9a91b2de6a70
 	github.com/farseer-go/queue v0.0.0-20220807120624-ed1fba96bffe
 	github.com/farseer-go/redis v0.0.0-20220807120624-a2bdad0317d6
@@ -19,8 +21,7 @@ require (
 	github.com/denisenkom/go-mssqldb v0.12.0 // indirect
 	github.com/devfeel/mapper v0.7.10 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
-	github.com/farseer-go/cache v0.0.0-20220819160153-38bf53487eda // indirect
-	github.com/farseer-go/collections v0.0.0-20220808152306-40c82a16a4bb // indirect
+	github.com/farseer-go/linq v0.0.0-20220819075019-10e51ab37e0c // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
@@ -37,11 +38,15 @@ require (
 	github.com/jackc/pgx/v4 v4.16.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/josharian/intern v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
+	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-sqlite3 v1.14.12 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/olivere/elastic/v7 v7.0.32 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
@@ -54,7 +59,7 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/ini.v1 v1.66.4 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.3.5 // indirect
 	gorm.io/driver/postgres v1.3.8 // indirect
 	gorm.io/driver/sqlite v1.3.6 // indirect
