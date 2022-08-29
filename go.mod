@@ -5,8 +5,9 @@ go 1.19
 require (
 	github.com/beego/beego/v2 v2.0.5
 	github.com/farseer-go/cache v0.0.0-20220819160153-38bf53487eda
-	github.com/farseer-go/collections v0.0.0-20220808152306-40c82a16a4bb
+	github.com/farseer-go/collections v0.0.0-20220820163327-cf129548e537
 	github.com/farseer-go/data v0.0.0-20220807120624-fac4da2a0abf
+	github.com/farseer-go/elasticSearch v0.0.0-20220828135957-a8670ec23370
 	github.com/farseer-go/eventBus v0.0.0-20220807120623-40f27eaa2b0c
 	github.com/farseer-go/fs v0.0.0-20220818093102-bfdd8f6b5334
 	github.com/farseer-go/mapper v0.0.0-20220810171111-9a91b2de6a70
@@ -22,6 +23,7 @@ require (
 	github.com/denisenkom/go-mssqldb v0.12.0 // indirect
 	github.com/devfeel/mapper v0.7.10 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
+	github.com/farseer-go/linq v0.0.0-20220807112737-d735cef4871f // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
@@ -40,10 +42,13 @@ require (
 	github.com/jackc/pgx/v4 v4.16.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/josharian/intern v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
+	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-sqlite3 v1.14.12 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/olivere/elastic/v7 v7.0.32 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
