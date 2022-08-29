@@ -4,6 +4,7 @@ import (
 	"fss/domain/tasks/taskGroup"
 	"fss/infrastructure/domainEvent"
 	_ "fss/infrastructure/domainEvent"
+	"fss/infrastructure/job"
 	"fss/infrastructure/localQueue"
 	_ "fss/infrastructure/localQueue"
 	"fss/infrastructure/repository"
@@ -38,6 +39,8 @@ func (module Module) PostInitialize() {
 
 	domainEvent.SubscribeTaskFinishEvent()
 	localQueue.SubscribeTaskLogQueue()
+
+	job.RegisterClearHisTaskJob()
 }
 
 func (module Module) Shutdown() {

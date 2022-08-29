@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="完成组件升级，就差API、ES组件">
+    <list default="true" id="9b366fbf-741a-4e64-bfce-7ed4e596a2fc" name="变更" comment="合并">
+      <change afterPath="$PROJECT_DIR$/infrastructure/job/clearHisTaskJob.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.work" beforeDir="false" afterPath="$PROJECT_DIR$/go.work" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.work.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.work.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/repository/taskLogRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/repository/taskLogRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/module.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/module.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +118,8 @@
     <MESSAGE value="调整位置" />
     <MESSAGE value="升级组件" />
     <MESSAGE value="完成组件升级，就差API、ES组件" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成组件升级，就差API、ES组件" />
+    <MESSAGE value="合并" />
+    <option name="LAST_COMMIT_MESSAGE" value="合并" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

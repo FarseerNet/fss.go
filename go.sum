@@ -97,8 +97,10 @@ github.com/farseer-go/elasticSearch v0.0.0-20220828135957-a8670ec23370 h1:04TkZB
 github.com/farseer-go/elasticSearch v0.0.0-20220828135957-a8670ec23370/go.mod h1:c/OAAm7itqgSCJaiHvBXqs5STmQdo1b8nrCKvfqdzO0=
 github.com/farseer-go/eventBus v0.0.0-20220807120623-40f27eaa2b0c h1:kRSiaJ6k5/BUihgNLoC6XJuYHkXhdbG+yN+wD4z+DS8=
 github.com/farseer-go/eventBus v0.0.0-20220807120623-40f27eaa2b0c/go.mod h1:n9+VbIdWCD4kdxMIjM6idLOL0Js37Yq37uVSua/idz4=
-github.com/farseer-go/fs v0.0.0-20220818093102-bfdd8f6b5334 h1:0QNYeFsCjsxm1M/D19ay3Ku1uEOQIM76Ei6OrSv901E=
-github.com/farseer-go/fs v0.0.0-20220818093102-bfdd8f6b5334/go.mod h1:mg9BZsc2+UIICdjohXH6Ne5rpIZgwqDBetLlpGAnID4=
+github.com/farseer-go/fs v0.0.0-20220827152506-4cbe175fcd51 h1:dxT/puKEoY2QBc8OmuV0M1f6+PpN2eJZhRFnLWvqGr0=
+github.com/farseer-go/fs v0.0.0-20220827152506-4cbe175fcd51/go.mod h1:mg9BZsc2+UIICdjohXH6Ne5rpIZgwqDBetLlpGAnID4=
+github.com/farseer-go/fss v0.0.0-20220829122104-c195b3f64949 h1:OelGNDlWQh3AXcBSJf3w5vIzwVMaaF4gP4EqeLWbfHo=
+github.com/farseer-go/fss v0.0.0-20220829122104-c195b3f64949/go.mod h1:zbZYgUQKHnQ/66n9Qw6LLt0Aw2YLIWRmGceJ00iLI1Y=
 github.com/farseer-go/linq v0.0.0-20220807112737-d735cef4871f h1:NIE59d6MNpmqhgDw8EiDBik3a3yTAT0xEd/dlzkqvSU=
 github.com/farseer-go/linq v0.0.0-20220807112737-d735cef4871f/go.mod h1:YpmSFBjwTF7OWkSEk2LNLyLF5TMFcO0fKkq+NiH5pDI=
 github.com/farseer-go/mapper v0.0.0-20220810171111-9a91b2de6a70 h1:piTUHt5c8ti9AkGo48xoQRFmHSVGzMN4AYjRE+DAL7M=
