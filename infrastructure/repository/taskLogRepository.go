@@ -47,8 +47,8 @@ func (repository taskLogRepository) Add(taskLogDO taskLog.DomainObject) {
 }
 
 func (repository taskLogRepository) AddBatch(lstPO collections.List[model.TaskLogPO]) {
-	for i := 0; i < lstPO.Count(); i++ {
-		item := lstPO.Skip(i).Take(1).First()
-		repository.taskLogES.Insert(item)
+	isSuccess, _ := repository.taskLogES.InsertList(lstPO)
+	if !isSuccess {
+		exception.ThrowRefuseException("批量添加报错")
 	}
 }
