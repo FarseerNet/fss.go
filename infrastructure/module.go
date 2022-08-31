@@ -41,6 +41,7 @@ func (module Module) PostInitialize() {
 	localQueue.SubscribeTaskLogQueue()
 
 	job.RegisterClearHisTaskJob()
+	job.RegisterSyncTaskGroupJob()
 }
 
 func (module Module) Shutdown() {

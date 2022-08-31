@@ -39,8 +39,6 @@ func NewTaskLogRepository() taskLogRepository {
 func (repository taskLogRepository) GetList(jobName string, logLevel eumLogLevel.Enum, pageSize int, pageIndex int) collections.List[taskLog.DomainObject] {
 	pageList := repository.taskLogES.Where("JobName", jobName).Where("LogLevel", strconv.Itoa(int(logLevel))).ToPageList(pageSize, pageIndex)
 	return mapper.ToList[taskLog.DomainObject](pageList)
-	//TODO implement me
-	//panic("ES日志查询未实现")
 }
 
 func (repository taskLogRepository) Add(taskLogDO taskLog.DomainObject) {
@@ -53,6 +51,4 @@ func (repository taskLogRepository) AddBatch(lstPO collections.List[model.TaskLo
 		item := lstPO.Skip(i).Take(1).First()
 		repository.taskLogES.Insert(item)
 	}
-	// todo
-	//exception.ThrowRefuseException("AddBatch未实现")
 }
