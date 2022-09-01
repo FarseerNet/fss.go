@@ -8,7 +8,7 @@ import (
 	"github.com/farseer-go/elasticSearch"
 	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/core/eumLogLevel"
-	"github.com/farseer-go/fs/flog"
+	"github.com/farseer-go/fs/exception"
 	"github.com/farseer-go/mapper"
 	"github.com/farseer-go/queue"
 	"strconv"
@@ -18,7 +18,7 @@ func RegisterTaskLogRepository() {
 	// 注册仓储
 	container.Register(func() taskLog.Repository {
 		repository := data.NewContext[taskLogRepository]("default")
-		repository.taskLogES = elasticSearch.NewContext[elasticSearchContext]("default").taskLog
+		repository.taskLogES = elasticSearch.NewContext[elasticSearchContext]("taskLog").taskLog
 		return repository
 
 	})
@@ -30,7 +30,7 @@ type taskLogRepository struct {
 	taskLogES elasticSearch.IndexSet[model.TaskLogPO]
 }
 type elasticSearchContext struct {
-	taskLog elasticSearch.IndexSet[model.TaskLogPO] `es:"name=run_log"`
+	taskLog elasticSearch.IndexSet[model.TaskLogPO] `data:"name=run_log"`
 }
 
 func NewTaskLogRepository() taskLogRepository {
@@ -48,8 +48,8 @@ func (repository taskLogRepository) Add(taskLogDO taskLog.DomainObject) {
 }
 
 func (repository taskLogRepository) AddBatch(lstPO collections.List[model.TaskLogPO]) {
-	err := repository.taskLogES.InsertList(lstPO)
-	if err != nil {
-		flog.Println("AddBatch error:", err)
+	isSuccess, _ := repository.taskLogES.InsertList(lstPO)
+	if !isSuccess {
+		exception.ThrowRefuseException("批量添加报错")
 	}
 }

@@ -9,7 +9,8 @@ require (
 	github.com/farseer-go/data v0.0.0-20220807120624-fac4da2a0abf
 	github.com/farseer-go/elasticSearch v0.0.0-20220828135957-a8670ec23370
 	github.com/farseer-go/eventBus v0.0.0-20220807120623-40f27eaa2b0c
-	github.com/farseer-go/fs v0.0.0-20220827152506-4cbe175fcd51
+	github.com/farseer-go/fs v0.0.0-20220831104223-0ee48848b585
+	github.com/farseer-go/fss v0.0.0-20220829122104-c195b3f64949
 	github.com/farseer-go/mapper v0.0.0-20220810171111-9a91b2de6a70
 	github.com/farseer-go/queue v0.0.0-20220807120624-ed1fba96bffe
 	github.com/farseer-go/redis v0.0.0-20220807120624-a2bdad0317d6
@@ -25,6 +26,7 @@ require (
 	github.com/devfeel/mapper v0.7.10 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/farseer-go/linq v0.0.0-20220807112737-d735cef4871f // indirect
+	github.com/farseer-go/tasks v0.0.0-20220831082810-7af977206ad0 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect

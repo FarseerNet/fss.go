@@ -14,4 +14,5 @@ replace (
     github.com/farseer-go/cache => ../farseer-go/cache
     github.com/farseer-go/elasticSearch	=> ../farseer-go/elasticSearch
     github.com/farseer-go/webapi => ../farseer-go/webapi
+    github.com/farseer-go/tasks => ../farseer-go/tasks
 )

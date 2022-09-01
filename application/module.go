@@ -1,6 +1,7 @@
 package application
 
 import (
+	"fss/application/job"
 	"fss/domain"
 	"github.com/farseer-go/fs/modules"
 )
@@ -19,6 +20,13 @@ func (module Module) Initialize() {
 }
 
 func (module Module) PostInitialize() {
+	job.RegisterCheckClientOfflineJob()
+	job.RegisterCheckFinishStatusJob()
+	job.RegisterCheckWorkStatusJob()
+	job.RegisterSyncTaskGroupAvgSpeedJob()
+
+	job.PrintSysInfoJob()
+	job.InitSysTaskJob()
 }
 
 func (module Module) Shutdown() {
