@@ -13,6 +13,5 @@ replace (
     github.com/farseer-go/redis => ../farseer-go/redis
     github.com/farseer-go/cache => ../farseer-go/cache
     github.com/farseer-go/elasticSearch	=> ../farseer-go/elasticSearch
-    github.com/farseer-go/fss	=> ../farseer-go/fss
     github.com/farseer-go/webapi => ../farseer-go/webapi
 )

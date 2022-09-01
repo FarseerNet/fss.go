@@ -8,6 +8,7 @@ import (
 	"github.com/farseer-go/elasticSearch"
 	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/core/eumLogLevel"
+	"github.com/farseer-go/fs/flog"
 	"github.com/farseer-go/mapper"
 	"github.com/farseer-go/queue"
 	"strconv"
@@ -47,8 +48,8 @@ func (repository taskLogRepository) Add(taskLogDO taskLog.DomainObject) {
 }
 
 func (repository taskLogRepository) AddBatch(lstPO collections.List[model.TaskLogPO]) {
-	isSuccess, _ := repository.taskLogES.InsertList(lstPO)
-	if !isSuccess {
-		exception.ThrowRefuseException("批量添加报错")
+	err := repository.taskLogES.InsertList(lstPO)
+	if err != nil {
+		flog.Println("AddBatch error:", err)
 	}
 }
