@@ -15,6 +15,7 @@ require (
 	github.com/farseer-go/queue v0.0.0-20220807120624-ed1fba96bffe
 	github.com/farseer-go/redis v0.0.0-20220807120624-a2bdad0317d6
 	github.com/farseer-go/utils v0.0.0-20220807120624-2a6017678bc9
+	github.com/farseer-go/webapi v0.0.0-20220828153910-903154759221
 	github.com/robfig/cron/v3 v3.0.1
 )
 

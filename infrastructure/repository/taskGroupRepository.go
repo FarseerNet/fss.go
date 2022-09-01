@@ -20,19 +20,23 @@ import (
 func RegisterTaskGroupRepository() {
 	// 注册仓储
 	container.Register(func() taskGroup.Repository {
-		repository := data.NewContext[taskGroupRepository]("default")
-		repository.redis = redis.NewClient("default")
-
-		// 多级缓存
-		repository.cacheManage = cache.GetCacheManage[taskGroup.DomainObject]("FSS_TaskGroup")
-		repository.cacheManage.EnableItemNullToLoadALl()
-		repository.cacheManage.SetSource(func() collections.List[taskGroup.DomainObject] {
-			var lst collections.List[taskGroup.DomainObject]
-			repository.taskGroup.ToList().MapToList(&lst)
-			return lst
-		})
-		return repository
+		return NewTaskGroupRepository()
 	})
+}
+
+func NewTaskGroupRepository() taskGroupRepository {
+	repository := data.NewContext[taskGroupRepository]("default")
+	repository.redis = redis.NewClient("default")
+
+	// 多级缓存
+	repository.cacheManage = cache.GetCacheManage[taskGroup.DomainObject]("FSS_TaskGroup")
+	repository.cacheManage.EnableItemNullToLoadALl()
+	repository.cacheManage.SetSource(func() collections.List[taskGroup.DomainObject] {
+		var lst collections.List[taskGroup.DomainObject]
+		repository.taskGroup.ToList().MapToList(&lst)
+		return lst
+	})
+	return *repository
 }
 
 type taskGroupRepository struct {
@@ -192,4 +196,16 @@ func (repository taskGroupRepository) GetEnableTaskList(status eumTaskType.Enum,
 	var lst collections.List[vo.TaskEO]
 	lstTaskGroup.MapToList(&lst)
 	return lst.ToPageList(pageSize, pageIndex)
+}
+
+// ClearFinish 清除成功的任务记录（1天前）
+func (repository taskGroupRepository) ClearFinish(groupId int, taskId int) {
+	repository.task.Where("TaskGroupId = ? and (Status = ? or Status = ?) and CreateAt < ? and Id < ?", groupId, eumTaskType.Success, eumTaskType.Fail, time.Now().Add(-24*time.Hour), taskId).Delete()
+}
+
+// ToDbList 从数据库中读取数据
+func (repository taskGroupRepository) ToDbList() collections.List[taskGroup.DomainObject] {
+	var lst collections.List[taskGroup.DomainObject]
+	repository.taskGroup.ToList().MapToList(&lst)
+	return lst
 }
