@@ -17,7 +17,7 @@ func RegisterTaskLogRepository() {
 	// 注册仓储
 	container.Register(func() taskLog.Repository {
 		repository := data.NewContext[taskLogRepository]("default")
-		repository.taskLogES = elasticSearch.NewContext[elasticSearchContext]("taskLog").taskLog
+		repository.taskLogES = elasticSearch.NewContext[elasticSearchContext]("default").taskLog
 		return repository
 
 	})
@@ -29,7 +29,7 @@ type taskLogRepository struct {
 	taskLogES elasticSearch.IndexSet[model.TaskLogPO]
 }
 type elasticSearchContext struct {
-	taskLog elasticSearch.IndexSet[model.TaskLogPO] `data:"name=run_log"`
+	taskLog elasticSearch.IndexSet[model.TaskLogPO] `es:"name=run_log"`
 }
 
 func NewTaskLogRepository() taskLogRepository {
