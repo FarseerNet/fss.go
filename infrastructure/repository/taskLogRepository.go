@@ -19,7 +19,7 @@ func RegisterTaskLogRepository() {
 	container.Register(func() taskLog.Repository {
 		var repository taskLogRepository
 		data.InitContext(&repository, "default")
-		elasticSearch.InitContext(&repository, "taskLog")
+		elasticSearch.InitContext(&repository, "es")
 		return repository
 	})
 }
