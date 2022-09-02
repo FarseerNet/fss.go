@@ -17,20 +17,16 @@ import (
 func RegisterTaskLogRepository() {
 	// 注册仓储
 	container.Register(func() taskLog.Repository {
-		repository := data.NewContext[taskLogRepository]("default")
-		repository.taskLogES = elasticSearch.NewContext[elasticSearchContext]("taskLog").taskLog
+		var repository taskLogRepository
+		data.InitContext(&repository, "default")
+		elasticSearch.InitContext(&repository, "taskLog")
 		return repository
-
 	})
-
 }
 
 type taskLogRepository struct {
-	taskLog   data.TableSet[model.TaskLogPO] `data:"name=run_log"`
-	taskLogES elasticSearch.IndexSet[model.TaskLogPO]
-}
-type elasticSearchContext struct {
-	taskLog elasticSearch.IndexSet[model.TaskLogPO] `data:"name=run_log"`
+	taskLog   data.TableSet[model.TaskLogPO]          `data:"name=run_log"`
+	taskLogES elasticSearch.IndexSet[model.TaskLogPO] `es:"name=run_log"`
 }
 
 func NewTaskLogRepository() taskLogRepository {
@@ -48,8 +44,8 @@ func (repository taskLogRepository) Add(taskLogDO taskLog.DomainObject) {
 }
 
 func (repository taskLogRepository) AddBatch(lstPO collections.List[model.TaskLogPO]) {
-	isSuccess, _ := repository.taskLogES.InsertList(lstPO)
-	if !isSuccess {
+	err := repository.taskLogES.InsertList(lstPO)
+	if err != nil {
 		exception.ThrowRefuseException("批量添加报错")
 	}
 }
