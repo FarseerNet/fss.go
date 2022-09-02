@@ -15,4 +15,5 @@ replace (
     github.com/farseer-go/elasticSearch	=> ../farseer-go/elasticSearch
     github.com/farseer-go/webapi => ../farseer-go/webapi
     github.com/farseer-go/tasks => ../farseer-go/tasks
+    github.com/farseer-go/fss => ../farseer-go/fss
 )

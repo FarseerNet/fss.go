@@ -13,7 +13,7 @@ func RegisterClearHisTaskJob() {
 }
 
 func clearHisTaskJob(context fss.IFssContext) bool {
-	_reservedTaskCount := configure.GetInt("FSS.ReservedTaskCount")
+	reservedTaskCount := configure.GetInt("FSS.ReservedTaskCount")
 	taskGroupRepository := repository.NewTaskGroupRepository()
 
 	curIndex := 0
@@ -21,7 +21,7 @@ func clearHisTaskJob(context fss.IFssContext) bool {
 	lst := taskGroupRepository.ToList()
 	for _, taskGroupDO := range lst.ToArray() {
 		curIndex++
-		lstTask := taskGroupRepository.ToFinishList(taskGroupDO.Id, _reservedTaskCount)
+		lstTask := taskGroupRepository.ToFinishList(taskGroupDO.Id, reservedTaskCount)
 		if lstTask.Count() == 0 {
 			continue
 		}
