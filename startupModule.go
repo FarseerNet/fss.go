@@ -10,7 +10,7 @@ type StartupModule struct {
 }
 
 func (module StartupModule) DependsModule() []modules.FarseerModule {
-	return []modules.FarseerModule{interfaces.Module{}, infrastructure.Module{}}
+	return []modules.FarseerModule{infrastructure.Module{}, interfaces.Module{}}
 }
 
 func (module StartupModule) PreInitialize() {
