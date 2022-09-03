@@ -3,6 +3,7 @@ package application
 import (
 	"fss/application/job"
 	"fss/domain"
+	"github.com/farseer-go/fs"
 	"github.com/farseer-go/fs/modules"
 )
 
@@ -25,8 +26,8 @@ func (module Module) PostInitialize() {
 	job.RegisterCheckWorkStatusJob()
 	job.RegisterSyncTaskGroupAvgSpeedJob()
 
-	job.PrintSysInfoJob()
-	job.InitSysTaskJob()
+	fs.AddInitCallback(job.PrintSysInfoJob)
+	fs.AddInitCallback(job.InitSysTaskJob)
 }
 
 func (module Module) Shutdown() {
