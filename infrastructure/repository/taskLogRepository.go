@@ -25,8 +25,8 @@ func RegisterTaskLogRepository() {
 }
 
 type taskLogRepository struct {
-	taskLog   data.TableSet[model.TaskLogPO]          `data:"name=run_log"`
-	taskLogES elasticSearch.IndexSet[model.TaskLogPO] `es:"name=run_log"`
+	TaskLog   data.TableSet[model.TaskLogPO]          `data:"name=run_log"`
+	TaskLogES elasticSearch.IndexSet[model.TaskLogPO] `es:"name=run_log"`
 }
 
 func NewTaskLogRepository() taskLogRepository {
@@ -34,7 +34,7 @@ func NewTaskLogRepository() taskLogRepository {
 }
 
 func (repository taskLogRepository) GetList(jobName string, logLevel eumLogLevel.Enum, pageSize int, pageIndex int) collections.List[taskLog.DomainObject] {
-	pageList := repository.taskLogES.Where("JobName", jobName).Where("LogLevel", strconv.Itoa(int(logLevel))).ToPageList(pageSize, pageIndex)
+	pageList := repository.TaskLogES.Where("JobName", jobName).Where("LogLevel", strconv.Itoa(int(logLevel))).ToPageList(pageSize, pageIndex)
 	return mapper.ToList[taskLog.DomainObject](pageList)
 }
 
@@ -44,7 +44,7 @@ func (repository taskLogRepository) Add(taskLogDO taskLog.DomainObject) {
 }
 
 func (repository taskLogRepository) AddBatch(lstPO collections.List[model.TaskLogPO]) {
-	err := repository.taskLogES.InsertList(lstPO)
+	err := repository.TaskLogES.InsertList(lstPO)
 	if err != nil {
 		exception.ThrowRefuseException("批量添加报错")
 	}

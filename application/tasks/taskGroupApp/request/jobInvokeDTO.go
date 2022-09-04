@@ -1,6 +1,9 @@
 package request
 
-import "fss/domain/_/eumTaskType"
+import (
+	"fss/domain/_/eumTaskType"
+	"github.com/farseer-go/collections"
+)
 
 type JobInvokeDTO struct {
 	// 任务组ID
@@ -16,5 +19,5 @@ type JobInvokeDTO struct {
 	// 日志
 	Log LogRequest
 	// 数据
-	Data map[string]string
+	Data collections.Dictionary[string, string]
 }

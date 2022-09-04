@@ -1,6 +1,9 @@
 package model
 
-import "time"
+import (
+	"github.com/farseer-go/collections"
+	"time"
+)
 
 type TaskGroupPO struct {
 	// 主键
@@ -12,7 +15,7 @@ type TaskGroupPO struct {
 	// 实现Job的特性名称（客户端识别哪个实现类）
 	JobName string
 	// 传给客户端的参数，按逗号分隔
-	Data map[string]string
+	Data collections.Dictionary[string, string]
 	// 开始时间
 	StartAt time.Time
 	// 下次执行时间

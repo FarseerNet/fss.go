@@ -32,7 +32,7 @@ func Delete(request request.OnlyIdRequest) {
 // Add 添加任务组信息
 func Add(dto DTO) int {
 	repository := container.Resolve[taskGroup.Repository]()
-	if dto.Caption == "" || dto.Cron == "" || dto.Data == nil || dto.JobName == "" {
+	if dto.Caption == "" || dto.Cron == "" || dto.JobName == "" {
 		exception.ThrowRefuseException("标题、时间间隔、传输数据、Job名称 必须填写")
 	}
 	do := mapper.Single[taskGroup.DomainObject](dto)

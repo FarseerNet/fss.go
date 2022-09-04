@@ -14,9 +14,11 @@ require (
 	github.com/farseer-go/mapper v0.0.0-20220810171111-9a91b2de6a70
 	github.com/farseer-go/queue v0.0.0-20220807120624-ed1fba96bffe
 	github.com/farseer-go/redis v0.0.0-20220807120624-a2bdad0317d6
+	github.com/farseer-go/tasks v0.0.0-20220831082810-7af977206ad0
 	github.com/farseer-go/utils v0.0.0-20220807120624-2a6017678bc9
 	github.com/farseer-go/webapi v0.0.0-20220828153910-903154759221
 	github.com/robfig/cron/v3 v3.0.1
+	gorm.io/datatypes v1.0.7
 )
 
 require (
@@ -26,11 +28,10 @@ require (
 	github.com/devfeel/mapper v0.7.10 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/farseer-go/linq v0.0.0-20220807112737-d735cef4871f // indirect
-	github.com/farseer-go/tasks v0.0.0-20220831082810-7af977206ad0 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
-	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
+	github.com/golang-sql/civil v0.0.0-20220223132316-b832511892a9 // indirect
 	github.com/golang-sql/sqlexp v0.0.0-20170517235910-f1bb20e5a188 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect

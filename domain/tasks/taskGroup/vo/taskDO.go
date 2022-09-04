@@ -2,6 +2,7 @@ package vo
 
 import (
 	"fss/domain/_/eumTaskType"
+	"github.com/farseer-go/collections"
 	"time"
 )
 
@@ -32,7 +33,7 @@ type TaskEO struct {
 	// 调度时间
 	SchedulerAt time.Time
 	// 本次执行任务时的Data数据
-	Data map[string]string
+	Data collections.Dictionary[string, string]
 }
 
 func NewTaskDO() *TaskEO {

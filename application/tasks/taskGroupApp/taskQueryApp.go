@@ -22,7 +22,7 @@ func ToList() collections.List[taskGroup.DomainObject] {
 	lstTaskGroup := repository.ToList()
 	for i := 0; i < lstTaskGroup.Count(); i++ {
 		do := lstTaskGroup.Index(i)
-		if do.Task.Id < 1 {
+		if do.Task.Id < 1 && do.IsEnable {
 			do.CreateTask()
 			repository.Save(do)
 		}

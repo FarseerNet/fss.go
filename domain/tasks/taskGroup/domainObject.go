@@ -4,6 +4,7 @@ import (
 	"fss/domain/_/eumTaskType"
 	"fss/domain/tasks/taskGroup/event"
 	"fss/domain/tasks/taskGroup/vo"
+	"github.com/farseer-go/collections"
 	"github.com/farseer-go/fs/exception"
 	"github.com/farseer-go/fs/parse"
 	"github.com/farseer-go/utils/times"
@@ -24,7 +25,7 @@ type DomainObject struct {
 	// 实现Job的特性名称（客户端识别哪个实现类）
 	JobName string
 	// 本次执行任务时的Data数据
-	Data map[string]string
+	Data collections.Dictionary[string, string]
 	// 开始时间
 	StartAt time.Time
 	// 下次执行时间
@@ -84,7 +85,7 @@ func (do *DomainObject) Disable() {
 }
 
 // Set 修改了任务组信息
-func (do *DomainObject) Set(jobName string, caption string, data map[string]string, startAt time.Time) {
+func (do *DomainObject) Set(jobName string, caption string, data collections.Dictionary[string, string], startAt time.Time) {
 	// 更新了JobName，则要立即更新Task的JobName
 	if do.JobName != jobName && do.Task.Status == eumTaskType.None {
 		do.Task.SetJobName(jobName)
@@ -183,7 +184,7 @@ func (do *DomainObject) CreateTask() {
 		return
 	}
 
-	if do.Task.Status != eumTaskType.Fail && do.Task.Status != eumTaskType.Success {
+	if do.Task.Id > 0 && do.Task.Status != eumTaskType.Fail && do.Task.Status != eumTaskType.Success {
 		return
 	}
 
@@ -238,7 +239,7 @@ func (do *DomainObject) CheckClientOffline() {
 }
 
 // Working 执行中
-func (do *DomainObject) Working(data map[string]string, nextTimespan int64, progress int, status eumTaskType.Enum, runSpeed int64) {
+func (do *DomainObject) Working(data collections.Dictionary[string, string], nextTimespan int64, progress int, status eumTaskType.Enum, runSpeed int64) {
 	// 数据库的状态处于调度状态，说明客户端第一次请求进来
 	if do.Task.Status == eumTaskType.Scheduler {
 		do.Task.RunAt = time.Now() // 首次执行，记录时间
