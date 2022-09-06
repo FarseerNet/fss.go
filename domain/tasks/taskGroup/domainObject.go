@@ -184,29 +184,27 @@ func (do *DomainObject) CreateTask() {
 		return
 	}
 
-	if do.Task.Id > 0 && do.Task.Status != eumTaskType.Fail && do.Task.Status != eumTaskType.Success {
-		return
-	}
-
-	if do.Task.Status == eumTaskType.Success || do.Task.Status == eumTaskType.Fail {
+	if do.Task.IsFinish() {
 		// 任务完成，发布完成事件
 		event.TaskFinishEvent{Task: do.Task}.PublishEvent()
 	}
 
-	// 没查到时，自动创建一条对应的Task
-	do.Task = vo.TaskEO{
-		TaskGroupId: do.Id,
-		StartAt:     do.NextAt,
-		Caption:     do.Caption,
-		JobName:     do.JobName,
-		RunSpeed:    0,
-		Client:      vo.ClientVO{},
-		Progress:    0,
-		Status:      eumTaskType.None,
-		CreateAt:    time.Now(),
-		RunAt:       time.Now(),
-		SchedulerAt: time.Now(),
-		Data:        do.Data,
+	if do.Task.IsNull() {
+		// 没查到时，自动创建一条对应的Task
+		do.Task = vo.TaskEO{
+			TaskGroupId: do.Id,
+			StartAt:     do.NextAt,
+			Caption:     do.Caption,
+			JobName:     do.JobName,
+			RunSpeed:    0,
+			Client:      vo.ClientVO{},
+			Progress:    0,
+			Status:      eumTaskType.None,
+			CreateAt:    time.Now(),
+			RunAt:       time.Now(),
+			SchedulerAt: time.Now(),
+			Data:        do.Data,
+		}
 	}
 }
 

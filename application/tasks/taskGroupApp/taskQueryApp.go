@@ -19,16 +19,7 @@ func ToEntity(request request.OnlyIdRequest) DTO {
 // ToList 获取所有任务组中的任务
 func ToList() collections.List[taskGroup.DomainObject] {
 	repository := container.Resolve[taskGroup.Repository]()
-	lstTaskGroup := repository.ToList()
-	for i := 0; i < lstTaskGroup.Count(); i++ {
-		do := lstTaskGroup.Index(i)
-		if do.Task.Id < 1 && do.IsEnable {
-			do.CreateTask()
-			repository.Save(do)
-		}
-		lstTaskGroup.Set(i, do)
-	}
-	return lstTaskGroup
+	return repository.ToList()
 }
 
 // GetTaskList ToList 获取指定任务组的任务列表（FOPS）

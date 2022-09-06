@@ -11,11 +11,9 @@ import (
 )
 
 func InitSysTaskJob() {
-	flog.Info("正在读取所有任务组信息")
 	taskGroupRepository := container.Resolve[taskGroup.Repository]()
 	lstTaskGroup := taskGroupApp.ToList()
 	flog.Infof("共获取到%d 条任务组信息", lstTaskGroup.Count())
-
 	// 检查是否存在系统任务组
 	go createSysJob(lstTaskGroup, "FSS.ClearHisTask", "清除历史任务", 24*time.Hour, nil)
 	go createSysJob(lstTaskGroup, "FSS.SyncTaskGroupAvgSpeed", "计算任务平均耗时", 1*time.Hour, nil)

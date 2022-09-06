@@ -31,7 +31,9 @@ func checkFinishStatusJob(context *tasks.TaskContext) {
 			continue
 		}
 
-		taskGroupDO.CreateTask()
-		taskGroupRepository.Save(taskGroupDO)
+		if taskGroupDO.Task.IsFinish() || taskGroupDO.Task.IsNull() {
+			taskGroupDO.CreateTask()
+			taskGroupRepository.Save(taskGroupDO)
+		}
 	}
 }

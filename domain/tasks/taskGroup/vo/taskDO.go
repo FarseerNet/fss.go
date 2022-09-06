@@ -56,3 +56,13 @@ func (do *TaskEO) SetJobName(jobName string) {
 func (do *TaskEO) SetFail() {
 	do.Status = eumTaskType.Fail
 }
+
+// IsNull 未分配
+func (do *TaskEO) IsNull() bool {
+	return do.Id == 0 && do.Status == eumTaskType.None && do.Caption == "" && do.TaskGroupId == 0
+}
+
+// IsFinish 是否完成
+func (do *TaskEO) IsFinish() bool {
+	return do.Status == eumTaskType.Success || do.Status == eumTaskType.Fail
+}
