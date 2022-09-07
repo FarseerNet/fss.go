@@ -138,7 +138,7 @@ func (repository taskGroupRepository) GetCanSchedulerTaskGroup(jobsName []string
 		return item.StartAt.UnixMicro()
 	}).Take(count)
 
-	var lst collections.List[vo.TaskEO]
+	lst := collections.NewList[vo.TaskEO]()
 	for _, taskGroupDO := range lstSchedulerTaskGroup.ToArray() {
 		// 设为调度状态
 		taskGroupDO.Scheduler(client)

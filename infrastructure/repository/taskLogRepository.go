@@ -26,7 +26,7 @@ func RegisterTaskLogRepository() {
 
 type taskLogRepository struct {
 	TaskLog   data.TableSet[model.TaskLogPO]          `data:"name=run_log"`
-	TaskLogES elasticSearch.IndexSet[model.TaskLogPO] `es:"name=run_log"`
+	TaskLogES elasticSearch.IndexSet[model.TaskLogPO] `es:"index=run_log_yyyy_mm;alias=run_log"`
 }
 
 func NewTaskLogRepository() taskLogRepository {

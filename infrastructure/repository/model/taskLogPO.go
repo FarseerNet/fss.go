@@ -7,24 +7,17 @@ import (
 
 type TaskLogPO struct {
 	// 主键
-	//[Number(type: NumberType.Long)]
-	Id int64 `gorm:"primaryKey"`
+	Id int64 `gorm:"primaryKey" es_type:"long"`
 	// 任务组记录ID
-	//[Number(type: NumberType.Integer)]
-	TaskGroupId int
+	TaskGroupId int `es_type:"integer"`
 	// 任务组标题
-	//[Keyword]
-	Caption string
+	Caption string `es_type:"keyword"`
 	// 实现Job的特性名称（客户端识别哪个实现类）
-	// [Keyword]
-	JobName string
+	JobName string `es_type:"keyword"`
 	// 日志级别
-	//[Number(type: NumberType.Byte)]
-	LogLevel eumLogLevel.Enum
+	LogLevel eumLogLevel.Enum `es_type:"byte"`
 	// 日志内容
-	//[Text]
-	Content string
+	Content string `es_type:"test"`
 	// 日志时间
-	// [Date]
-	CreateAt time.Time
+	CreateAt time.Time `es_type:"date"`
 }
