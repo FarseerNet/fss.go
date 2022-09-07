@@ -35,7 +35,7 @@ func Add(dto DTO) int {
 	if dto.Caption == "" || dto.Cron == "" || dto.JobName == "" {
 		exception.ThrowRefuseException("标题、时间间隔、传输数据、Job名称 必须填写")
 	}
-	do := mapper.Single[taskGroup.DomainObject](dto)
+	do := mapper.Single[taskGroup.DomainObject](&dto)
 	do.CheckInterval()
 	repository.Add(do)
 

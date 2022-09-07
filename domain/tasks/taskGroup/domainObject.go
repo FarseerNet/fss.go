@@ -189,7 +189,7 @@ func (do *DomainObject) CreateTask() {
 		event.TaskFinishEvent{Task: do.Task}.PublishEvent()
 	}
 
-	if do.Task.IsNull() {
+	if do.Task.IsNull() || do.Task.IsFinish() {
 		// 没查到时，自动创建一条对应的Task
 		do.Task = vo.TaskEO{
 			TaskGroupId: do.Id,

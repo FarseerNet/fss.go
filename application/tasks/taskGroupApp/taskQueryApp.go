@@ -13,7 +13,7 @@ import (
 func ToEntity(request request.OnlyIdRequest) DTO {
 	repository := container.Resolve[taskGroup.Repository]()
 	do := repository.ToEntity(request.Id)
-	return mapper.Single[DTO](do)
+	return mapper.Single[DTO](&do)
 }
 
 // ToList 获取所有任务组中的任务
@@ -72,7 +72,7 @@ func GetTaskUnFinishList(onlyTopRequest request.OnlyTopRequest) collections.List
 
 	var lstTask collections.List[request.TaskDTO]
 	taskUnFinishList.Select(&lstTask, func(item taskGroup.DomainObject) any {
-		return mapper.Single[request.TaskDTO](item.Task)
+		return mapper.Single[request.TaskDTO](&item.Task)
 	})
 
 	return lstTask

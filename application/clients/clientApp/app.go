@@ -22,6 +22,6 @@ func GetCount() int64 {
 // UpdateClient 更新客户端的使用时间
 func UpdateClient(dto DTO) {
 	repository := container.Resolve[client.Repository]()
-	do := mapper.Single[client.DomainObject](dto)
+	do := mapper.Single[client.DomainObject](&dto)
 	repository.Update(do)
 }

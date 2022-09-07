@@ -14,7 +14,7 @@ import (
 // Pull 任务调度
 func Pull(clientDTO clientApp.DTO, dto request.PullDTO) collections.List[request.TaskDTO] {
 	repository := container.Resolve[taskGroup.Repository]()
-	clientVO := mapper.Single[vo.ClientVO](clientDTO)
+	clientVO := mapper.Single[vo.ClientVO](&clientDTO)
 	if dto.TaskCount == 0 {
 		dto.TaskCount = 3
 	}

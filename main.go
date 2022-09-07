@@ -2,14 +2,19 @@ package main
 
 import (
 	"fss/interfaces"
-	"github.com/beego/beego/v2/server/web"
 	"github.com/farseer-go/fs"
-	"github.com/farseer-go/fs/exception"
+	"github.com/farseer-go/webapi"
 )
 
 func main() { // main函数，程序执行的入口
 	fs.Initialize[StartupModule]("fss")
 
+	webapi.AutoRouter(&interfaces.MetaController{})
+	webapi.AutoRouter(&interfaces.TaskController{})
+	webapi.Run()
+}
+
+func test() {
 	//try := exception.Try(func() {
 	//	exception.ThrowRefuseException("test is throw")
 	//})
@@ -24,13 +29,4 @@ func main() { // main函数，程序执行的入口
 	//	flog.Error(exp)
 	//})
 	//try.ThrowUnCatch()
-	//webapi.Run()
-
-	web.AutoRouter(&interfaces.MetaController{})
-	web.AutoRouter(&interfaces.TaskController{})
-	web.Run()
-}
-
-func test() {
-	exception.ThrowRefuseException("test is throw")
 }

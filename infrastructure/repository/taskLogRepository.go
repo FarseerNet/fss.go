@@ -39,7 +39,7 @@ func (repository taskLogRepository) GetList(jobName string, logLevel eumLogLevel
 }
 
 func (repository taskLogRepository) Add(taskLogDO taskLog.DomainObject) {
-	po := mapper.Single[model.TaskLogPO](taskLogDO)
+	po := mapper.Single[model.TaskLogPO](&taskLogDO)
 	queue.Push("TaskLogQueue", po)
 }
 

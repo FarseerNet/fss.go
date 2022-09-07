@@ -9,10 +9,10 @@ import (
 	"github.com/farseer-go/collections"
 	"github.com/farseer-go/data"
 	"github.com/farseer-go/fs/container"
+	"github.com/farseer-go/fs/dateTime"
 	"github.com/farseer-go/fs/exception"
 	"github.com/farseer-go/mapper"
 	"github.com/farseer-go/redis"
-	"github.com/farseer-go/utils/times"
 	"strconv"
 	"time"
 )
@@ -56,7 +56,7 @@ func (repository taskGroupRepository) ToEntity(taskGroupId int) taskGroup.Domain
 }
 
 func (repository taskGroupRepository) TodayFailCount() int64 {
-	return repository.Task.Where("Status = ? and CreateAt >= ?", eumTaskType.Fail, times.GetDate()).Count()
+	return repository.Task.Where("Status = ? and CreateAt >= ?", eumTaskType.Fail, dateTime.Now().Date().ToTime()).Count()
 }
 
 func (repository taskGroupRepository) ToTaskSpeedList(taskGroupId int) []int64 {
@@ -92,12 +92,12 @@ func (repository taskGroupRepository) ToFinishList(taskGroupId int, top int) col
 }
 
 func (repository taskGroupRepository) AddTask(taskDO vo.TaskEO) {
-	po := mapper.Single[model.TaskPO](taskDO)
+	po := mapper.Single[model.TaskPO](&taskDO)
 	repository.Task.Insert(&po)
 }
 
 func (repository taskGroupRepository) Add(do taskGroup.DomainObject) taskGroup.DomainObject {
-	po := mapper.Single[model.TaskGroupPO](do)
+	po := mapper.Single[model.TaskGroupPO](&do)
 	repository.TaskGroup.Insert(&po)
 	do.Id = po.Id
 	repository.cacheManage.SaveItem(do)
@@ -117,7 +117,7 @@ func (repository taskGroupRepository) Delete(taskGroupId int) {
 func (repository taskGroupRepository) SyncToData() {
 	lst := repository.ToList()
 	for _, do := range lst.ToArray() {
-		po := mapper.Single[model.TaskGroupPO](do)
+		po := mapper.Single[model.TaskGroupPO](&do)
 		repository.TaskGroup.Where("Id = ?", do.Id).Update(po)
 	}
 }

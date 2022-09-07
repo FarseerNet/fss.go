@@ -8,6 +8,7 @@ import (
 	"fss/domain/tasks/taskGroup"
 	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/core/eumLogLevel"
+	"github.com/farseer-go/fs/exception"
 	"github.com/farseer-go/tasks"
 	"time"
 )
@@ -26,7 +27,7 @@ func checkWorkStatusJob(context *tasks.TaskContext) {
 
 func checkTaskGroup(taskGroup taskGroup.DomainObject, taskGroupRepository taskGroup.Repository) {
 	taskGroup = taskGroupRepository.ToEntity(taskGroup.Id)
-	if taskGroup.Task.Id < 1 {
+	if taskGroup.Task.IsNull() || taskGroup.Task.IsFinish() {
 		taskGroup.CreateTask()
 		taskGroupRepository.Save(taskGroup)
 		return
@@ -44,5 +45,11 @@ func checkTaskGroup(taskGroup taskGroup.DomainObject, taskGroupRepository taskGr
 		}
 	}
 
-	taskGroup.CheckClientOffline()
+	exception.Try(func() {
+		taskGroup.CheckClientOffline()
+	}).CatchRefuseException(func(exp *exception.RefuseException) {
+		log.TaskLogAddService(taskGroup.Id, taskGroup.JobName, taskGroup.Caption, eumLogLevel.Warning, exp.Message)
+		taskGroup.Cancel()
+		taskGroupRepository.Save(taskGroup)
+	})
 }
