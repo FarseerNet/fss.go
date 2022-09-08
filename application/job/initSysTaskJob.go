@@ -32,7 +32,7 @@ func createSysJob(lstTaskGroup collections.List[taskGroup.DomainObject], jobName
 	}).First()
 
 	taskGroupRepository := container.Resolve[taskGroup.Repository]()
-	if do.Id < 1 {
+	if do.IsNull() {
 		if data == nil {
 			data = make(map[string]string)
 		}
@@ -51,7 +51,9 @@ func createSysJob(lstTaskGroup collections.List[taskGroup.DomainObject], jobName
 		do = taskGroupRepository.ToEntity(taskGroupDTO.Id)
 	} else if !do.IsEnable {
 		do = taskGroupRepository.ToEntity(do.Id)
-		do.SetEnable(true)
-		taskGroupRepository.Save(do)
+		if !do.IsNull() {
+			do.SetEnable(true)
+			taskGroupRepository.Save(do)
+		}
 	}
 }

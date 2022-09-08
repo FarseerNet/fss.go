@@ -26,6 +26,9 @@ func checkFinishStatusJob(context *tasks.TaskContext) {
 	taskGroupRepository := container.Resolve[taskGroup.Repository]()
 	for _, taskGroupId := range ids {
 		taskGroupDO := taskGroupRepository.ToEntity(taskGroupId)
+		if taskGroupDO.IsNull() {
+			continue
+		}
 		// 加个时间，来限制并发
 		if time.Now().Sub(taskGroupDO.Task.RunAt).Seconds() < 30 {
 			continue

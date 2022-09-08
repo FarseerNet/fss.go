@@ -15,12 +15,12 @@ import (
 func CopyTaskGroup(request request.OnlyIdRequest) int {
 	repository := container.Resolve[taskGroup.Repository]()
 	taskGroupDO := repository.ToEntity(request.Id)
-	if taskGroupDO.Id < 1 {
+	if taskGroupDO.IsNull() {
 		exception.ThrowRefuseException("要复制的任务组不存在")
 	}
 
 	newTaskGroup := taskGroup.Copy(taskGroupDO)
-	repository.Add(newTaskGroup)
+	repository.Add(&newTaskGroup)
 	return newTaskGroup.Id
 }
 
@@ -37,7 +37,7 @@ func Add(dto DTO) int {
 	}
 	do := mapper.Single[taskGroup.DomainObject](&dto)
 	do.CheckInterval()
-	repository.Add(do)
+	repository.Add(&do)
 
 	do.CreateTask()
 	repository.Save(do)
@@ -48,7 +48,7 @@ func Add(dto DTO) int {
 func Save(dto DTO) {
 	repository := container.Resolve[taskGroup.Repository]()
 	do := repository.ToEntity(dto.Id)
-	if do.Id < 1 {
+	if do.IsNull() {
 		exception.ThrowRefuseException("任务组不存在")
 	}
 
@@ -62,9 +62,10 @@ func Save(dto DTO) {
 func CancelTask(request request.OnlyIdRequest) {
 	repository := container.Resolve[taskGroup.Repository]()
 	do := repository.ToEntity(request.Id)
-	do.Cancel()
-	repository.Save(do)
-
+	if !do.IsNull() {
+		do.Cancel()
+		repository.Save(do)
+	}
 	log.TaskLogAddService(request.Id, do.JobName, do.Caption, eumLogLevel.Information, "手动取消任务")
 }
 

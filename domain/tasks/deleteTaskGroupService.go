@@ -12,7 +12,7 @@ func DeleteTaskGroupService(taskGroupId int) {
 	repository := container.Resolve[taskGroup.Repository]()
 
 	var do = repository.ToEntity(taskGroupId)
-	if do.Id < 1 {
+	if do.IsNull() {
 		exception.ThrowRefuseException("要删除的任务组不存在")
 	}
 

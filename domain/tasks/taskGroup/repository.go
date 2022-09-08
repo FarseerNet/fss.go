@@ -27,7 +27,7 @@ type Repository interface {
 	// AddTask 创建任务
 	AddTask(taskDO vo.TaskEO)
 	// Add 添加任务组
-	Add(do DomainObject) DomainObject
+	Add(do *DomainObject)
 	// Save 保存任务组信息
 	Save(do DomainObject)
 	// Delete 删除任务组

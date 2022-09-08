@@ -6,6 +6,7 @@ import (
 	"fss/domain/tasks/taskGroup/vo"
 	"github.com/farseer-go/collections"
 	"github.com/farseer-go/fs/exception"
+	"github.com/farseer-go/fs/flog"
 	"github.com/farseer-go/fs/parse"
 	"github.com/farseer-go/utils/times"
 	"github.com/robfig/cron/v3"
@@ -185,6 +186,9 @@ func (do *DomainObject) CreateTask() {
 	}
 
 	if do.Task.IsFinish() {
+		if do.Task.TaskGroupId == 0 {
+			flog.Errorf("发现do.Task.TaskGroupId=0的数据，val=%v", do)
+		}
 		// 任务完成，发布完成事件
 		event.TaskFinishEvent{Task: do.Task}.PublishEvent()
 	}
@@ -263,4 +267,19 @@ func (do *DomainObject) Working(data collections.Dictionary[string, string], nex
 		do.Finish()
 		break
 	}
+}
+
+// CanScheduler 是否能调度
+func (do *DomainObject) CanScheduler(jobsName []string, ts time.Duration) bool {
+	return do.IsEnable &&
+		!do.Task.IsNull() &&
+		collections.NewList(jobsName...).Contains(do.JobName) &&
+		do.Task.Status == eumTaskType.None &&
+		do.Task.StartAt.UnixMicro() < time.Now().Add(ts).UnixMicro() &&
+		do.Task.Client.Id == 0
+}
+
+// IsNull 是否为Null
+func (do *DomainObject) IsNull() bool {
+	return do.Id < 1
 }

@@ -7,6 +7,7 @@ import (
 	"fss/domain/tasks/taskGroup/vo"
 	"github.com/farseer-go/collections"
 	"github.com/farseer-go/fs/container"
+	"github.com/farseer-go/fs/flog"
 	"github.com/farseer-go/mapper"
 	"time"
 )
@@ -23,5 +24,9 @@ func Pull(clientDTO clientApp.DTO, dto request.PullDTO) collections.List[request
 	lstDO := repository.GetCanSchedulerTaskGroup(clientDTO.Jobs, s, dto.TaskCount, clientVO)
 	var lst collections.List[request.TaskDTO]
 	lstDO.MapToList(&lst)
+
+	if lst.Where(func(item request.TaskDTO) bool { return item.TaskGroupId == 0 }).Any() {
+		flog.Errorf("发现taskGroup.Id=0的数据，count=%d", lstDO.Count())
+	}
 	return lst
 }

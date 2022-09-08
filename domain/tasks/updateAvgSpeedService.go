@@ -15,7 +15,9 @@ func UpdateAvgSpeed(taskGroupId int) {
 
 	if runSpeedAvg > 0 {
 		var do = repository.ToEntity(taskGroupId)
-		do.RunSpeedAvg = runSpeedAvg
-		repository.Save(do)
+		if !do.IsNull() {
+			do.RunSpeedAvg = runSpeedAvg
+			repository.Save(do)
+		}
 	}
 }

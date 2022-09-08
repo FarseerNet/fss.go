@@ -10,13 +10,19 @@ import (
 	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/core/eumLogLevel"
 	"github.com/farseer-go/fs/exception"
+	"github.com/farseer-go/fs/flog"
 )
 
 // JobInvoke 客户端执行任务
 func JobInvoke(clientDTO clientApp.DTO, dto request.JobInvokeDTO) string {
 	repository := container.Resolve[taskGroup.Repository]()
 	taskGroupDO := repository.ToEntity(dto.TaskGroupId)
-
+	if taskGroupDO.IsNull() {
+		flog.Error("发现taskGroupDO.TaskGroupId=0的数据")
+	}
+	if taskGroupDO.Task.TaskGroupId == 0 {
+		flog.Errorf("发现taskGroupDO.Task.TaskGroupId=0的数据，val=%v", taskGroupDO)
+	}
 	try := exception.Try(func() {
 		if taskGroupDO.Id < 1 {
 			taskGroupNotExistsMsg := fmt.Sprintf("所属的任务组：%d 不存在", dto.TaskGroupId)

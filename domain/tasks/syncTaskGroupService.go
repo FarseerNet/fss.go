@@ -13,6 +13,8 @@ func SyncTaskGroupService() {
 	for _, id := range lstIds {
 		// 从缓存中读取，然后写入数据库
 		po := taskGroupRepository.ToEntity(id)
-		taskGroupRepository.SaveToDb(po)
+		if !po.IsNull() {
+			taskGroupRepository.SaveToDb(po)
+		}
 	}
 }

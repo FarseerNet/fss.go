@@ -25,31 +25,35 @@ func checkWorkStatusJob(context *tasks.TaskContext) {
 	}
 }
 
-func checkTaskGroup(taskGroup taskGroup.DomainObject, taskGroupRepository taskGroup.Repository) {
-	taskGroup = taskGroupRepository.ToEntity(taskGroup.Id)
-	if taskGroup.Task.IsNull() || taskGroup.Task.IsFinish() {
-		taskGroup.CreateTask()
-		taskGroupRepository.Save(taskGroup)
+func checkTaskGroup(taskGroupDO taskGroup.DomainObject, taskGroupRepository taskGroup.Repository) {
+	taskGroupDO = taskGroupRepository.ToEntity(taskGroupDO.Id)
+	if taskGroupDO.IsNull() {
+		return
+	}
+
+	if taskGroupDO.Task.IsNull() || taskGroupDO.Task.IsFinish() {
+		taskGroupDO.CreateTask()
+		taskGroupRepository.Save(taskGroupDO)
 		return
 	}
 
 	// 任务不存在
-	if taskGroup.Task.Client.Id > 0 {
-		clientDO := container.Resolve[client.Repository]().ToEntity(taskGroup.Task.Client.Id)
+	if taskGroupDO.Task.Client.Id > 0 {
+		clientDO := container.Resolve[client.Repository]().ToEntity(taskGroupDO.Task.Client.Id)
 		if clientDO.Id < 1 {
-			message := fmt.Sprint("【客户端不存在】", taskGroup.Task.Client.Id, "，强制下线客户端")
-			log.TaskLogAddService(taskGroup.Id, taskGroup.JobName, taskGroup.Caption, eumLogLevel.Warning, message)
-			taskGroup.Cancel()
-			taskGroupRepository.Save(taskGroup)
+			message := fmt.Sprint("【客户端不存在】", taskGroupDO.Task.Client.Id, "，强制下线客户端")
+			log.TaskLogAddService(taskGroupDO.Id, taskGroupDO.JobName, taskGroupDO.Caption, eumLogLevel.Warning, message)
+			taskGroupDO.Cancel()
+			taskGroupRepository.Save(taskGroupDO)
 			return
 		}
 	}
 
 	exception.Try(func() {
-		taskGroup.CheckClientOffline()
+		taskGroupDO.CheckClientOffline()
 	}).CatchRefuseException(func(exp *exception.RefuseException) {
-		log.TaskLogAddService(taskGroup.Id, taskGroup.JobName, taskGroup.Caption, eumLogLevel.Warning, exp.Message)
-		taskGroup.Cancel()
-		taskGroupRepository.Save(taskGroup)
+		log.TaskLogAddService(taskGroupDO.Id, taskGroupDO.JobName, taskGroupDO.Caption, eumLogLevel.Warning, exp.Message)
+		taskGroupDO.Cancel()
+		taskGroupRepository.Save(taskGroupDO)
 	})
 }

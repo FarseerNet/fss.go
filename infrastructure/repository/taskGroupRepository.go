@@ -11,6 +11,7 @@ import (
 	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/dateTime"
 	"github.com/farseer-go/fs/exception"
+	"github.com/farseer-go/fs/flog"
 	"github.com/farseer-go/mapper"
 	"github.com/farseer-go/redis"
 	"strconv"
@@ -61,11 +62,11 @@ func (repository taskGroupRepository) TodayFailCount() int64 {
 
 func (repository taskGroupRepository) ToTaskSpeedList(taskGroupId int) []int64 {
 	lstPO := repository.Task.Where("task_group_id = ? and status = ?", taskGroupId, eumTaskType.Success).Desc("create_at").Select("RunSpeed").Limit(100).ToList()
-	var lstIds []int64
-	lstPO.Select(&lstIds, func(item model.TaskPO) any {
+	var lstSpeed []int64
+	lstPO.Select(&lstSpeed, func(item model.TaskPO) any {
 		return item.RunSpeed
 	})
-	return lstIds
+	return lstSpeed
 }
 
 func (repository taskGroupRepository) ToListByGroupId(groupId int, pageSize int, pageIndex int) collections.PageList[vo.TaskEO] {
@@ -86,25 +87,35 @@ func (repository taskGroupRepository) GetTaskGroupCount() int64 {
 
 func (repository taskGroupRepository) ToFinishList(taskGroupId int, top int) collections.List[vo.TaskEO] {
 	lstPO := repository.Task.Where("task_group_id = ? and (status = ? or status = ?)", taskGroupId, eumTaskType.Success, eumTaskType.Fail).Desc("create_at").Limit(top).ToList()
-	var lstDO collections.List[vo.TaskEO]
+	lstDO := collections.NewList[vo.TaskEO]()
+	for _, taskPO := range lstPO.ToArray() {
+		task := mapper.Single[vo.TaskEO](&taskPO)
+		lstDO.Add(task)
+	}
 	lstPO.MapToList(&lstDO)
 	return lstDO
 }
 
 func (repository taskGroupRepository) AddTask(taskDO vo.TaskEO) {
 	po := mapper.Single[model.TaskPO](&taskDO)
+	po.ClientId = taskDO.Client.Id
+	po.ClientName = taskDO.Client.Name
+	po.ClientIp = taskDO.Client.Ip
 	repository.Task.Insert(&po)
 }
 
-func (repository taskGroupRepository) Add(do taskGroup.DomainObject) taskGroup.DomainObject {
-	po := mapper.Single[model.TaskGroupPO](&do)
+func (repository taskGroupRepository) Add(do *taskGroup.DomainObject) {
+	po := mapper.Single[model.TaskGroupPO](do)
 	repository.TaskGroup.Insert(&po)
 	do.Id = po.Id
-	repository.cacheManage.SaveItem(do)
-	return do
+	repository.cacheManage.SaveItem(*do)
 }
 
 func (repository taskGroupRepository) Save(do taskGroup.DomainObject) {
+	if do.Id == 0 {
+		flog.Errorf("发现taskGroup.Id=0的数据，val=%v", do)
+	}
+
 	repository.cacheManage.SaveItem(do)
 }
 
@@ -121,11 +132,7 @@ func (repository taskGroupRepository) GetCanSchedulerTaskGroup(jobsName []string
 	}
 	defer getLocker.ReleaseLock()
 	lstSchedulerTaskGroup := repository.ToList().Where(func(item taskGroup.DomainObject) bool {
-		return item.IsEnable &&
-			collections.NewList(jobsName...).Contains(item.JobName) &&
-			item.Task.Status == eumTaskType.None &&
-			item.Task.StartAt.UnixMicro() < time.Now().Add(ts).UnixMicro() &&
-			item.Task.Client.Id == 0
+		return item.CanScheduler(jobsName, ts)
 	}).OrderBy(func(item taskGroup.DomainObject) any {
 		return item.StartAt.UnixMicro()
 	}).Take(count)
@@ -136,8 +143,12 @@ func (repository taskGroupRepository) GetCanSchedulerTaskGroup(jobsName []string
 		taskGroupDO.Scheduler(client)
 		repository.Save(taskGroupDO)
 		// 如果不相等，说明被其它客户端拿了
-		if taskGroupDO.Task.Client.Id == client.Id {
-			lst.Add(taskGroupDO.Task)
+		lst.Add(taskGroupDO.Task)
+		if taskGroupDO.Task.TaskGroupId == 0 {
+			flog.Errorf("发现taskGroupDO.Task.TaskGroupId=0的数据，val=%v", taskGroupDO.Task)
+		}
+		if taskGroupDO.Id == 0 {
+			flog.Errorf("发现taskGroup.Id=0的数据，val=%v", taskGroupDO)
 		}
 	}
 	return lst
@@ -186,7 +197,11 @@ func (repository taskGroupRepository) GetEnableTaskList(status eumTaskType.Enum,
 	}).ToList()
 
 	var lst collections.List[vo.TaskEO]
-	lstTaskGroup.MapToList(&lst)
+	for _, taskPO := range lstTaskGroup.ToArray() {
+		task := mapper.Single[vo.TaskEO](&taskPO)
+		lst.Add(task)
+	}
+	//lstTaskGroup.MapToList(&lst)
 	return lst.ToPageList(pageSize, pageIndex)
 }
 
@@ -198,6 +213,10 @@ func (repository taskGroupRepository) ClearFinish(groupId int, taskId int) {
 // SaveToDb 保存到数据库
 func (repository taskGroupRepository) SaveToDb(do taskGroup.DomainObject) {
 	po := mapper.Single[model.TaskGroupPO](&do)
+	if po.Id == 0 {
+		flog.Errorf("发现taskGroup.Id=0的数据，val=%v", do)
+	}
+
 	repository.TaskGroup.Where("Id = ?", do.Id).Update(po)
 }
 
