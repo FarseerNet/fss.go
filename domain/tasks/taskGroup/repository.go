@@ -18,6 +18,7 @@ type Repository interface {
 	ToList() collections.List[DomainObject]
 	// ToListByGroupId 获取指定任务组的任务列表（FOPS）
 	ToListByGroupId(groupId int, pageSize int, pageIndex int) collections.PageList[vo.TaskEO]
+	// ToListByClientId 获取指定客户端的任务组列表
 	ToListByClientId(clientId int64) collections.List[DomainObject]
 	// GetTaskGroupCount 获取任务组数量
 	GetTaskGroupCount() int64
@@ -31,8 +32,6 @@ type Repository interface {
 	Save(do DomainObject)
 	// Delete 删除任务组
 	Delete(taskGroupId int)
-	// SyncToData 同步数据
-	SyncToData()
 	// GetCanSchedulerTaskGroup 获取所有任务组中的任务
 	GetCanSchedulerTaskGroup(jobsName []string, ts time.Duration, count int, client vo.ClientVO) collections.List[vo.TaskEO]
 	// ToUnRunCount 获取未执行的任务数量
@@ -45,4 +44,10 @@ type Repository interface {
 	GetTaskUnFinishList(jobsName []string, top int) collections.List[DomainObject]
 	// GetEnableTaskList 获取在用的任务组
 	GetEnableTaskList(status eumTaskType.Enum, pageSize int, pageIndex int) collections.PageList[vo.TaskEO]
+	// ToIdList 从数据库中读取数据
+	ToIdList() []int
+	// SaveToDb 保存到数据库
+	SaveToDb(do DomainObject)
+	// ClearFinish 清除成功的任务记录（1天前）
+	ClearFinish(groupId int, taskId int)
 }

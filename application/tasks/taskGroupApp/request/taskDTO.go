@@ -2,6 +2,7 @@ package request
 
 import (
 	"fss/domain/_/eumTaskType"
+	"github.com/farseer-go/collections"
 	"time"
 )
 
@@ -35,5 +36,5 @@ type TaskDTO struct {
 	// 调度时间
 	SchedulerAt time.Time
 	// 数据
-	Data map[string]string
+	Data collections.Dictionary[string, string]
 }

@@ -26,7 +26,7 @@ func CopyTaskGroup(request request.OnlyIdRequest) int {
 
 // Delete Task 删除任务组
 func Delete(request request.OnlyIdRequest) {
-	tasks.TaskGroupDeleteService(request.Id)
+	tasks.DeleteTaskGroupService(request.Id)
 }
 
 // Add 添加任务组信息
@@ -70,6 +70,5 @@ func CancelTask(request request.OnlyIdRequest) {
 
 // SyncTaskGroup Task 同步数据
 func SyncTaskGroup() {
-	repository := container.Resolve[taskGroup.Repository]()
-	repository.SyncToData()
+	tasks.SyncTaskGroupService()
 }

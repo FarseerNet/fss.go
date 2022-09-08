@@ -4,7 +4,6 @@ import (
 	"fss/domain/log/taskLog"
 	"fss/infrastructure/repository/model"
 	"github.com/farseer-go/collections"
-	"github.com/farseer-go/data"
 	"github.com/farseer-go/elasticSearch"
 	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/core/eumLogLevel"
@@ -18,15 +17,13 @@ func RegisterTaskLogRepository() {
 	// 注册仓储
 	container.Register(func() taskLog.Repository {
 		var repository taskLogRepository
-		data.InitContext(&repository, "default")
 		elasticSearch.InitContext(&repository, "es")
 		return repository
 	})
 }
 
 type taskLogRepository struct {
-	TaskLog   data.TableSet[model.TaskLogPO]          `data:"name=run_log"`
-	TaskLogES elasticSearch.IndexSet[model.TaskLogPO] `es:"index=run_log_yyyy_mm;alias=run_log"`
+	TaskLog elasticSearch.IndexSet[model.TaskLogPO] `es:"index=run_log_yyyy_mm;alias=run_log"`
 }
 
 func NewTaskLogRepository() taskLogRepository {
@@ -34,7 +31,7 @@ func NewTaskLogRepository() taskLogRepository {
 }
 
 func (repository taskLogRepository) GetList(jobName string, logLevel eumLogLevel.Enum, pageSize int, pageIndex int) collections.List[taskLog.DomainObject] {
-	pageList := repository.TaskLogES.Where("JobName", jobName).Where("LogLevel", strconv.Itoa(int(logLevel))).ToPageList(pageSize, pageIndex)
+	pageList := repository.TaskLog.Where("JobName", jobName).Where("LogLevel", strconv.Itoa(int(logLevel))).ToPageList(pageSize, pageIndex)
 	return mapper.ToList[taskLog.DomainObject](pageList)
 }
 
@@ -44,7 +41,7 @@ func (repository taskLogRepository) Add(taskLogDO taskLog.DomainObject) {
 }
 
 func (repository taskLogRepository) AddBatch(lstPO collections.List[model.TaskLogPO]) {
-	err := repository.TaskLogES.InsertList(lstPO)
+	err := repository.TaskLog.InsertList(lstPO)
 	if err != nil {
 		exception.ThrowRefuseException("批量添加报错")
 	}

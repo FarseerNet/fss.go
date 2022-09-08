@@ -1,9 +1,10 @@
 package job
 
 import (
+	"fss/domain/tasks/taskGroup"
 	"fss/domain/tasks/taskGroup/vo"
-	"fss/infrastructure/repository"
 	"github.com/farseer-go/fs/configure"
+	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fss"
 )
 
@@ -14,7 +15,7 @@ func RegisterClearHisTaskJob() {
 
 func clearHisTaskJob(context fss.IFssContext) bool {
 	reservedTaskCount := configure.GetInt("FSS.ReservedTaskCount")
-	taskGroupRepository := repository.NewTaskGroupRepository()
+	taskGroupRepository := container.Resolve[taskGroup.Repository]()
 
 	curIndex := 0
 	result := 0

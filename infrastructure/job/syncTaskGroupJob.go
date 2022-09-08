@@ -1,7 +1,7 @@
 package job
 
 import (
-	"fss/infrastructure/repository"
+	"fss/domain/tasks"
 	"github.com/farseer-go/fss"
 )
 
@@ -11,16 +11,6 @@ func RegisterSyncTaskGroupJob() {
 }
 
 func syncTaskGroupJob(context fss.IFssContext) bool {
-	taskGroupRepository := repository.NewTaskGroupRepository()
-	lstGroupByDb := taskGroupRepository.ToDbList()
-	curIndex := 0
-
-	for _, taskGroupVo := range lstGroupByDb.ToArray() {
-		curIndex++
-		// 强制从缓存中再读一次，可以实现当缓存丢失时，可以重新写入该条任务组到缓存
-		po := taskGroupRepository.ToEntity(taskGroupVo.Id)
-		taskGroupRepository.Save(po)
-		context.SetProgress(curIndex / lstGroupByDb.Count() * 100)
-	}
+	tasks.SyncTaskGroupService()
 	return true
 }

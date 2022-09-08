@@ -7,8 +7,8 @@ import (
 	"github.com/farseer-go/fs/exception"
 )
 
-// TaskGroupDeleteService 删除任务组
-func TaskGroupDeleteService(taskGroupId int) {
+// DeleteTaskGroupService 删除任务组
+func DeleteTaskGroupService(taskGroupId int) {
 	repository := container.Resolve[taskGroup.Repository]()
 
 	var do = repository.ToEntity(taskGroupId)
