@@ -9,7 +9,11 @@ import (
 )
 
 func initData() {
-	for i := 1; i <= 5; i++ {
+	exists := data.NewContext[taskGroupRepository]("default").TaskGroup.Where("job_name = ?", "demo.job1").IsExists()
+	if exists {
+		return
+	}
+	for i := 1; i <= 10; i++ {
 		data.NewContext[taskGroupRepository]("default").TaskGroup.Insert(&model.TaskGroupPO{
 			Caption:     "demo.job1-" + strconv.Itoa(i),
 			JobName:     "demo.job1",
@@ -26,7 +30,7 @@ func initData() {
 		})
 	}
 
-	for i := 6; i <= 10; i++ {
+	for i := 11; i <= 20; i++ {
 		data.NewContext[taskGroupRepository]("default").TaskGroup.Insert(&model.TaskGroupPO{
 			Caption:     "demo.job2-" + strconv.Itoa(i),
 			JobName:     "demo.job2",
@@ -43,7 +47,7 @@ func initData() {
 		})
 	}
 
-	for i := 11; i <= 15; i++ {
+	for i := 21; i <= 30; i++ {
 		data.NewContext[taskGroupRepository]("default").TaskGroup.Insert(&model.TaskGroupPO{
 			Caption:     "demo.job3-" + strconv.Itoa(i),
 			JobName:     "demo.job3",

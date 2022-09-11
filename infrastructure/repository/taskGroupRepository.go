@@ -10,7 +10,6 @@ import (
 	"github.com/farseer-go/data"
 	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/dateTime"
-	"github.com/farseer-go/fs/exception"
 	"github.com/farseer-go/fs/flog"
 	"github.com/farseer-go/mapper"
 	"github.com/farseer-go/redis"
@@ -31,11 +30,18 @@ func NewTaskGroupRepository() taskGroupRepository {
 
 	// 多级缓存
 	repository.cacheManage = cache.GetCacheManage[taskGroup.DomainObject]("FSS_TaskGroup")
-	repository.cacheManage.EnableItemNullToLoadALl()
-	repository.cacheManage.SetSource(func() collections.List[taskGroup.DomainObject] {
+	repository.cacheManage.SetListSource(func() collections.List[taskGroup.DomainObject] {
 		var lst collections.List[taskGroup.DomainObject]
 		repository.TaskGroup.ToList().MapToList(&lst)
 		return lst
+	})
+	repository.cacheManage.SetItemSource(func(cacheId any) (taskGroup.DomainObject, bool) {
+		po := repository.TaskGroup.Where("Id = ?", cacheId).ToEntity()
+		if po.Id > 0 {
+			return mapper.Single[taskGroup.DomainObject](&po), true
+		}
+		var do taskGroup.DomainObject
+		return do, false
 	})
 	return *repository
 }
@@ -128,7 +134,8 @@ func (repository taskGroupRepository) Delete(taskGroupId int) {
 func (repository taskGroupRepository) GetCanSchedulerTaskGroup(jobsName []string, ts time.Duration, count int, client vo.ClientVO) collections.List[vo.TaskEO] {
 	getLocker := repository.redis.Lock.GetLocker("FSS_Scheduler", 5*time.Second)
 	if !getLocker.TryLock() {
-		exception.ThrowRefuseException("加锁失败")
+		flog.Warningf("调度任务时加锁失败，Job=%s，ClientIp=%s", collections.NewList(jobsName...).ToString(","), client.Ip)
+		return collections.NewList[vo.TaskEO]()
 	}
 	defer getLocker.ReleaseLock()
 	lstSchedulerTaskGroup := repository.ToList().Where(func(item taskGroup.DomainObject) bool {

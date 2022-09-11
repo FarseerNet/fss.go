@@ -6,7 +6,9 @@ import (
 	"fss/application/tasks/taskGroupApp/request"
 	"github.com/beego/beego/v2/server/web"
 	"github.com/farseer-go/fs/core"
+	"github.com/farseer-go/fs/flog"
 	"github.com/farseer-go/fs/parse"
+	"github.com/farseer-go/fs/stopwatch"
 	"strings"
 	"time"
 )
@@ -16,6 +18,11 @@ type TaskController struct {
 }
 
 func (r *TaskController) JobInvoke() {
+	sw := stopwatch.StartNew()
+	defer func() {
+		flog.ComponentInfof("webapi", "JobInvoke，耗时：%s", sw.GetMillisecondsText())
+	}()
+
 	// 读取结构数据
 	var dto request.JobInvokeDTO
 	_ = r.BindJSON(&dto)
@@ -29,6 +36,11 @@ func (r *TaskController) JobInvoke() {
 }
 
 func (r *TaskController) Pull() {
+	sw := stopwatch.StartNew()
+	defer func() {
+		flog.ComponentInfof("webapi", "Pull，耗时：%s", sw.GetMillisecondsText())
+	}()
+
 	// 读取结构数据
 	var dto request.PullDTO
 	_ = r.BindJSON(&dto)
