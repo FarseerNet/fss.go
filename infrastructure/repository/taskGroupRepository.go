@@ -48,7 +48,7 @@ func NewTaskGroupRepository() taskGroupRepository {
 
 type taskGroupRepository struct {
 	TaskGroup   data.TableSet[model.TaskGroupPO] `data:"name=task_group"`
-	Task        data.TableSet[model.TaskPO]      `data:"name=Task"`
+	Task        data.TableSet[model.TaskPO]      `data:"name=task"`
 	redis       *redis.Client
 	cacheManage cache.CacheManage[taskGroup.DomainObject]
 }
