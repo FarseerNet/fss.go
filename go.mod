@@ -4,30 +4,29 @@ go 1.19
 
 require (
 	github.com/beego/beego/v2 v2.0.5
-	github.com/farseer-go/cache v0.0.0-20220819160153-38bf53487eda
-	github.com/farseer-go/collections v0.0.0-20220820163327-cf129548e537
-	github.com/farseer-go/data v0.0.0-20220807120624-fac4da2a0abf
-	github.com/farseer-go/elasticSearch v0.0.0-20220828135957-a8670ec23370
-	github.com/farseer-go/eventBus v0.0.0-20220807120623-40f27eaa2b0c
-	github.com/farseer-go/fs v0.0.0-20220831104223-0ee48848b585
-	github.com/farseer-go/fss v0.0.0-20220829122104-c195b3f64949
-	github.com/farseer-go/mapper v0.0.0-20220810171111-9a91b2de6a70
-	github.com/farseer-go/queue v0.0.0-20220807120624-ed1fba96bffe
-	github.com/farseer-go/redis v0.0.0-20220807120624-a2bdad0317d6
-	github.com/farseer-go/tasks v0.0.0-20220831082810-7af977206ad0
-	github.com/farseer-go/utils v0.0.0-20220807120624-2a6017678bc9
-	github.com/farseer-go/webapi v0.0.0-20220828153910-903154759221
+	github.com/farseer-go/cache v0.0.0-20220911132250-624901a9e4f2
+	github.com/farseer-go/collections v0.0.0-20220906144914-5336a70e0335
+	github.com/farseer-go/data v0.0.0-20220907160443-bfe84a4576d1
+	github.com/farseer-go/elasticSearch v0.0.0-20220914121607-31fe0024c445
+	github.com/farseer-go/eventBus v0.0.0-20220911132249-3bf14c74bb2f
+	github.com/farseer-go/fs v0.0.0-20220914102416-12bf3ed3e22f
+	github.com/farseer-go/fss v0.0.0-20220911184843-eedd65468f63
+	github.com/farseer-go/mapper v0.0.0-20220902095248-e88ec99f0c4c
+	github.com/farseer-go/queue v0.0.0-20220911132250-bf484edd8013
+	github.com/farseer-go/redis v0.0.0-20220909055642-2179e4213fa6
+	github.com/farseer-go/tasks v0.0.0-20220911132249-fcc7ea76b71b
+	github.com/farseer-go/utils v0.0.0-20220911132250-123dec0acf71
+	github.com/farseer-go/webapi v0.0.0-20220907041435-74a3e4306698
 	github.com/robfig/cron/v3 v3.0.1
-	gorm.io/datatypes v1.0.7
 )
 
 require (
+	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/denisenkom/go-mssqldb v0.12.0 // indirect
 	github.com/devfeel/mapper v0.7.10 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
-	github.com/farseer-go/linq v0.0.0-20220807112737-d735cef4871f // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
@@ -47,6 +46,7 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
+	github.com/klauspost/compress v1.15.0 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-sqlite3 v1.14.12 // indirect
@@ -68,6 +68,8 @@ require (
 	github.com/spf13/viper v1.12.0 // indirect
 	github.com/studyzy/iocgo v0.0.0-20220102165609-54d474ad4d2a // indirect
 	github.com/subosito/gotenv v1.3.0 // indirect
+	github.com/valyala/bytebufferpool v1.0.0 // indirect
+	github.com/valyala/fasthttp v1.38.0 // indirect
 	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4 // indirect
 	golang.org/x/net v0.0.0-20220520000938-2e3eb7b945c2 // indirect
 	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect

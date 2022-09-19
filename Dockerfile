@@ -1,11 +1,19 @@
 # 注意，这里的构建上下文，是在git源代码的根目录
-FROM golang:latest AS build
+FROM golang:alpine AS build
+# 设置github代理
+ENV GOPROXY https://goproxy.cn,direct
+# 设置src目录，并将源代码复制到此
 WORKDIR /src
-
 COPY . .
 
+# 设置项目的main路径
 WORKDIR /src/${git_name}/${project_path}
-RUN go build -o /app/${git_name} .
+# 删除go.mod文件
+RUN rm -rf go.work
+# 更新go.sum
+RUN go mod tidy
+
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o /app/${git_name} -ldflags="-w -s" .
 
 FROM alpine:latest AS base
 WORKDIR /app
