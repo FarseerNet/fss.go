@@ -8,11 +8,20 @@ COPY . .
 
 # 设置项目的main路径
 WORKDIR /src/${git_name}/${project_path}
-# 删除go.mod文件
+
+# 删除go.work文件
 RUN rm -rf go.work
+
+# 删除go.mod文件
+#RUN rm -rf go.mod
+
+# 初始化go.mod
+#RUN go mod init ${git_name}
+
 # 更新go.sum
 RUN go mod tidy
 
+# 编译
 RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o /app/${git_name} -ldflags="-w -s" .
 
 FROM alpine:latest AS base
