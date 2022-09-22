@@ -6,7 +6,7 @@ import (
 	"github.com/farseer-go/webapi"
 )
 
-func main() { // main函数，程序执行的入口
+func main() { // main函数，程序执行的入口知
 	fs.Initialize[StartupModule]("fss")
 
 	webapi.AutoRouter(&interfaces.MetaController{})

@@ -15,15 +15,15 @@ import (
 
 func RegisterTaskLogRepository() {
 	// 注册仓储
-	container.Register(func() taskLog.Repository {
+	container.Use[taskLog.Repository](func() taskLog.Repository {
 		var repository taskLogRepository
 		elasticSearch.InitContext(&repository, "es")
 		return repository
-	})
+	}).Transient().Register()
 }
 
 type taskLogRepository struct {
-	TaskLog elasticSearch.IndexSet[model.TaskLogPO] `es:"index=run_log_yyyy_mm;alias=run_log"`
+	TaskLog elasticSearch.IndexSet[model.TaskLogPO] `es:"index=run_log_yyyy_MM;alias=run_log"`
 }
 
 func NewTaskLogRepository() taskLogRepository {
