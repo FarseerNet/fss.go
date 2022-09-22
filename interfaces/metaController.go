@@ -59,7 +59,7 @@ func (r *MetaController) GetRunLogList() {
 	_ = r.BindJSON(&req)
 	//调用应用层
 	result := taskLogApp.GetList(req)
-	apiResponse := core.Success("请求成功", result)
+	apiResponse := core.Success("请求成功", result.ToArray())
 	// 响应数据
 	r.Data["json"] = &apiResponse
 	_ = r.ServeJSON()
@@ -322,6 +322,24 @@ func (r *MetaController) GetEnableTaskList() {
 	//调用应用层
 	result := taskGroupApp.GetEnableTaskList(req)
 	apiResponse := core.Success("请求成功", result)
+	// 响应数据
+	r.Data["json"] = &apiResponse
+	_ = r.ServeJSON()
+}
+
+// SetEnable 设置任务组的状态
+func (r *MetaController) SetEnable() {
+	sw := stopwatch.StartNew()
+	defer func() {
+		flog.ComponentInfof("webapi", "SetEnable，耗时：%s", sw.GetMillisecondsText())
+	}()
+
+	//读取结构数据
+	var req taskReq.SetEnableRequest
+	_ = r.BindJSON(&req)
+	//调用应用层
+	taskGroupApp.SetEnable(req)
+	apiResponse := core.ApiResponseStringSuccess("请求成功")
 	// 响应数据
 	r.Data["json"] = &apiResponse
 	_ = r.ServeJSON()

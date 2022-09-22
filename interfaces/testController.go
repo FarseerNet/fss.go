@@ -12,7 +12,7 @@ type TestController struct {
 }
 
 // Pull 测试自研的API框架示例
-func (r TestController) Pull(dto request.PullDTO) core.ApiResponse[collections.List[request.TaskDTO]] {
+func (r TestController) Pull(dto request.PullRequest) core.ApiResponse[collections.List[request.TaskDTO]] {
 
 	lstTaskDTO := taskGroupApp.Pull(r.GetClient(), dto)
 	apiResponse := core.Success("成功", lstTaskDTO)

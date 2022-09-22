@@ -14,7 +14,7 @@ import (
 )
 
 // JobInvoke 客户端执行任务
-func JobInvoke(clientDTO clientApp.DTO, dto request.JobInvokeDTO) string {
+func JobInvoke(clientDTO clientApp.DTO, dto request.JobInvokeRequest) string {
 	repository := container.Resolve[taskGroup.Repository]()
 	taskGroupDO := repository.ToEntity(dto.TaskGroupId)
 	if taskGroupDO.IsNull() {

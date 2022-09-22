@@ -13,7 +13,7 @@ import (
 )
 
 // Pull 任务调度
-func Pull(clientDTO clientApp.DTO, dto request.PullDTO) collections.List[request.TaskDTO] {
+func Pull(clientDTO clientApp.DTO, dto request.PullRequest) collections.List[request.TaskDTO] {
 	repository := container.Resolve[taskGroup.Repository]()
 	clientVO := mapper.Single[vo.ClientVO](&clientDTO)
 	if dto.TaskCount == 0 {

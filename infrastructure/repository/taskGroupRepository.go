@@ -17,40 +17,36 @@ import (
 	"time"
 )
 
-func RegisterTaskGroupRepository() {
-	// 注册仓储
-	container.Register(func() taskGroup.Repository {
-		return NewTaskGroupRepository()
-	})
-}
-
-func NewTaskGroupRepository() taskGroupRepository {
-	repository := data.NewContext[taskGroupRepository]("default")
-	repository.redis = redis.NewClient("default")
-
-	// 多级缓存
-	repository.cacheManage = cache.GetCacheManage[taskGroup.DomainObject]("FSS_TaskGroup")
-	repository.cacheManage.SetListSource(func() collections.List[taskGroup.DomainObject] {
-		var lst collections.List[taskGroup.DomainObject]
-		repository.TaskGroup.ToList().MapToList(&lst)
-		return lst
-	})
-	repository.cacheManage.SetItemSource(func(cacheId any) (taskGroup.DomainObject, bool) {
-		po := repository.TaskGroup.Where("Id = ?", cacheId).ToEntity()
-		if po.Id > 0 {
-			return mapper.Single[taskGroup.DomainObject](&po), true
-		}
-		var do taskGroup.DomainObject
-		return do, false
-	})
-	return *repository
-}
-
 type taskGroupRepository struct {
 	TaskGroup   data.TableSet[model.TaskGroupPO] `data:"name=task_group"`
 	Task        data.TableSet[model.TaskPO]      `data:"name=task"`
 	redis       *redis.Client
 	cacheManage cache.CacheManage[taskGroup.DomainObject]
+}
+
+func RegisterTaskGroupRepository() {
+	// 注册仓储
+	container.Register(func() taskGroup.Repository {
+		repository := data.NewContext[taskGroupRepository]("default")
+		repository.redis = redis.NewClient("default")
+
+		// 多级缓存
+		repository.cacheManage = cache.GetCacheManage[taskGroup.DomainObject]("FSS_TaskGroup")
+		repository.cacheManage.SetListSource(func() collections.List[taskGroup.DomainObject] {
+			var lst collections.List[taskGroup.DomainObject]
+			repository.TaskGroup.ToList().MapToList(&lst)
+			return lst
+		})
+		repository.cacheManage.SetItemSource(func(cacheId any) (taskGroup.DomainObject, bool) {
+			po := repository.TaskGroup.Where("Id = ?", cacheId).ToEntity()
+			if po.Id > 0 {
+				return mapper.Single[taskGroup.DomainObject](&po), true
+			}
+			var do taskGroup.DomainObject
+			return do, false
+		})
+		return *repository
+	})
 }
 
 func (repository taskGroupRepository) ToList() collections.List[taskGroup.DomainObject] {
@@ -121,7 +117,6 @@ func (repository taskGroupRepository) Save(do taskGroup.DomainObject) {
 	if do.Id == 0 {
 		flog.Errorf("发现taskGroup.Id=0的数据，val=%v", do)
 	}
-
 	repository.cacheManage.SaveItem(do)
 }
 

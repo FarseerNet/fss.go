@@ -2,15 +2,15 @@ package clientApp
 
 import (
 	"fss/domain/clients/client"
+	"github.com/farseer-go/collections"
 	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/mapper"
 )
 
 // ToList 取出全局客户端列表
-func ToList() []DTO {
+func ToList() collections.List[client.DomainObject] {
 	repository := container.Resolve[client.Repository]()
-	lstDO := repository.ToList()
-	return mapper.Array[DTO](lstDO)
+	return repository.ToList()
 }
 
 // GetCount 客户端数量

@@ -69,7 +69,19 @@ func CancelTask(request request.OnlyIdRequest) {
 	log.TaskLogAddService(request.Id, do.JobName, do.Caption, eumLogLevel.Information, "手动取消任务")
 }
 
-// SyncTaskGroup Task 同步数据
+// SyncTaskGroup 同步数据
 func SyncTaskGroup() {
 	tasks.SyncTaskGroupService()
+}
+
+// SetEnable 设置任务组状态
+func SetEnable(request request.SetEnableRequest) {
+	repository := container.Resolve[taskGroup.Repository]()
+	do := repository.ToEntity(request.Id)
+	if do.IsNull() {
+		exception.ThrowRefuseException("任务组不存在")
+	}
+
+	do.SetEnable(request.IsEnable)
+	repository.Save(do)
 }

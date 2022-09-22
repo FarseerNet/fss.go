@@ -24,7 +24,7 @@ func (r *TaskController) JobInvoke() {
 	}()
 
 	// 读取结构数据
-	var dto request.JobInvokeDTO
+	var dto request.JobInvokeRequest
 	_ = r.BindJSON(&dto)
 
 	result := taskGroupApp.JobInvoke(r.GetClient(), dto)
@@ -42,7 +42,7 @@ func (r *TaskController) Pull() {
 	}()
 
 	// 读取结构数据
-	var dto request.PullDTO
+	var dto request.PullRequest
 	_ = r.BindJSON(&dto)
 
 	lstTaskDTO := taskGroupApp.Pull(r.GetClient(), dto)

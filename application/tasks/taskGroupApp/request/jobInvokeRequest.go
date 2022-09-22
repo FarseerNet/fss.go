@@ -5,7 +5,7 @@ import (
 	"github.com/farseer-go/collections"
 )
 
-type JobInvokeDTO struct {
+type JobInvokeRequest struct {
 	// 任务组ID
 	TaskGroupId int
 	// 下次执行时间

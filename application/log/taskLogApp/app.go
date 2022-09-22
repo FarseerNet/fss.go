@@ -4,9 +4,9 @@ import (
 	"fss/application/log/taskLogApp/request"
 	"fss/domain/log"
 	"fss/domain/log/taskLog"
+	"github.com/farseer-go/collections"
 	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/fs/core/eumLogLevel"
-	"github.com/farseer-go/mapper"
 )
 
 // Add 添加日志记录
@@ -15,8 +15,7 @@ func Add(taskGroupId int, jobName string, caption string, logLevel eumLogLevel.E
 }
 
 // GetList 获取日志
-func GetList(request request.GetRunLogRequest) []Dto {
+func GetList(request request.GetRunLogRequest) collections.List[taskLog.DomainObject] {
 	repository := container.Resolve[taskLog.Repository]()
-	lstDO := repository.GetList(request.JobName, request.LogLevel, request.PageSize, request.PageIndex)
-	return mapper.Array[Dto](lstDO)
+	return repository.GetList(request.JobName, request.LogLevel, request.PageSize, request.PageIndex)
 }
