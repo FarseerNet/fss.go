@@ -53,9 +53,13 @@ func Copy(copySource DomainObject) DomainObject {
 		Caption:    copySource.Caption + "复制",
 		JobName:    copySource.JobName,
 		Data:       copySource.Data,
+		StartAt:    copySource.StartAt,
+		NextAt:     time.Now(),
 		IntervalMs: copySource.IntervalMs,
 		Cron:       copySource.Cron,
-		IsEnable:   copySource.IsEnable,
+		ActivateAt: time.Now(),
+		LastRunAt:  time.Now(),
+		IsEnable:   false,
 	}
 }
 
@@ -102,11 +106,12 @@ func (do *DomainObject) SetCron(strCron string, intervalMs int64) {
 	// 是否为数字
 	if do.Cron != strCron || do.IntervalMs != intervalMs {
 		// 是否为数字
-		if parse.IsInt(do.Cron) {
-			do.IntervalMs = parse.Convert(do.Cron, int64(0))
+		if parse.IsInt(strCron) {
+			do.IntervalMs = parse.Convert(strCron, int64(0))
 			do.Cron = ""
 			do.NextAt = time.Now().Add(time.Duration(do.IntervalMs) * time.Millisecond)
 		} else {
+			do.Cron = strCron
 			cornSchedule, err := cron.ParseStandard(do.Cron)
 			if err != nil {
 				exception.ThrowRefuseException("Cron格式错误")
