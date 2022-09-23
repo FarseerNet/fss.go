@@ -108,6 +108,9 @@ func (repository taskGroupRepository) AddTask(taskDO vo.TaskEO) {
 
 func (repository taskGroupRepository) Add(do *taskGroup.DomainObject) {
 	po := mapper.Single[model.TaskGroupPO](do)
+	po.ActivateAt = time.Now()
+	po.LastRunAt = time.Now()
+	po.NextAt = time.Now()
 	repository.TaskGroup.Insert(&po)
 	do.Id = po.Id
 	repository.cacheManage.SaveItem(*do)
@@ -179,7 +182,7 @@ func (repository taskGroupRepository) GetTaskUnFinishList(jobsName []string, top
 	return repository.ToList().Where(func(item taskGroup.DomainObject) bool {
 		return item.IsEnable && collections.NewList(jobsName...).Contains(item.JobName) && item.Task.Status != eumTaskType.Success && item.Task.Status != eumTaskType.Fail
 	}).OrderBy(func(item taskGroup.DomainObject) any {
-		return item.StartAt.UnixMicro()
+		return item.NextAt.UnixMicro()
 	}).Take(top).ToList()
 }
 
