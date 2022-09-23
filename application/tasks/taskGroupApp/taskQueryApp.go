@@ -72,7 +72,11 @@ func GetTaskUnFinishList(onlyTopRequest request.OnlyTopRequest) collections.List
 
 	var lstTask collections.List[request.TaskDTO]
 	taskUnFinishList.Select(&lstTask, func(item taskGroup.DomainObject) any {
-		return mapper.Single[request.TaskDTO](&item.Task)
+		taskDTO := mapper.Single[request.TaskDTO](&item.Task)
+		taskDTO.ClientId = item.Task.Client.Id
+		taskDTO.ClientName = item.Task.Client.Name
+		taskDTO.ClientIp = item.Task.Client.Ip
+		return taskDTO
 	})
 
 	return lstTask
