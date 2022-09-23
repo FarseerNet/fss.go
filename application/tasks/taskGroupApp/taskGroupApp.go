@@ -38,7 +38,9 @@ func Add(dto DTO) int {
 	do := mapper.Single[taskGroup.DomainObject](&dto)
 	do.CheckInterval()
 	repository.Add(&do)
-
+	if do.IsEnable {
+		do.CalculateNextTime()
+	}
 	do.CreateTask()
 	repository.Save(do)
 	return do.Id
