@@ -182,7 +182,7 @@ func (r *MetaController) GetTaskGroupInfo() {
 	_ = r.BindJSON(&req)
 	//调用应用层
 	result := taskGroupApp.ToEntity(req)
-	if result.Id > 1 {
+	if result.Id > 0 {
 		apiResponse := core.Success("请求成功", result)
 		// 响应数据
 		r.Data["json"] = &apiResponse
