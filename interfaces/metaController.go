@@ -195,21 +195,6 @@ func (r *MetaController) GetTaskGroupInfo() {
 	_ = r.ServeJSON()
 }
 
-// GetTaskGroupList 获取所有任务组中的任务
-func (r *MetaController) GetTaskGroupList() {
-	sw := stopwatch.StartNew()
-	defer func() {
-		flog.ComponentInfof("webapi", "GetTaskGroupList，耗时：%s", sw.GetMillisecondsText())
-	}()
-
-	//调用应用层
-	result := taskGroupApp.ToList()
-	apiResponse := core.Success("请求成功", result)
-	// 响应数据
-	r.Data["json"] = &apiResponse
-	_ = r.ServeJSON()
-}
-
 // TodayTaskFailCount 今日执行失败数量
 func (r *MetaController) TodayTaskFailCount() {
 	sw := stopwatch.StartNew()
@@ -218,7 +203,7 @@ func (r *MetaController) TodayTaskFailCount() {
 	}()
 
 	//调用应用层
-	result := taskGroupApp.TodayFailCount()
+	result := taskGroupApp.TodayTaskFailCount()
 	apiResponse := core.ApiResponseLongSuccess("请求成功", result)
 	// 响应数据
 	r.Data["json"] = &apiResponse
@@ -248,14 +233,14 @@ func (r *MetaController) GetTaskGroupUnRunCount() {
 	}()
 
 	//调用应用层
-	result := taskGroupApp.ToUnRunCount()
+	result := taskGroupApp.GetTaskGroupUnRunCount()
 	apiResponse := core.ApiResponseIntSuccess("请求成功", result)
 	// 响应数据
 	r.Data["json"] = &apiResponse
 	_ = r.ServeJSON()
 }
 
-// GetTaskList 获取指定任务组的任务列表（FOPS）
+// GetTaskList 获取当前任务（FOPS）
 func (r *MetaController) GetTaskList() {
 	sw := stopwatch.StartNew()
 	defer func() {
@@ -284,7 +269,7 @@ func (r *MetaController) GetTaskFinishList() {
 	var req taskReq.PageSizeRequest
 	_ = r.BindJSON(&req)
 	//调用应用层
-	result := taskGroupApp.ToFinishPageList(req)
+	result := taskGroupApp.GetTaskFinishList(req)
 	apiResponse := core.Success("请求成功", result)
 	// 响应数据
 	r.Data["json"] = &apiResponse
@@ -340,6 +325,21 @@ func (r *MetaController) SetEnable() {
 	//调用应用层
 	taskGroupApp.SetEnable(req)
 	apiResponse := core.ApiResponseStringSuccess("请求成功")
+	// 响应数据
+	r.Data["json"] = &apiResponse
+	_ = r.ServeJSON()
+}
+
+// GetTaskGroupList 获取所有任务组中的任务
+func (r *MetaController) GetTaskGroupList() {
+	sw := stopwatch.StartNew()
+	defer func() {
+		flog.ComponentInfof("webapi", "GetTaskGroupList，耗时：%s", sw.GetMillisecondsText())
+	}()
+
+	//调用应用层
+	result := taskGroupApp.ToList()
+	apiResponse := core.Success("请求成功", result)
 	// 响应数据
 	r.Data["json"] = &apiResponse
 	_ = r.ServeJSON()

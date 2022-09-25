@@ -71,11 +71,6 @@ func (repository taskGroupRepository) ToTaskSpeedList(taskGroupId int) []int64 {
 	return lstSpeed
 }
 
-func (repository taskGroupRepository) ToListByGroupId(groupId int, pageSize int, pageIndex int) collections.PageList[vo.TaskEO] {
-	page := repository.Task.Where("task_group_id = ?", groupId).Select("Id", "Caption", "Progress", "Status", "StartAt", "CreateAt", "ClientIp", "RunSpeed", "RunAt").Desc("create_at").ToPageList(pageSize, pageIndex)
-	return mapper.ToPageList[vo.TaskEO](page.List, page.RecordCount)
-}
-
 func (repository taskGroupRepository) ToListByClientId(clientId int64) collections.List[taskGroup.DomainObject] {
 	lst := repository.ToList()
 	return lst.Where(func(item taskGroup.DomainObject) bool {
@@ -85,17 +80,6 @@ func (repository taskGroupRepository) ToListByClientId(clientId int64) collectio
 
 func (repository taskGroupRepository) GetTaskGroupCount() int64 {
 	return int64(repository.cacheManage.Count())
-}
-
-func (repository taskGroupRepository) ToFinishList(taskGroupId int, top int) collections.List[vo.TaskEO] {
-	lstPO := repository.Task.Where("task_group_id = ? and (status = ? or status = ?)", taskGroupId, eumTaskType.Success, eumTaskType.Fail).Desc("create_at").Limit(top).ToList()
-	lstDO := collections.NewList[vo.TaskEO]()
-	for _, taskPO := range lstPO.ToArray() {
-		task := mapper.Single[vo.TaskEO](&taskPO)
-		lstDO.Add(task)
-	}
-	lstPO.MapToList(&lstDO)
-	return lstDO
 }
 
 func (repository taskGroupRepository) AddTask(taskDO vo.TaskEO) {
@@ -129,6 +113,57 @@ func (repository taskGroupRepository) Delete(taskGroupId int) {
 	repository.cacheManage.Remove(strconv.Itoa(taskGroupId))
 }
 
+func (repository taskGroupRepository) ToUnRunCount() int {
+	return repository.ToList().Where(func(item taskGroup.DomainObject) bool {
+		return item.Task.Status == eumTaskType.None || item.Task.Status == eumTaskType.Scheduler || item.Task.CreateAt.UnixMicro() < time.Now().UnixMicro()
+	}).Count()
+}
+
+func (repository taskGroupRepository) ToSchedulerWorkingList() collections.List[taskGroup.DomainObject] {
+	return repository.ToList().Where(func(item taskGroup.DomainObject) bool {
+		return item.Task.Status == eumTaskType.Scheduler || item.Task.Status == eumTaskType.Working
+	}).ToList()
+}
+
+func (repository taskGroupRepository) GetTaskUnFinishList(jobsName []string, top int) collections.List[taskGroup.DomainObject] {
+	return repository.ToList().Where(func(item taskGroup.DomainObject) bool {
+		return item.IsEnable && collections.NewList(jobsName...).Contains(item.JobName) && item.Task.Status != eumTaskType.Success && item.Task.Status != eumTaskType.Fail
+	}).OrderBy(func(item taskGroup.DomainObject) any {
+		return item.NextAt.UnixMicro()
+	}).Take(top).ToList()
+}
+
+// ClearFinish 清除成功的任务记录（1天前）
+func (repository taskGroupRepository) ClearFinish(groupId int, taskId int) {
+	repository.Task.Where("task_group_id = ? and (status = ? or status = ?) and create_at < ? and Id < ?", groupId, eumTaskType.Success, eumTaskType.Fail, time.Now().Add(-24*time.Hour), taskId).Delete()
+}
+
+// SaveToDb 保存到数据库
+func (repository taskGroupRepository) SaveToDb(do taskGroup.DomainObject) {
+	po := mapper.Single[model.TaskGroupPO](&do)
+	if po.Id == 0 {
+		flog.Errorf("发现taskGroup.Id=0的数据，val=%v", do)
+	}
+
+	repository.TaskGroup.Where("Id = ?", do.Id).Update(po)
+}
+
+// ToIdList 从数据库中读取数据
+func (repository taskGroupRepository) ToIdList() []int {
+	lst := repository.TaskGroup.Select("Id").ToList()
+	var lstIds []int
+	lst.Select(&lstIds, func(item model.TaskGroupPO) any {
+		return item.Id
+	})
+	return lstIds
+}
+
+func (repository taskGroupRepository) ToListByGroupId(groupId int, pageSize int, pageIndex int) collections.PageList[vo.TaskEO] {
+	page := repository.Task.Where("task_group_id = ?", groupId).Desc("create_at").ToPageList(pageSize, pageIndex)
+	//return mapper.ToPageList[vo.TaskEO](page.List, page.RecordCount)
+	return repository.toPageListTaskEO(page)
+}
+
 func (repository taskGroupRepository) GetCanSchedulerTaskGroup(jobsName []string, ts time.Duration, count int, client vo.ClientVO) collections.List[vo.TaskEO] {
 	getLocker := repository.redis.Lock.GetLocker("FSS_Scheduler", 5*time.Second)
 	if !getLocker.TryLock() {
@@ -159,33 +194,6 @@ func (repository taskGroupRepository) GetCanSchedulerTaskGroup(jobsName []string
 	return lst
 }
 
-func (repository taskGroupRepository) ToUnRunCount() int {
-	return repository.ToList().Where(func(item taskGroup.DomainObject) bool {
-		return item.Task.Status == eumTaskType.None || item.Task.Status == eumTaskType.Scheduler || item.Task.CreateAt.UnixMicro() < time.Now().UnixMicro()
-	}).Count()
-}
-
-func (repository taskGroupRepository) ToSchedulerWorkingList() collections.List[taskGroup.DomainObject] {
-	return repository.ToList().Where(func(item taskGroup.DomainObject) bool {
-		return item.Task.Status == eumTaskType.Scheduler || item.Task.Status == eumTaskType.Working
-	}).ToList()
-}
-
-func (repository taskGroupRepository) ToFinishPageList(pageSize int, pageIndex int) collections.PageList[vo.TaskEO] {
-	pageList := repository.Task.Where("(status = ? or status = ?) and (create_at >= ?)", eumTaskType.Fail, eumTaskType.Success, time.Now().Add(-24*time.Hour)).
-		Select("Id", "Caption", "Progress", "Status", "StartAt", "CreateAt", "ClientIp", "RunSpeed", "RunAt", "JobName").
-		Desc("run_at").ToPageList(pageSize, pageIndex)
-	return mapper.ToPageList[vo.TaskEO](pageList.List, pageList.RecordCount)
-}
-
-func (repository taskGroupRepository) GetTaskUnFinishList(jobsName []string, top int) collections.List[taskGroup.DomainObject] {
-	return repository.ToList().Where(func(item taskGroup.DomainObject) bool {
-		return item.IsEnable && collections.NewList(jobsName...).Contains(item.JobName) && item.Task.Status != eumTaskType.Success && item.Task.Status != eumTaskType.Fail
-	}).OrderBy(func(item taskGroup.DomainObject) any {
-		return item.NextAt.UnixMicro()
-	}).Take(top).ToList()
-}
-
 func (repository taskGroupRepository) GetEnableTaskList(status eumTaskType.Enum, pageSize int, pageIndex int) collections.PageList[vo.TaskEO] {
 	lstTaskGroup := repository.ToList().Where(func(item taskGroup.DomainObject) bool {
 		return item.IsEnable
@@ -202,35 +210,37 @@ func (repository taskGroupRepository) GetEnableTaskList(status eumTaskType.Enum,
 	}).ToList()
 
 	var lst collections.List[vo.TaskEO]
-	for _, taskPO := range lstTaskGroup.ToArray() {
-		task := mapper.Single[vo.TaskEO](&taskPO)
-		lst.Add(task)
-	}
-	//lstTaskGroup.MapToList(&lst)
+	lstTaskGroup.Select(&lst, func(item taskGroup.DomainObject) any {
+		return item.Task
+	})
 	return lst.ToPageList(pageSize, pageIndex)
 }
 
-// ClearFinish 清除成功的任务记录（1天前）
-func (repository taskGroupRepository) ClearFinish(groupId int, taskId int) {
-	repository.Task.Where("task_group_id = ? and (status = ? or status = ?) and create_at < ? and Id < ?", groupId, eumTaskType.Success, eumTaskType.Fail, time.Now().Add(-24*time.Hour), taskId).Delete()
+func (repository taskGroupRepository) ToFinishPageList(pageSize int, pageIndex int) collections.PageList[vo.TaskEO] {
+	page := repository.Task.Where("(status = ? or status = ?) and (create_at >= ?)", eumTaskType.Fail, eumTaskType.Success, time.Now().Add(-24*time.Hour)).
+		Desc("run_at").ToPageList(pageSize, pageIndex)
+	//return mapper.ToPageList[vo.TaskEO](pageList.List, pageList.RecordCount)
+	return repository.toPageListTaskEO(page)
 }
 
-// SaveToDb 保存到数据库
-func (repository taskGroupRepository) SaveToDb(do taskGroup.DomainObject) {
-	po := mapper.Single[model.TaskGroupPO](&do)
-	if po.Id == 0 {
-		flog.Errorf("发现taskGroup.Id=0的数据，val=%v", do)
-	}
-
-	repository.TaskGroup.Where("Id = ?", do.Id).Update(po)
+func (repository taskGroupRepository) ToFinishList(taskGroupId int, top int) collections.List[vo.TaskEO] {
+	lstPO := repository.Task.Where("task_group_id = ? and (status = ? or status = ?)", taskGroupId, eumTaskType.Success, eumTaskType.Fail).Desc("create_at").Limit(top).ToList()
+	return repository.toListTaskEO(lstPO)
 }
 
-// ToIdList 从数据库中读取数据
-func (repository taskGroupRepository) ToIdList() []int {
-	lst := repository.TaskGroup.Select("Id").ToList()
-	var lstIds []int
-	lst.Select(&lstIds, func(item model.TaskGroupPO) any {
-		return item.Id
+func (repository taskGroupRepository) toPageListTaskEO(page collections.PageList[model.TaskPO]) collections.PageList[vo.TaskEO] {
+	lst := repository.toListTaskEO(page.List)
+	return collections.NewPageList[vo.TaskEO](lst, page.RecordCount)
+}
+
+func (repository taskGroupRepository) toListTaskEO(lstPO collections.List[model.TaskPO]) collections.List[vo.TaskEO] {
+	var lst collections.List[vo.TaskEO]
+	lstPO.Select(&lst, func(item model.TaskPO) any {
+		eo := mapper.Single[vo.TaskEO](&item)
+		eo.Client.Id = item.ClientId
+		eo.Client.Ip = item.ClientIp
+		eo.Client.Name = item.ClientName
+		return eo
 	})
-	return lstIds
+	return lst
 }

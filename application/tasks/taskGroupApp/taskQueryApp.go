@@ -4,6 +4,7 @@ import (
 	"fss/application/tasks/taskGroupApp/request"
 	"fss/domain/clients/client"
 	"fss/domain/tasks/taskGroup"
+	"fss/domain/tasks/taskGroup/vo"
 	"github.com/farseer-go/collections"
 	"github.com/farseer-go/fs/container"
 	"github.com/farseer-go/mapper"
@@ -22,15 +23,8 @@ func ToList() collections.List[taskGroup.DomainObject] {
 	return repository.ToList()
 }
 
-// GetTaskList ToList 获取指定任务组的任务列表（FOPS）
-func GetTaskList(getTaskListRequest request.GetTaskListRequest) collections.PageList[request.TaskDTO] {
-	repository := container.Resolve[taskGroup.Repository]()
-	page := repository.ToListByGroupId(getTaskListRequest.GroupId, getTaskListRequest.PageSize, getTaskListRequest.PageIndex)
-	return mapper.ToPageList[request.TaskDTO](page.List, page.RecordCount)
-}
-
-// TodayFailCount 今日执行失败数量
-func TodayFailCount() int64 {
+// TodayTaskFailCount 今日执行失败数量
+func TodayTaskFailCount() int64 {
 	repository := container.Resolve[taskGroup.Repository]()
 	return repository.TodayFailCount()
 }
@@ -41,26 +35,55 @@ func GetTaskGroupCount() int64 {
 	return repository.GetTaskGroupCount()
 }
 
-// ToUnRunCount 获取未执行的任务数量
-func ToUnRunCount() int {
+// GetTaskGroupUnRunCount 获取未执行的任务数量
+func GetTaskGroupUnRunCount() int {
 	repository := container.Resolve[taskGroup.Repository]()
 	return repository.ToUnRunCount()
 }
 
-// ToFinishPageList 获取已完成的任务列表
-func ToFinishPageList(pageSizeRequest request.PageSizeRequest) collections.PageList[request.TaskDTO] {
+// GetTaskList ToList 获取指定任务组的任务列表（FOPS）
+func GetTaskList(getTaskListRequest request.GetTaskListRequest) collections.PageList[vo.TaskEO] {
 	repository := container.Resolve[taskGroup.Repository]()
-	page := repository.ToFinishPageList(pageSizeRequest.PageSize, pageSizeRequest.PageIndex)
-	return mapper.ToPageList[request.TaskDTO](page.List, page.RecordCount)
+	return repository.ToListByGroupId(getTaskListRequest.GroupId, getTaskListRequest.PageSize, getTaskListRequest.PageIndex)
+
+	//return mapper.ToPageList[request.TaskDTO](page.List, page.RecordCount)
+	//lst := collections.NewList[request.TaskDTO]()
+	//for i := 0; i < page.List.Count(); i++ {
+	//	item := page.List.Index(i)
+	//	dto := mapper.Single[request.TaskDTO](&item)
+	//	dto.ClientId = item.Client.Id
+	//	dto.ClientIp = item.Client.Ip
+	//	dto.ClientName = item.Client.Name
+	//	lst.Add(dto)
+	//}
+	//return collections.NewPageList[request.TaskDTO](lst, page.RecordCount)
+}
+
+// GetTaskFinishList 获取已完成的任务列表
+func GetTaskFinishList(pageSizeRequest request.PageSizeRequest) collections.PageList[vo.TaskEO] {
+	repository := container.Resolve[taskGroup.Repository]()
+	return repository.ToFinishPageList(pageSizeRequest.PageSize, pageSizeRequest.PageIndex)
+
+	//return mapper.ToPageList[request.TaskDTO](page.List, page.RecordCount)
+	//lst := collections.NewList[request.TaskDTO]()
+	//for i := 0; i < page.List.Count(); i++ {
+	//	item := page.List.Index(i)
+	//	dto := mapper.Single[request.TaskDTO](&item)
+	//	dto.ClientId = item.Client.Id
+	//	dto.ClientIp = item.Client.Ip
+	//	dto.ClientName = item.Client.Name
+	//	lst.Add(dto)
+	//}
+	//return collections.NewPageList[request.TaskDTO](lst, page.RecordCount)
 }
 
 // GetTaskUnFinishList 获取进行中的任务
-func GetTaskUnFinishList(onlyTopRequest request.OnlyTopRequest) collections.List[request.TaskDTO] {
+func GetTaskUnFinishList(onlyTopRequest request.OnlyTopRequest) collections.List[vo.TaskEO] {
 	repository := container.Resolve[taskGroup.Repository]()
 	clientRepository := container.Resolve[client.Repository]()
 	lstClient := clientRepository.ToList()
 	if lstClient.IsEmpty() {
-		return collections.NewList[request.TaskDTO]()
+		return collections.NewList[vo.TaskEO]()
 	}
 
 	var lstJobs []string
@@ -70,21 +93,27 @@ func GetTaskUnFinishList(onlyTopRequest request.OnlyTopRequest) collections.List
 
 	taskUnFinishList := repository.GetTaskUnFinishList(lstJobs, onlyTopRequest.Top)
 
-	var lstTask collections.List[request.TaskDTO]
+	var lstTask collections.List[vo.TaskEO]
 	taskUnFinishList.Select(&lstTask, func(item taskGroup.DomainObject) any {
-		taskDTO := mapper.Single[request.TaskDTO](&item.Task)
-		taskDTO.ClientId = item.Task.Client.Id
-		taskDTO.ClientName = item.Task.Client.Name
-		taskDTO.ClientIp = item.Task.Client.Ip
-		return taskDTO
+		return item.Task
 	})
-
 	return lstTask
 }
 
 // GetEnableTaskList 获取在用的任务组
-func GetEnableTaskList(getAllTaskListRequest request.GetAllTaskListRequest) collections.PageList[request.TaskDTO] {
+func GetEnableTaskList(getAllTaskListRequest request.GetAllTaskListRequest) collections.PageList[vo.TaskEO] {
 	repository := container.Resolve[taskGroup.Repository]()
-	var lst = repository.GetEnableTaskList(getAllTaskListRequest.Status, getAllTaskListRequest.PageSize, getAllTaskListRequest.PageIndex)
-	return mapper.ToPageList[request.TaskDTO](lst.List, lst.RecordCount)
+	return repository.GetEnableTaskList(getAllTaskListRequest.Status, getAllTaskListRequest.PageSize, getAllTaskListRequest.PageIndex)
+	//return mapper.ToPageList[request.TaskDTO](page.List, page.RecordCount)
+
+	//lst := collections.NewList[request.TaskDTO]()
+	//for i := 0; i < page.List.Count(); i++ {
+	//	item := page.List.Index(i)
+	//	dto := mapper.Single[request.TaskDTO](&item)
+	//	dto.ClientId = item.Client.Id
+	//	dto.ClientIp = item.Client.Ip
+	//	dto.ClientName = item.Client.Name
+	//	lst.Add(dto)
+	//}
+	//return collections.NewPageList[request.TaskDTO](lst, page.RecordCount)
 }
