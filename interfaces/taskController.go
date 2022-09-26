@@ -2,7 +2,6 @@ package interfaces
 
 import (
 	"fss/application/clients/clientApp"
-	"fss/application/log/taskLogApp"
 	"fss/application/tasks/taskGroupApp"
 	"fss/application/tasks/taskGroupApp/request"
 	"github.com/beego/beego/v2/server/web"
@@ -41,7 +40,7 @@ func (r *TaskController) Pull() {
 	defer func() {
 		flog.ComponentInfof("webapi", "Pull，耗时：%s", sw.GetMillisecondsText())
 	}()
-	taskLogApp.Add(0, "test", "test2", 0, "test3")
+
 	// 读取结构数据
 	var dto request.PullRequest
 	_ = r.BindJSON(&dto)
