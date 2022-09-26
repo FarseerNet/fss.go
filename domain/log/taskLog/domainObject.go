@@ -8,8 +8,6 @@ import (
 )
 
 type DomainObject struct {
-	// 主键
-	Id int64
 	// 任务组记录ID
 	TaskGroupId int
 	// 任务组标题

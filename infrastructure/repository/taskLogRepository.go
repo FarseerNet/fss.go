@@ -10,7 +10,6 @@ import (
 	"github.com/farseer-go/fs/exception"
 	"github.com/farseer-go/mapper"
 	"github.com/farseer-go/queue"
-	"strconv"
 )
 
 func RegisterTaskLogRepository() {
@@ -23,16 +22,18 @@ func RegisterTaskLogRepository() {
 }
 
 type taskLogRepository struct {
-	TaskLog elasticSearch.IndexSet[model.TaskLogPO] `es:"index=run_log_yyyy_MM;alias=run_log"`
+	TaskLog elasticSearch.IndexSet[model.TaskLogPO] `es:"index=fsslog_yyyy_MM;alias=fsslog"`
 }
 
 func NewTaskLogRepository() taskLogRepository {
 	return container.Resolve[taskLog.Repository]().(taskLogRepository)
 }
 
-func (repository taskLogRepository) GetList(jobName string, logLevel eumLogLevel.Enum, pageSize int, pageIndex int) collections.List[taskLog.DomainObject] {
-	pageList := repository.TaskLog.Where("JobName", jobName).Where("LogLevel", strconv.Itoa(int(logLevel))).ToPageList(pageSize, pageIndex)
-	return mapper.ToList[taskLog.DomainObject](pageList)
+func (repository taskLogRepository) GetList(jobName string, logLevel eumLogLevel.Enum, pageSize int, pageIndex int) collections.PageList[taskLog.DomainObject] {
+	pageList := repository.TaskLog.Where("JobName", jobName).Where("LogLevel", logLevel).ToPageList(pageSize, pageIndex)
+	var pageListDO collections.PageList[taskLog.DomainObject]
+	pageList.MapToPageList(&pageListDO)
+	return pageListDO
 }
 
 func (repository taskLogRepository) Add(taskLogDO taskLog.DomainObject) {

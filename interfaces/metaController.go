@@ -59,7 +59,7 @@ func (r *MetaController) GetRunLogList() {
 	_ = r.BindJSON(&req)
 	//调用应用层
 	result := taskLogApp.GetList(req)
-	apiResponse := core.Success("请求成功", result.ToArray())
+	apiResponse := core.Success("请求成功", result)
 	// 响应数据
 	r.Data["json"] = &apiResponse
 	_ = r.ServeJSON()

@@ -15,7 +15,7 @@ func Add(taskGroupId int, jobName string, caption string, logLevel eumLogLevel.E
 }
 
 // GetList 获取日志
-func GetList(request request.GetRunLogRequest) collections.List[taskLog.DomainObject] {
+func GetList(request request.GetRunLogRequest) collections.PageList[taskLog.DomainObject] {
 	repository := container.Resolve[taskLog.Repository]()
 	return repository.GetList(request.JobName, request.LogLevel, request.PageSize, request.PageIndex)
 }

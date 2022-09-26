@@ -6,8 +6,8 @@ import (
 )
 
 type TaskLogPO struct {
-	// 主键
-	Id int64 `gorm:"primaryKey" es_type:"long"`
+	//// 主键
+	//Id int64 `gorm:"primaryKey" es_type:"long"`
 	// 任务组记录ID
 	TaskGroupId int `es_type:"integer"`
 	// 任务组标题
@@ -17,7 +17,7 @@ type TaskLogPO struct {
 	// 日志级别
 	LogLevel eumLogLevel.Enum `es_type:"byte"`
 	// 日志内容
-	Content string `es_type:"test"`
+	Content string `es_type:"text"`
 	// 日志时间
 	CreateAt time.Time `es_type:"date"`
 }
