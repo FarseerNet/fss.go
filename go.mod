@@ -5,17 +5,17 @@ go 1.19
 require (
 	github.com/beego/beego/v2 v2.0.5
 	github.com/farseer-go/cache v0.1.0
-	github.com/farseer-go/collections v0.1.0
+	github.com/farseer-go/collections v0.1.1
 	github.com/farseer-go/data v0.1.0
 	github.com/farseer-go/elasticSearch v0.0.0-20220914121607-31fe0024c445
 	github.com/farseer-go/eventBus v0.1.0
 	github.com/farseer-go/fs v0.1.0
-	github.com/farseer-go/fss v0.0.0-20220911184843-eedd65468f63
-	github.com/farseer-go/mapper v0.1.0
+	github.com/farseer-go/fss v0.1.0
+	github.com/farseer-go/mapper v0.1.1
 	github.com/farseer-go/queue v0.1.0
 	github.com/farseer-go/redis v0.1.0
 	github.com/farseer-go/tasks v0.1.0
-	github.com/farseer-go/utils v0.0.0-20220911132250-123dec0acf71
+	github.com/farseer-go/utils v0.1.0
 	github.com/farseer-go/webapi v0.0.0-20220907041435-74a3e4306698
 	github.com/robfig/cron/v3 v3.0.1
 )
