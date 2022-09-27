@@ -7,7 +7,7 @@ require (
 	github.com/farseer-go/cache v0.1.0
 	github.com/farseer-go/collections v0.1.1
 	github.com/farseer-go/data v0.1.0
-	github.com/farseer-go/elasticSearch v0.0.0-20220914121607-31fe0024c445
+	github.com/farseer-go/elasticSearch v0.0.0-20220927092742-919d02f2b53c
 	github.com/farseer-go/eventBus v0.1.0
 	github.com/farseer-go/fs v0.1.0
 	github.com/farseer-go/fss v0.1.0
