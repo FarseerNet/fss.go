@@ -6,8 +6,7 @@ import (
 
 // TaskSpeed 任务执行速度
 type TaskSpeed struct {
-	// 任务的所有执行速度
-	speedList []int64
+	speedList []int64 // 任务的所有执行速度
 }
 
 func NewTaskSpeed(speedList []int64) *TaskSpeed {

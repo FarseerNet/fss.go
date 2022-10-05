@@ -3,8 +3,7 @@ package request
 import "fss/domain/_/eumTaskType"
 
 type GetAllTaskListRequest struct {
-	// 状态
-	Status    eumTaskType.Enum
+	Status    eumTaskType.Enum // 状态
 	PageSize  int
 	PageIndex int
 }

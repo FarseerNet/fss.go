@@ -6,10 +6,7 @@ import (
 )
 
 type LogRequest struct {
-	// 日志等级
-	LogLevel eumLogLevel.Enum
-	// 日志内容
-	Log string
-	// 记录时间
-	CreateAt time.Time
+	LogLevel eumLogLevel.Enum // 日志等级
+	Log      string           // 日志内容
+	CreateAt time.Time        // 记录时间
 }

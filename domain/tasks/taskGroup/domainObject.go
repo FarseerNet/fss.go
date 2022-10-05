@@ -17,34 +17,20 @@ import (
 )
 
 type DomainObject struct {
-	// 主键
-	Id int
-	// 任务
-	Task vo.TaskEO
-	// 任务组标题
-	Caption string
-	// 实现Job的特性名称（客户端识别哪个实现类）
-	JobName string
-	// 本次执行任务时的Data数据
-	Data collections.Dictionary[string, string]
-	// 开始时间
-	StartAt time.Time
-	// 下次执行时间
-	NextAt time.Time
-	// 时间间隔
-	IntervalMs int64
-	// 时间定时器表达式
-	Cron string
-	// 活动时间
-	ActivateAt time.Time
-	// 最后一次完成时间
-	LastRunAt time.Time
-	// 是否开启
-	IsEnable bool
-	// 运行平均耗时
-	RunSpeedAvg int64
-	// 运行次数
-	RunCount int
+	Id          int                                    // 主键
+	Task        vo.TaskEO                              // 任务
+	Caption     string                                 // 任务组标题
+	JobName     string                                 // 实现Job的特性名称（客户端识别哪个实现类）
+	Data        collections.Dictionary[string, string] // 本次执行任务时的Data数据
+	StartAt     time.Time                              // 开始时间
+	NextAt      time.Time                              // 下次执行时间
+	IntervalMs  int64                                  // 时间间隔
+	Cron        string                                 // 时间定时器表达式
+	ActivateAt  time.Time                              // 活动时间
+	LastRunAt   time.Time                              // 最后一次完成时间
+	IsEnable    bool                                   // 是否开启
+	RunSpeedAvg int64                                  // 运行平均耗时
+	RunCount    int                                    // 运行次数
 }
 
 // Copy 复制新的任务组

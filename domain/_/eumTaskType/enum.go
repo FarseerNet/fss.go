@@ -3,16 +3,11 @@ package eumTaskType
 type Enum int
 
 const (
-	// None 未开始
-	None Enum = iota
-	// Scheduler 已调度
-	Scheduler
-	// Working 执行中
-	Working
-	// Fail 失败
-	Fail
-	// Success 完成
-	Success
+	None      Enum = iota // None 未开始
+	Scheduler             // Scheduler 已调度
+	Working               // Working 执行中
+	Fail                  // Fail 失败
+	Success               // Success 完成
 )
 
 func (e Enum) String() string {

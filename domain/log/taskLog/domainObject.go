@@ -8,18 +8,12 @@ import (
 )
 
 type DomainObject struct {
-	// 任务组记录ID
-	TaskGroupId int
-	// 任务组标题
-	Caption string
-	// 实现Job的特性名称（客户端识别哪个实现类）
-	JobName string
-	// 日志级别
-	LogLevel eumLogLevel.Enum
-	// 日志内容
-	Content string
-	// 日志时间
-	CreateAt time.Time
+	TaskGroupId int              // 任务组记录ID
+	Caption     string           // 任务组标题
+	JobName     string           // 实现Job的特性名称（客户端识别哪个实现类）
+	LogLevel    eumLogLevel.Enum // 日志级别
+	Content     string           // 日志内容
+	CreateAt    time.Time        // 日志时间
 }
 
 func NewDO(taskGroupId int, jobName string, caption string, logLevel eumLogLevel.Enum, content string) DomainObject {
