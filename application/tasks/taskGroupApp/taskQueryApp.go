@@ -7,6 +7,7 @@ import (
 	"fss/domain/tasks/taskGroup/vo"
 	"github.com/farseer-go/collections"
 	"github.com/farseer-go/fs/container"
+	"github.com/farseer-go/fs/exception"
 	"github.com/farseer-go/mapper"
 )
 
@@ -14,7 +15,11 @@ import (
 func ToEntity(request request.OnlyIdRequest) DTO {
 	repository := container.Resolve[taskGroup.Repository]()
 	do := repository.ToEntity(request.Id)
-	return mapper.Single[DTO](&do)
+	dto := mapper.Single[DTO](&do)
+	if dto.Id < 1 {
+		exception.ThrowWebException(403, "数据不存在")
+	}
+	return dto
 }
 
 // ToList 获取所有任务组中的任务

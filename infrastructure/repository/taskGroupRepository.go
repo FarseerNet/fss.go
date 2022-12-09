@@ -84,9 +84,9 @@ func (repository taskGroupRepository) GetTaskGroupCount() int64 {
 
 func (repository taskGroupRepository) AddTask(taskDO vo.TaskEO) {
 	po := mapper.Single[model.TaskPO](&taskDO)
-	po.ClientId = taskDO.Client.Id
-	po.ClientName = taskDO.Client.Name
-	po.ClientIp = taskDO.Client.Ip
+	//po.ClientId = taskDO.Client.Id
+	//po.ClientName = taskDO.Client.Name
+	//po.ClientIp = taskDO.Client.Ip
 	repository.Task.Insert(&po)
 }
 
@@ -225,11 +225,13 @@ func (repository taskGroupRepository) ToFinishPageList(pageSize int, pageIndex i
 
 func (repository taskGroupRepository) ToFinishList(taskGroupId int, top int) collections.List[vo.TaskEO] {
 	lstPO := repository.Task.Where("task_group_id = ? and (status = ? or status = ?)", taskGroupId, eumTaskType.Success, eumTaskType.Fail).Desc("create_at").Limit(top).ToList()
-	return repository.toListTaskEO(lstPO)
+	//return repository.toListTaskEO(lstPO)
+	return mapper.ToList[vo.TaskEO](lstPO)
 }
 
 func (repository taskGroupRepository) toPageListTaskEO(page collections.PageList[model.TaskPO]) collections.PageList[vo.TaskEO] {
-	lst := repository.toListTaskEO(page.List)
+	//lst := repository.toListTaskEO(page.List)
+	lst := mapper.ToList[vo.TaskEO](page.List)
 	return collections.NewPageList[vo.TaskEO](lst, page.RecordCount)
 }
 
