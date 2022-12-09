@@ -11,5 +11,7 @@ func main() { // main函数，程序执行的入口知
 
 	webapi.RegisterRoutes(routeMeta)
 	webapi.RegisterController(&interfaces.TaskController{})
+
+	webapi.UseApiResponse()
 	webapi.Run()
 }

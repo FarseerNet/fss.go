@@ -5,6 +5,7 @@ import (
 	"fss/interfaces"
 	"github.com/farseer-go/fs/configure"
 	"github.com/farseer-go/fs/modules"
+	"github.com/farseer-go/webapi"
 	"strings"
 )
 
@@ -12,7 +13,7 @@ type StartupModule struct {
 }
 
 func (module StartupModule) DependsModule() []modules.FarseerModule {
-	return []modules.FarseerModule{infrastructure.Module{}, interfaces.Module{}}
+	return []modules.FarseerModule{webapi.Module{}, infrastructure.Module{}, interfaces.Module{}}
 }
 
 func (module StartupModule) PreInitialize() {
