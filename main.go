@@ -6,7 +6,7 @@ import (
 	"github.com/farseer-go/webapi"
 )
 
-func main() { // main函数，程序执行的入口知
+func main() {
 	fs.Initialize[StartupModule]("fss")
 
 	webapi.RegisterRoutes(routeMeta)
