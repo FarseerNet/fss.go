@@ -1,10 +1,10 @@
 package infrastructure
 
 import (
+	job2 "fss/application/job"
 	"fss/domain/tasks/taskGroup"
 	"fss/infrastructure/domainEvent"
 	_ "fss/infrastructure/domainEvent"
-	"fss/infrastructure/job"
 	"fss/infrastructure/localQueue"
 	_ "fss/infrastructure/localQueue"
 	"fss/infrastructure/repository"
@@ -41,8 +41,8 @@ func (module Module) PostInitialize() {
 	domainEvent.SubscribeTaskFinishEvent()
 	localQueue.SubscribeTaskLogQueue()
 
-	job.RegisterClearHisTaskJob()
-	job.RegisterSyncTaskGroupJob()
+	job2.RegisterClearHisTaskJob()
+	job2.RegisterSyncTaskGroupJob()
 }
 
 func (module Module) Shutdown() {

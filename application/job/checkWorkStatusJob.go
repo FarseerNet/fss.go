@@ -1,7 +1,6 @@
 package job
 
 import (
-	"context"
 	"fmt"
 	"fss/domain/clients/client"
 	"fss/domain/log"
@@ -10,15 +9,10 @@ import (
 	"github.com/farseer-go/fs/core/eumLogLevel"
 	"github.com/farseer-go/fs/exception"
 	"github.com/farseer-go/tasks"
-	"time"
 )
 
-// RegisterCheckWorkStatusJob 检测进行中状态的任务
-func RegisterCheckWorkStatusJob() {
-	tasks.Run("FSS.CheckWorkStatus", 30*time.Second, checkWorkStatusJob, context.Background())
-}
-
-func checkWorkStatusJob(context *tasks.TaskContext) {
+// CheckWorkStatusJob 检测进行中状态的任务
+func CheckWorkStatusJob(context *tasks.TaskContext) {
 	taskGroupRepository := container.Resolve[taskGroup.Repository]()
 	for _, taskGroupDO := range taskGroupRepository.ToSchedulerWorkingList().ToArray() {
 		checkTaskGroup(taskGroupDO, taskGroupRepository)

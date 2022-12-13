@@ -7,12 +7,8 @@ import (
 	"github.com/farseer-go/fss"
 )
 
-// RegisterCheckClientOfflineJob 检查超时离线的客户端
-func RegisterCheckClientOfflineJob() {
-	fss.RegisterJob("FSS.CheckClientOffline", checkClientOfflineJob)
-}
-
-func checkClientOfflineJob(context fss.IFssContext) bool {
+// CheckClientOfflineJob 检查超时离线的客户端
+func CheckClientOfflineJob(context fss.IFssContext) bool {
 	clientRepository := container.Resolve[client.Repository]()
 	// 拿到超时的客户端列表
 	lstTimeout := clientRepository.ToList().Where(func(item client.DomainObject) bool {

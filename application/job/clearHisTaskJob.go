@@ -8,12 +8,8 @@ import (
 	"github.com/farseer-go/fss"
 )
 
-// RegisterClearHisTaskJob 自动清除历史任务记录
-func RegisterClearHisTaskJob() {
-	fss.RegisterJob("FSS.ClearHisTask", clearHisTaskJob)
-}
-
-func clearHisTaskJob(context fss.IFssContext) bool {
+// ClearHisTaskJob 自动清除历史任务记录
+func ClearHisTaskJob(context fss.IFssContext) bool {
 	reservedTaskCount := configure.GetInt("FSS.ReservedTaskCount")
 	taskGroupRepository := container.Resolve[taskGroup.Repository]()
 

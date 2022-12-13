@@ -1,7 +1,6 @@
 package job
 
 import (
-	"context"
 	"fss/application/tasks/taskGroupApp"
 	"fss/domain/tasks/taskGroup"
 	"github.com/farseer-go/fs/container"
@@ -9,12 +8,8 @@ import (
 	"time"
 )
 
-// RegisterCheckFinishStatusJob 检测完成状态的任务
-func RegisterCheckFinishStatusJob() {
-	tasks.Run("FSS.CheckClientOffline", 30*time.Second, checkFinishStatusJob, context.Background())
-}
-
-func checkFinishStatusJob(context *tasks.TaskContext) {
+// CheckFinishStatusJob 检测完成状态的任务
+func CheckFinishStatusJob(context *tasks.TaskContext) {
 	dicTaskGroup := taskGroupApp.ToList()
 	var ids []int
 	dicTaskGroup.Where(func(item taskGroup.DomainObject) bool {

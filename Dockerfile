@@ -3,9 +3,9 @@ FROM golang:alpine AS build
 # 设置github代理
 ENV GOPROXY https://goproxy.cn,direct
 # 进入到项目目录中
-WORKDIR /src/${git_name}/${project_path}
+WORKDIR /src/${git_name}
 # 复制go.mod文件
-COPY /${git_name}/${project_path}/go.mod .
+COPY /${git_name}/go.mod .
 # 下载依赖（支持docker缓存）
 RUN go mod download
 
@@ -14,7 +14,7 @@ WORKDIR /src
 COPY . .
 
 # 设置项目的main路径
-WORKDIR /src/${git_name}/${project_path}
+WORKDIR /src/${git_name}
 
 # 删除go.work文件
 RUN rm -rf go.work
@@ -29,7 +29,7 @@ FROM alpine:latest AS base
 WORKDIR /app
 COPY --from=build /app .
 # 复制配置
-COPY --from=build /src/${git_name}/${project_path}/farseer.yaml .
+COPY --from=build /src/${git_name}/farseer.yaml .
 
 #设置时区
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai    /etc/localtime
