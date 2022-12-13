@@ -1,14 +1,10 @@
 package infrastructure
 
 import (
-	job2 "fss/application/job"
 	"fss/domain/tasks/taskGroup"
 	"fss/infrastructure/domainEvent"
-	_ "fss/infrastructure/domainEvent"
 	"fss/infrastructure/localQueue"
-	_ "fss/infrastructure/localQueue"
 	"fss/infrastructure/repository"
-	_ "fss/infrastructure/repository"
 	"github.com/farseer-go/cache"
 	"github.com/farseer-go/data"
 	"github.com/farseer-go/eventBus"
@@ -40,9 +36,6 @@ func (module Module) PostInitialize() {
 
 	domainEvent.SubscribeTaskFinishEvent()
 	localQueue.SubscribeTaskLogQueue()
-
-	job2.RegisterClearHisTaskJob()
-	job2.RegisterSyncTaskGroupJob()
 }
 
 func (module Module) Shutdown() {
